@@ -11,12 +11,14 @@ import CancelBtn from "../components/CancelBtn";
 import ConfirmPopUp from "../components/ConfirmPopUp";
 import TabComponent from "../components/TabComponent";
 
+//import tabs here
+import StaffMoreDetailsTab1 from "../tabs/StaffMoreDetailsTab1";
+
 //import icons here
 import { PiUserCircleFill } from "react-icons/pi";
 
 //main function
 const StaffProfile = () => {
-  const [confirmation, setConfirmation] = useState(false);// pop up confirmation
   const [isDisabled, setIsDisabled] = useState(true); //form activation state
   const { id } = useParams(); //get url parameters
 
@@ -89,48 +91,23 @@ const StaffProfile = () => {
       });
   };
 
+  // on page load/reload - use effect
   useEffect(() => {
     fetchStaffDetails();
-
-    if (role.toLowerCase() == 'doctor') {
-      //retrieve more details from doctor model
-      setLoading(true);
-      axios
-        .get(`/profile/${id}`)
-        .then((response) => {
-          setNIC(response.data.staff_NIC);
-          setstaffName(response.data.staffName);
-          setdob(response.data.dateOfBirth);
-          setrole(response.data.role);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log("Error fetching staff details:", error);
-          setLoading(false);
-        });
-    }
-    else {
-      //retrieve more details from other staff model
-
-    }
   }, []);
 
 
   const items = [
     {
-      title: 'More Information',
-      content: (
-        <div className='border-2 border-blue-400 rounded-lg p-4'>
-          <h1 className='text-3xl text-blue-600'>Title Test 1</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-            aperiam asperiores doloribus velit dolore magnam ex consectetur fugit
-            earum illum qui similique architecto dolorum, minima enim quidem
-            voluptatibus at nulla deleniti harum! Totam, mollitia quos voluptatem
-            deleniti provident obcaecati rerum.
-          </p>
-        </div>
-      ),
+      title: 'More details',
+      content:
+        (
+
+          <div>
+            <StaffMoreDetailsTab1 role={role} staffNIC={staff_NIC} />
+          </div>
+
+        ),
     },
     {
       title: 'Account',
@@ -146,7 +123,7 @@ const StaffProfile = () => {
       ),
     },
     {
-      title: 'Actions',
+      title: <div className="text-red-500 p-0">Actions</div>,
       content: (
         <div className='border-2 border-blue-400 rounded-lg p-4'>
           <h1 className='text-3xl text-blue-600'>Title Test 3</h1>
@@ -166,7 +143,7 @@ const StaffProfile = () => {
   return (
     <>
       <div className="navarea">
-        <TopNav></TopNav>
+        <TopNav staffNIC={staff_NIC}></TopNav>
       </div>
 
       <main>

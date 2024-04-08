@@ -1,14 +1,15 @@
 const express = require('express');
 
-const Staff = require('../models/doctorModel');
+const Doctor = require('../models/doctorModel');
 
 const router = express.Router();
 
-//route to create new staff entry
-router.post('/create', async (request, response) => {
+
+//route to create new doc entry
+router.post('/doctordetail/create', async (request, response) => {
     try {
         //check if all data is being sent
-        if (!request.body.staff_NIC || !request.body.staffName || !request.body.dateOfBirth || !request.body.role) {
+        if (!request.body.staffNIC || !request.body.specialisation) {
             return response.status(400).send(
                 {
                     message: 'Send all required fields',
@@ -16,16 +17,13 @@ router.post('/create', async (request, response) => {
             );
         }
         //if pass validation
-
-        const newStaffMember = {
-            staff_NIC: request.body.staff_NIC,
-            staffName: request.body.staffName,
-            dateOfBirth: request.body.dateOfBirth,
-            role: request.body.role,
+        const data = {
+            staff_NIC: request.body.staffNIC,
+            specialisation: request.body.specialisation,
         };
 
-        const staffdata = await Staff.create(newStaffMember);
-        return response.status(201).send(staffdata); //status 201 - request succeeded and resource created
+        const docDetails = await Doctor.create(data);
+        return response.status(201).send(docDetails); //status 201 - request succeeded and resource created
     }
     catch (error) {
         console.log(error.message);
@@ -34,16 +32,55 @@ router.post('/create', async (request, response) => {
 });
 
 
-//route to get one staff member by NIC
-router.get('/nic/:staffNIC', async (request, response) => {
+//route to get doctor details by NIC
+router.get('/getDocDetails/:staffNIC', async (request, response) => {
     try {
 
         const staffNIC = request.params.staffNIC;
-        const staffmember = await Staff.findOne({ staff_NIC: staffNIC });
-        return response.status(200).json(staffmember);
+        const details = await Doctor.findOne({ staff_NIC: staffNIC });
+        return response.status(200).json(details);
     }
     catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
     }
 });
+
+
+//route for updating doc details
+router.put('/updateDocDetail/:staffNIC', async (request, response) => {
+    try {
+
+        if (!request.body.specialisation) {
+            return response.status(400).send(
+                {
+                    message: 'Send all required fields',
+                }
+            );
+        }
+
+        //get parameter
+        const staffNIC = request.params.staffNIC;
+        const { specialisation } = request.body;
+
+        //get result and save to result constant
+        const result = await Doctor.findOneAndUpdate(
+            {
+                staff_NIC: staffNIC
+            }, {
+            specialisation: specialisation
+        });
+        //if result is null
+        if (!result) {
+            return response.status(404).json({ message: 'Detail Not Found' });
+        }
+
+        return response.status(200).send(result);
+    }
+    catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+module.exports = router;

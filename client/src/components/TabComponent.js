@@ -9,20 +9,22 @@ const TabComponent = ({ items }) => {
     }, []);
 
     return (
-        <div className='bg-sky-100 flex justify-center items-center py-12'>
-            <div className='max-w-md flex flex-col gap-y-2 w-full'>
-                <div className='bg-blue-400 p-1  rounded-xl flex justify-between items-center gap-x-2 font-bold text-white'>
-                    {items.map((item, index) => (
-                        <button
-                            ref={index === 0 ? firstBtnRef : null}
-                            key={index}
-                            onClick={() => setSelectedTab(index)}
-                            className={`outline-none w-full p-2 hover:bg-blue-300 rounded-xl text-cneter focus:ring-2 focus:bg-white focus:text-blue-600 ${selectedTab === index ? 'ring-2 bg-white text-blue-600' : ''
-                                } `}
-                        >
-                            {item.title}
-                        </button>
-                    ))}
+        <div className='flex ' >
+            <div className='max-w flex flex-col gap-y-2 w-full'>
+                <div className=' max-w-sm flex pb-1 gap-x-2 font-bold text-gray-500 border-0 border-b-2 border-gray-300' >
+                    {
+                        items.map((item, index) => (
+                            <button
+                                ref={index === 0 ? firstBtnRef : null}
+                                key={index}
+                                onClick={() => setSelectedTab(index)}
+                                className={`w-full p-2 hover:bg-green-300 rounded-xl text-center focus:bg-green-500 focus:text-gray-600 ${selectedTab === index ? ' bg-gradient-to-r from-green-300 to-green-500 text-grey-600 shadow-md' : ''
+                                    } `}
+                            >
+                                {item.title}
+                            </button>
+                        ))
+                    }
                 </div>
 
                 <div className='bg-white p-2 rounded-xl'>
@@ -32,8 +34,8 @@ const TabComponent = ({ items }) => {
                         </div>
                     ))}
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

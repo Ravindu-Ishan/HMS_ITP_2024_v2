@@ -11,6 +11,7 @@ const staffRoute = require('./routes/staffRoute');
 const accountRoute = require('./routes/accountRoute');
 const otherstaffRoute = require('./routes/otherstaffRoute');
 const branchRoute = require('./routes/branchRoute');
+const doctorRoute = require('./routes/doctorRoute');
 
 // import staffRoute from "./routes/staffRoute.js"
 // import accountRoute from "./routes/accountRoute.js"
@@ -28,6 +29,7 @@ app.use(staffRoute);
 app.use(accountRoute);
 app.use(otherstaffRoute);
 app.use(branchRoute);
+app.use(doctorRoute);
 
 const PORT = 8000;
 const DB_URL = 'mongodb+srv://root:password1234@medflow-hms.febircl.mongodb.net/maindatabase?retryWrites=true&w=majority&appName=MedFlow-HMS';

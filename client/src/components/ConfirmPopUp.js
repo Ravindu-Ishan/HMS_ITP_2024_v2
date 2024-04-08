@@ -4,7 +4,6 @@ import { Modal } from "react-responsive-modal";
 //main function
 function ConfirmPopUp({ btntitle, onConfirmFunction }) {
 
-
   ///states
   const [open, setOpen] = useState(false);
 

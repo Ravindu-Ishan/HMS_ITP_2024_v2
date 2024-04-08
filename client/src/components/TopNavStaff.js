@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function TopNavStaff() {
+function TopNavStaff(staffNIC) {
+
+
   return (
     <div className="navarea flex justify-center py-5  ">
       <nav className="gap-6 bg-white rounded-3xl flex max-w-min shadow-md">

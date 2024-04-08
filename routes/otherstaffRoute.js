@@ -5,7 +5,7 @@ const OtherStaff = require('../models/otherstaffModel');
 const router = express.Router();
 
 //route to create new other staff entry
-router.post('/create', async (request, response) => {
+router.post('/createOtherStaff', async (request, response) => {
     try {
         //check if all data is being sent
         if (!request.body.staff_NIC || !request.body.branchName) {
@@ -33,11 +33,11 @@ router.post('/create', async (request, response) => {
 
 
 //route to get other staff details by staff_NIC
-router.get('/otherstaff/:staff_NIC', async (request, response) => {
+router.get('/getOtherStaffDetails/:staffNIC', async (request, response) => {
     try {
 
-        const staff_NIC = request.params.staff_NIC;
-        const otherstaff = await OtherStaff.findOne({ staff_NIC: staff_NIC });
+        const staffNIC = request.params.staffNIC;
+        const otherstaff = await OtherStaff.findOne({ staff_NIC: staffNIC });
         return response.status(200).json(otherstaff);
     }
     catch (error) {
@@ -48,7 +48,7 @@ router.get('/otherstaff/:staff_NIC', async (request, response) => {
 
 
 //route for updating otherstaff details
-router.put('/:id', async (request, response) => {
+router.put('/updateOtherStaff/:id', async (request, response) => {
     try {
         if (!request.body.branchName) {
             return response.status(400).send(
