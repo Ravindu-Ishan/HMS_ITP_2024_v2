@@ -31,9 +31,9 @@ const accountSchema = mongoose.Schema(
 );
 
 //static method for creating new account
-accountSchema.statics.signup = async function (staff_NIC, email, username, password) {
+accountSchema.statics.signup = async function (smid, email, username, password) {
 
-    const exists = await this.findOne({ staff_NIC })
+    const exists = await this.findOne({ smid })
 
     if (exists) {
         throw Error("Account already exists")
@@ -50,7 +50,7 @@ accountSchema.statics.signup = async function (staff_NIC, email, username, passw
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const useraccount = await this.create({ staff_NIC, email, username, password: hash })
+    const useraccount = await this.create({ smid, email, username, password: hash })
 
     return useraccount
 }

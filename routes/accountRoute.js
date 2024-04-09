@@ -21,10 +21,10 @@ const createToken = (Staff_NIC, branchName) => {
 const router = express.Router();
 
 //route to create a new account
-router.post('/create', async (request, response) => {
+router.post('/account/create', async (request, response) => {
     try {
         //check if all data is being sent
-        if (!request.body.staff_NIC || !request.body.username || !request.body.password || !request.body.email) {
+        if (!request.body.smid || !request.body.username || !request.body.password || !request.body.email) {
             return response.status(400).send(
                 {
                     message: 'Send all required fields',
@@ -32,12 +32,12 @@ router.post('/create', async (request, response) => {
             );
         }
         //if pass validation
-        const staff_NIC = request.body.staff_NIC;
+        const smid = request.body.smid;
         const username = request.body.username;
         const email = request.body.email;
         const password = request.body.password;
 
-        const useraccount = await Account.signup(staff_NIC, email, username, password);
+        const useraccount = await Account.signup(smid, email, username, password);
         return response.status(201).send(useraccount); //status 201 - request succeeded and resource created
     }
     catch (error) {
@@ -87,16 +87,13 @@ router.get('/login', async (request, response) => {
 });
 
 
-//route to get all account entries
-router.get('/', async (request, response) => {
+//route to get an account entry by smid
+router.get('/account/get/:smid', async (request, response) => {
     try {
-        const accounts = await Account.find({});
-        return response.status(200).json(
-            {
-                count: accounts.length,
-                data: accounts
-            }
-        );
+
+        const smid = request.params.smid;
+        const accdetails = await Account.findOne({ smid: smid });
+        return response.status(200).json(accdetails);
     }
     catch (error) {
         console.log(error.message);
@@ -105,7 +102,7 @@ router.get('/', async (request, response) => {
 });
 
 //route to update account details
-router.put('/update/:staffNIC', async (request, response) => {
+router.put('account/update/:smid', async (request, response) => {
     try {
         if (!request.body.email || !request.body.password) {
             return response.status(400).send(
@@ -114,9 +111,9 @@ router.put('/update/:staffNIC', async (request, response) => {
                 }
             );
         }
-        const staff_NIC = request.params.staffNIC;
+        const smid = request.params.smid;
         //get by NIC
-        const account = await Account.findOne({ staff_NIC: staff_NIC });
+        const account = await Account.findOne({ smid: smid });
 
         // Encrypt the password using the static method from the model
         const hashedPassword = await Account.encryptPassword(request.body.password);

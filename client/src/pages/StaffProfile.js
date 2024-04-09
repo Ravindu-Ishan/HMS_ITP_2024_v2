@@ -13,6 +13,7 @@ import TabComponent from "../components/TabComponent";
 
 //import tabs here
 import StaffMoreDetailsTab1 from "../tabs/StaffMoreDetailsTab1";
+import StaffAccountTab2 from "../tabs/StaffAccountTab2";
 
 //import icons here
 import { PiUserCircleFill } from "react-icons/pi";
@@ -112,13 +113,8 @@ const StaffProfile = () => {
     {
       title: 'Account',
       content: (
-        <div className='border-2 border-blue-400 rounded-lg p-4'>
-          <h1 className='text-3xl text-blue-600'>Title Test 2</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-            aperiam asperiores dolo iti harum! Totam, mollitia quos voluptatem
-            deleniti provident obcaecati rerum.
-          </p>
+        <div>
+          <StaffAccountTab2 smid={id} />
         </div>
       ),
     },
