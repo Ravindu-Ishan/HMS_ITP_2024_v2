@@ -24,8 +24,6 @@ const Branches = () => {
 
   //branch edit details
   const [id, setBranchID] = useState("");
-  const [bnametoedit, setbname] = useState("");
-  const [blocationtoedit, setblocation] = useState("");
 
   //search
   const [search, setSearch] = useState("");
@@ -87,14 +85,13 @@ const Branches = () => {
 
   //edit branch link button handle 
   const handleEditBranch = (branchID) => {
-
     axios
-      .get(`/getBranchID/${branchID}`)
+      .get(`/getBranchByID/${branchID}`)
       .then((response) => {
         setbranchName(response.data.branchName); //.data.data because we have two parts, count and data parts in staffRoute.js
         setbranchLocation(response.data.branchLocation)
         setBranchID(branchID);
-        setLoading(false); //set loading state to false
+
       })
       .catch((error) => {
         console.log("Error fetching staff details:", error);
@@ -165,7 +162,7 @@ const Branches = () => {
                             for="floating_name"
                             className="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                           >
-                            Branch Location :
+                            Branch Address :
                           </label>
                         </div>
 
@@ -204,7 +201,7 @@ const Branches = () => {
                     <tr>
                       <th className="p-3"></th>
                       <th className="p-3">Branch Name</th>
-                      <th className="p-3">Branch Location</th>
+                      <th className="p-3">Branch Address</th>
                       <th className="p-3">Action</th>
                     </tr>
                   </thead>

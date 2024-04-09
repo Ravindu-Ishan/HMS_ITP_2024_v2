@@ -104,7 +104,7 @@ const StaffProfile = () => {
         (
 
           <div>
-            <StaffMoreDetailsTab1 role={role} staffNIC={staff_NIC} />
+            <StaffMoreDetailsTab1 role={role} smid={id} />
           </div>
 
         ),

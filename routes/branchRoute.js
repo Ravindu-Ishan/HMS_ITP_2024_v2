@@ -63,7 +63,7 @@ router.get('/getbybname/:branchName', async (request, response) => {
 });
 
 //route to get a branch by ID
-router.get('/getBranchID/:id', async (request, response) => {
+router.get('/getBranchByID/:id', async (request, response) => {
     try {
 
         const { id } = request.params;

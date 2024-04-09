@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/doctordetail/create', async (request, response) => {
     try {
         //check if all data is being sent
-        if (!request.body.staffNIC || !request.body.specialisation) {
+        if (!request.body.smid || !request.body.specialisation) {
             return response.status(400).send(
                 {
                     message: 'Send all required fields',
@@ -18,7 +18,7 @@ router.post('/doctordetail/create', async (request, response) => {
         }
         //if pass validation
         const data = {
-            staff_NIC: request.body.staffNIC,
+            smid: request.body.smid,
             specialisation: request.body.specialisation,
         };
 
@@ -32,12 +32,12 @@ router.post('/doctordetail/create', async (request, response) => {
 });
 
 
-//route to get doctor details by NIC
-router.get('/getDocDetails/:staffNIC', async (request, response) => {
+//route to get doctor details by smid
+router.get('/getDocDetails/:smid', async (request, response) => {
     try {
 
-        const staffNIC = request.params.staffNIC;
-        const details = await Doctor.findOne({ staff_NIC: staffNIC });
+        const smid = request.params.smid;
+        const details = await Doctor.findOne({ smid: smid });
         return response.status(200).json(details);
     }
     catch (error) {
@@ -48,7 +48,7 @@ router.get('/getDocDetails/:staffNIC', async (request, response) => {
 
 
 //route for updating doc details
-router.put('/updateDocDetail/:staffNIC', async (request, response) => {
+router.put('/updateDocDetail/:smid', async (request, response) => {
     try {
 
         if (!request.body.specialisation) {
@@ -60,16 +60,19 @@ router.put('/updateDocDetail/:staffNIC', async (request, response) => {
         }
 
         //get parameter
-        const staffNIC = request.params.staffNIC;
+        const smid = request.params.smid;
         const { specialisation } = request.body;
 
         //get result and save to result constant
         const result = await Doctor.findOneAndUpdate(
             {
-                staff_NIC: staffNIC
-            }, {
-            specialisation: specialisation
-        });
+                //filter from
+                smid: smid
+            },
+            {
+                //update
+                specialisation: specialisation
+            });
         //if result is null
         if (!result) {
             return response.status(404).json({ message: 'Detail Not Found' });

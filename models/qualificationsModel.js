@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const qualificationsSchema = mongoose.Schema(
     {
-        staff_NIC: {
+        smid: {
             type: String,
             required: true,
         },

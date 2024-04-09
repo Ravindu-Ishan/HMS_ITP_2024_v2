@@ -7,8 +7,7 @@ import PrimaryBtn from "../components/PrimaryBtn";
 import CancelBtn from "../components/CancelBtn";
 import ConfirmPopUp from "../components/ConfirmPopUp";
 
-
-function StaffMoreDetailsTab1({ role, staffNIC }) {
+function StaffMoreDetailsTab1({ role, smid }) {
 
     //loading state
     const [loading, setLoading] = useState(false);
@@ -29,7 +28,9 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
     const [initialSp, setIniSp] = useState('');
 
     //other details state
-    const [regBranch, setRegBranch] = useState('');
+    const [regBid, setRegBranch] = useState('');
+    const [regBname, setRegBname] = useState('');
+    const [bid, setBid] = useState('');
 
     //all branches
     const [branches, setAllBranches] = useState([]);
@@ -37,13 +38,15 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
 
     //get and display details according to role
     const fetchDetails = () => {
-        setLoading(true);
+
+        setLoading(true); //set loading state to true
+
         // if role is doctor  - retrieve data from doctor
         if (rolename === 'doctor') {
 
             //retreive data from docModel
             axios
-                .get(`/getDocDetails/${staffNIC}`)
+                .get(`/getDocDetails/${smid}`)
                 .then((response) => {
                     setSp(response.data.specialisation); //.data.data because we have two parts, count and data parts in staffRoute.js
                     setIniSp(response.data.specialisation);
@@ -61,38 +64,69 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
 
         }
         if (rolename != 'doctor') {
-            //retreive data from otherStaff Model
+
+
+            //retreive data of staff member from other staff model
             axios
-                .get(`/getOtherStaffDetails/${staffNIC}`)
+                .get(`/otherstaff/get/${smid}`)
                 .then((response) => {
-                    setRegBranch(response.data.branchName); //.data.data because we have two parts, count and data parts in staffRoute.js
+
+                    setRegBranch(response.data.bid); //set bid to regBid constant
+
+                    const branchID = response.data.bid;
+
+                    if (response != null) {
+                        axios.get(`/getBranchByID/${branchID}`)
+                            .then((parameter) => {
+
+                                setRegBname(parameter.data.branchName); //set respective branch name
+                            })
+                            .catch((error) => {
+                                console.log("Error fetching details:", error);
+                                setLoading(false);
+                            });
+                    }
+
+
                     setLoading(false); //set loading state to false 
+
                 })
                 .catch((error) => {
                     console.log("Error fetching details:", error);
                     setLoading(false);
                 });
 
+
+
+            //retrieve all branch details to propagate allocated branch list
+
+            axios.get("/branchget").then((response) => {
+
+                setAllBranches(response.data.data);
+            }).catch((error) => {
+                console.log("Error fetching details:", error);
+                setLoading(false);
+
+            })
+
             //stop loading and display form
             setLoading(false);
             isForm2Hidden(false);
         }
 
-        //retrieve any other common data here
 
-    };
+
+    }
 
 
 
     //specialisation create or update  - save button handler (form 1)
     const handleSpSave = () => {
 
-        //rename staffNIC as staff_NIC when sending to save
-
         if (initialSp.length === 0) {
             //create new doctor details record
             const data = {
-                staffNIC,
+                smid,
                 specialisation,
             };
             setLoading(true);
@@ -101,7 +135,6 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
                 .then(() => {
                     setLoading(false);
                     window.location.reload();
-                    console.log(staffNIC);
                 })
                 .catch((error) => {
                     setLoading(false);
@@ -119,7 +152,7 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
 
             setLoading(true);
             axios
-                .put(`/updateDocDetail/${staffNIC}`, data)
+                .put(`/updateDocDetail/${smid}`, data)
                 .then(() => {
                     setLoading(false);
                     // Reload the page after successful save
@@ -133,16 +166,58 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
                 });
         }
 
-
-
-
-
-        //create new other staff details record
-
-
     }
 
 
+    //Branch create or update  - save button handler (form 2)
+    const handleBranchSave = () => {
+
+
+        if (regBid.length === 0) {
+            //create new doctor details record
+            const data = {
+                smid,
+                bid,
+            };
+            setLoading(true);
+            axios
+                .post('/otherstaff/create', data)
+                .then(() => {
+                    setLoading(false);
+                    window.location.reload();
+
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    window.location.reload();
+                    alert("An error happened. Please check console");
+                    console.log(error);
+                });
+        }
+        else {
+
+            //always update data if specialisation has a value
+            const data = {
+                bid,
+            };
+
+            setLoading(true);
+            axios
+                .put(`/otherstaff/update/${smid}`, data)
+                .then(() => {
+                    setLoading(false);
+                    // Reload the page after successful save
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    window.location.reload(); //reset page if save unsuccessful
+                    alert("An error happened. Please check console");
+                    console.log("Error updating details:", error);
+                });
+        }
+
+    };
 
 
 
@@ -158,14 +233,6 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
         // Fetch staff details again to reset the form fields
         fetchDetails();
     };
-
-
-    //save button - update staff details
-    const handleSaveClick = () => {
-
-
-    };
-
 
 
     // on page load/reload - use effect
@@ -192,7 +259,7 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
                                     </div>
                                     <div className="md:w-2/3">
                                         <input
-                                            className=" w-full py-2 px-4 text-gray-700 leading-tight focus:outline-blue-100 focus:border-1"
+                                            className=" w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
                                             type="text"
                                             value={specialisation}
                                             onChange={(e) => setSp(e.target.value)}
@@ -234,12 +301,19 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
-                                        <input
-                                            className=" w-full py-2 px-4 text-gray-700 leading-tight focus:outline-blue-100 focus:border-1"
-                                            type="text"
-                                            value={'branch1'}
-                                            onChange={''}
-                                        />
+                                        <select
+                                            className=" w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
+                                            defaultValue={regBid}
+                                            value={bid}
+                                            onChange={(e) => setBid(e.target.value)}
+                                        >
+                                            <option value={regBid}>{regBname}</option>
+                                            <optgroup label="-------------------------------">
+                                                {branches.map((branch) => (
+                                                    <option key={branch._id} value={branch._id}>{branch.branchName}</option>
+                                                ))}
+                                            </optgroup>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -262,7 +336,7 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
                                             ></CancelBtn>
                                         </div>
                                         <div className="inline-block">
-                                            <ConfirmPopUp btntitle={"Save"} onConfirmFunction={handleSaveClick} />
+                                            <ConfirmPopUp btntitle={"Save"} onConfirmFunction={handleBranchSave} />
                                         </div>
                                     </div>
                                 )}
@@ -276,6 +350,12 @@ function StaffMoreDetailsTab1({ role, staffNIC }) {
 
     )
 
-}
+};
+
+
+
+
+
+
 
 export default StaffMoreDetailsTab1

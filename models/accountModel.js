@@ -4,7 +4,7 @@ const validator = require('validator');
 
 const accountSchema = mongoose.Schema(
     {
-        staff_NIC: {
+        smid: {
             type: String,
             unique: true,
             required: true,

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const doctorSchema = mongoose.Schema(
     {
-        staff_NIC: {
+        smid: {
             type: String,
             unique: true,
             required: true,
