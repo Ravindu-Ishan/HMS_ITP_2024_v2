@@ -8,13 +8,14 @@ import CancelBtn from "../components/CancelBtn";
 import ConfirmPopUp from "../components/ConfirmPopUp";
 
 //import icons here
-import { RiUserAddFill } from "react-icons/ri";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+
 
 
 function StaffAccountTab2({ smid }) {
 
     const [isDisabled, setIsDisabled] = useState(true); //form activation state
-
 
     //account availability
     const [hasAccount, setHasAccount] = useState(null);
@@ -31,8 +32,26 @@ function StaffAccountTab2({ smid }) {
     //loading state
     const [loading, setLoading] = useState(false);
 
+    //password input
+    const [showPassword, setShowPassword] = useState(false);
+    const [passwordDisabled, setPasswordDisabled] = useState(false);
+
+    const [type, setType] = useState('password');
+    const [icon, setIcon] = useState(FaEyeSlash);
+
     //create account button state
     const [isButtonHidden, setButtonHidden] = useState(true); // ini state = true
+
+    //show password toggle
+    const handleshowPassToggle = () => {
+        if (type === 'password') {
+            setIcon(FaEye);
+            setType('text')
+        } else {
+            setIcon(FaEyeSlash)
+            setType('password')
+        }
+    }
 
     const handleCreateAccount = () => {
         setHidden(false);
@@ -50,8 +69,6 @@ function StaffAccountTab2({ smid }) {
     const handleCancelClick = () => {
         setIsDisabled(true);
         fetchDetails(); // Fetch staff details again to reset the form states
-
-
     };
 
     //save button - update staff details
@@ -80,14 +97,12 @@ function StaffAccountTab2({ smid }) {
         }
         if (hasAccount) {
             const data = {
-                smid,
                 username,
-                password,
                 email
             };
 
             axios
-                .put(`account/update/${smid}`, data)
+                .put(`/account/update/${smid}`, data)
                 .then(() => {
                     setLoading(false);
                     // Reload the page after successful save
@@ -109,6 +124,8 @@ function StaffAccountTab2({ smid }) {
         //retrieve account details
         axios.get(`/account/get/${smid}`)
             .then((response) => {
+
+                //if account data is available = user has an acocunt
                 if (response.data !== null) {
 
                     //update constant states
@@ -120,29 +137,28 @@ function StaffAccountTab2({ smid }) {
                     setHidden(false); //unhide form 
                     setButtonHidden(true); //hide button
                     setHasAccount(true); //has account state true
+                    setShowPassword(false); //hide password input area
+                    setPasswordDisabled(true); //disable the password field
                 }
                 else {
-                    //display account creation button and hide fomr
-                    setButtonHidden(false); //enable button
-                    setHidden(true); //unhide form 
+                    //if account data is available = user has an acocunt
+
+                    setButtonHidden(false); //enable account creation button
+                    setHidden(true); //hide the form first
                     setHasAccount(false); // has no acocunt : value = false
+                    setShowPassword(true); //show the password field
+                    setPasswordDisabled(false); //enable the password field
                 }
-                setLoading(false)
+                setLoading(false) //stop loading
             })
             .catch((error) => {
                 setLoading(false);
                 console.log("Error retreiving details:", error);
             });
-
-
-
-
-
     }
 
 
-
-
+    //on page load and refresh
     useEffect(() => {
         fetchDetails();
     }, []);
@@ -199,22 +215,35 @@ function StaffAccountTab2({ smid }) {
                                 </div>
                             </div>
 
-                            <div className="md:flex md:items-center ">
-                                <div className=" md:w-1/5">
-                                    <label className="block text-gray-600 font-bold md:text-left mb-1 md:mb-0 ">
-                                        Password
-                                    </label>
-                                </div>
-                                <div className="md:w-2/3">
-                                    <input
-                                        className=" w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
-                                        type="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                            {showPassword ? (
+                                <div className="md:flex md:items-center" >
+                                    <div className=" md:w-1/5">
+                                        <label
 
-                                    />
+                                            className="block text-gray-600 font-bold md:text-left mb-1 md:mb-0 ">
+                                            Password
+                                        </label>
+                                    </div>
+                                    <div className=" relative flex items-center justify-center md:w-2/3">
+                                        <input
+                                            className=" w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
+                                            type={type}
+                                            disabled={passwordDisabled}
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+
+                                        />
+                                        <button type="button" onClick={handleshowPassToggle}>
+                                            {icon}
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            ) : (
+                                <div>
+                                </div>
+                            )
+                            }
+
                         </fieldset>
 
                         {isDisabled ? (
