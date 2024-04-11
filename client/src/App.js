@@ -12,6 +12,9 @@ import ShiftMain from "./pages/ShiftMain";
 import CreateShift from "./pages/CreateShift";
 
 
+//import context
+import { StaffAuthContextProvider } from './context/StaffAuthContext';
+
 
 export default class App extends Component {
   constructor(props) {
@@ -25,6 +28,7 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <Routes>
+
           <Route path="/" element={<Login />} />
           <Route element={<RootLayout />}>
             <Route path="/staff" element={<StaffMain />} />
@@ -34,6 +38,7 @@ export default class App extends Component {
             <Route path="/shift/getonly/:smid" element={<ShiftMain />} />
             <Route path="/shift/create" element={<CreateShift />} />
           </Route>
+
         </Routes>
       </BrowserRouter>
     );

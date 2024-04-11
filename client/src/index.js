@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-
-
 //import styles here
 import './index.css';
 import "react-responsive-modal/styles.css";

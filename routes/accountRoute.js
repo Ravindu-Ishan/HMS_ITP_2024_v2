@@ -1,24 +1,67 @@
-
 const express = require('express');
 
+//import models here
 const Account = require('../models/accountModel');
 const OtherStaff = require('../models/otherstaffModel');
 
+// express router
+const router = express.Router();
+
+/*------------------------------------- LOGIN Backend-----------------------------------------*/
 const JsonWebToken = require('jsonwebtoken');
 const SECRET = 'medflowhmssecretkeyhellobrowser123'
 
-
 //create token for login
-const createToken = (Staff_NIC, branchName) => {
+const createToken = (smid, bid) => {
     return JsonWebToken.sign(
         {
-            Staff_NIC: Staff_NIC,
-            branchName: branchName
+            smid: smid,
+            bid: bid
         }, SECRET, { expiresIn: '1d' })
 }
 
-// express router
-const router = express.Router();
+//route to login
+router.get('/login', async (request, response) => {
+    try {
+        if (!request.body.username || !request.body.password) {
+            return response.status(400).send(
+                {
+                    message: 'Send all required fields',
+                }
+            );
+        }
+
+        //get passed parameters and save to constants
+        const username = request.body.username;
+        const password = request.body.password;
+
+        //run login function and get user data
+        const user = await Account.login(username, password);
+        const smid = user.smid;
+
+        const query = await OtherStaff.findOne({ smid: smid });
+
+        let bid;
+
+        if (!query) {
+            bid = "none";
+        }
+        else {
+            bid = query.bid;
+        }
+
+        const token = createToken(NIC, bid);
+
+        return response.status(201).json(token);
+
+    }
+    catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+/*-------------------------------------End of LOGIN Backend-----------------------------------------*/
 
 //route to create a new account
 router.post('/account/create', async (request, response) => {
@@ -47,46 +90,6 @@ router.post('/account/create', async (request, response) => {
 });
 
 
-//route to login
-router.get('/login', async (request, response) => {
-    try {
-        if (!request.body.username || !request.body.password) {
-            return response.status(400).send(
-                {
-                    message: 'Send all required fields',
-                }
-            );
-        }
-
-        //get passed parameters and save to constants
-        const username = request.body.username;
-        const password = request.body.password;
-
-        //run login function and get user data
-        const user = await Account.login(username, password);
-        const NIC = user.staff_NIC;
-
-        const query = await OtherStaff.findOne({ staff_NIC: NIC });
-
-        if (!query) {
-            bname = "none";
-        }
-        else {
-            var bname = query.branchName;
-        }
-
-        const token = createToken(NIC, bname);
-
-        return response.status(201).json(token);
-
-    }
-    catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
-
-
 //route to get an account entry by smid
 router.get('/account/get/:smid', async (request, response) => {
     try {
@@ -102,9 +105,41 @@ router.get('/account/get/:smid', async (request, response) => {
 });
 
 //route to update account details
-router.put('account/update/:smid', async (request, response) => {
+router.put('/account/update/:smid', async (request, response) => {
     try {
-        if (!request.body.email || !request.body.password) {
+        if (!request.body.username || !request.body.email) {
+            return response.status(400).send(
+                {
+                    message: 'Send all required fields',
+                }
+            );
+        }
+        const smid = request.params.smid;
+        const username = request.body.username;
+        const email = request.body.email;
+
+
+        const account = await Account.findOne({ smid: smid });
+        account.email = email;
+        account.username = username;
+        await account.save();
+
+
+
+        //return success msg
+        return response.status(200).send({ message: 'Account updated successfully' });
+    }
+    catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+
+//route to update password only
+router.put('account/updatepassword/:smid', async (request, response) => {
+    try {
+        if (!request.body.username || !request.body.email) {
             return response.status(400).send(
                 {
                     message: 'Send all required fields',

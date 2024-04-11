@@ -81,6 +81,27 @@ router.get('/profile/:id', async (request, response) => {
 });
 
 
+//test route --> get staff entries where role = doctor
+router.get('/testgetdocs/:role', async (request, response) => {
+    try {
+
+        const { role } = request.params;
+        const staffmembers = await Staff.find({ role: role });
+        return response.status(200).json(
+            {
+                count: staffmembers.length,
+                data: staffmembers
+            }
+        );
+    }
+    catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+
+
 //route for updating staff details
 router.put('/update/:id', async (request, response) => {
     try {
