@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
 
 const EditShift = () => {
+
   const { id } = useParams();
-  
-  const [RoomNumber, setRoomNumber] = useState("");
-  const [Time, setTime] = useState("");
-  const [Date, setDate] = useState("");
+
+  const navigate = useNavigate();
+
+  const [Location, setLocation] = useState("");
+  const [ScheduleTime, setTime] = useState("");
+  const [ScheduleDate, setDate] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/shift/${id}`);
+        const response = await axios.get(`/shift/getbyID/${id}`);
         if (response.data.success) {
-          const { ScheduleTime, ScheduleDate, RoomNumber } = response.data.post;
-          
-          setRoomNumber(RoomNumber);
-          setTime(Time);
-          setDate(Date);
+          const { ScheduleTime, ScheduleDate, Location } = response.data.post;
+          setLocation(Location);
+          setTime(ScheduleTime);
+          setDate(ScheduleDate);
         } else {
           console.error('Failed to fetch post data:', response.data.error);
         }
@@ -37,42 +40,45 @@ const EditShift = () => {
     };
   }, [id]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
 
-    switch (name) {
-      
-      case "RoomNumber":
-        setRoomNumber(value);
-        break;
-      case "Time":
-        setTime(value);
-        break;
-      case "Date":
-        setDate(value);
-        break;
-      default:
-        break;
-    }
-  };
+  //   switch (name) {
+
+  //     case "Location":
+  //       setLocation(value);
+  //       break;
+  //     case "ScheduleTime":
+  //       setTime(value);
+  //       break;
+  //     case "ScheduleDate":
+  //       setDate(value);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const data = {
-        
-        RoomNumber,
-        Time,
-        Date
+        Location,
+        ScheduleTime,
+        ScheduleDate
       };
 
       const response = await axios.put(`/shift/update/${id}`, data);
       if (response.data.success) {
         alert("Post Updated Successfully");
-        setRoomNumber("");
+
+        setLocation("");
         setTime("");
         setDate("");
+
+        navigate(-1);
+
       } else {
         console.error('Failed to update post:', response.data.error);
       }
@@ -85,40 +91,40 @@ const EditShift = () => {
     <div className="col-md-8 mt-4 mx-auto">
       <h1 className="h3 mb-3 font-weight-normal">Edit shift</h1>
       <form className="needs-validation" noValidate>
-          <div className="form-group" style={{ marginBottom: '15px' }}>
+        <div className="form-group" style={{ marginBottom: '15px' }}>
           <label style={{ marginBottom: '5px' }}>Schedule Time</label>
           <input
-            type="text"
+            type="time"
             className="form-control"
             name="Time"
             placeholder="Enter Time"
-            value={Time}
-            onChange={handleInputChange}
+            value={ScheduleTime}
+            onChange={(e) => setTime(e.target.value)}
           />
         </div>
         <div className="form-group" style={{ marginBottom: '15px' }}>
           <label style={{ marginBottom: '5px' }}>Schedule Date</label>
           <input
-            type="text"
+            type="date"
             className="form-control"
             name="Date"
             placeholder="Enter Date"
-            value={Date}
-            onChange={handleInputChange}
+            value={ScheduleDate}
+            onChange={(e) => setDate(e.target.value)}
           />
         </div>
         <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Room Number</label>
+          <label style={{ marginBottom: '5px' }}>Location</label>
           <input
             type="text"
             className="form-control"
             name="RoomNumber"
             placeholder="Enter RoomNumber"
-            value={RoomNumber}
-            onChange={handleInputChange}
+            value={Location}
+            onChange={(e) => setLocation(e.target.value)}
           />
         </div>
-        
+
         <button
           className="btn btn-success"
           type="submit"

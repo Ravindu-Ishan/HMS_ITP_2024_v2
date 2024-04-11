@@ -10,7 +10,7 @@ router.post('/shift/save', async (req, res) => { // Ensure the route is correctl
         res.status(200).json({ success: "Post saved successfully" });
     } catch (error) {
         return res.status(400).json({
-            error: error 
+            error: error
         });
     }
 });
@@ -29,11 +29,11 @@ router.get('/shift', async (req, res) => {
 
 
 //get a specific post
-router.get("/shift/:id", async (req, res) => {
+router.get('/shift/getbyID/:id', async (req, res) => {
     try {
-        let postId = req.params.id;
-        const post = await Posts.findById(postId).exec();
-        
+        const id = req.params.id;
+        const post = await Posts.findById(id);
+
         if (!post) {
             return res.status(404).json({ success: false, message: "Post not found" });
         }
@@ -45,7 +45,7 @@ router.get("/shift/:id", async (req, res) => {
     } catch (err) {
         return res.status(400).json({ success: false, error: err });
     }
-    
+
 });
 
 //test route --> get shift entries related to the relavent smid ( staff member id )
@@ -54,7 +54,7 @@ router.get('/shift/getonly/:smid', async (request, response) => {
     try {
 
         const { smid } = request.params;
-        const shiftsOf = await Shift.find({ smid: smid });
+        const shiftsOf = await Posts.find({ smid: smid });
         return response.status(200).json(
             {
                 count: shiftsOf.length, // returns amount of total entries
@@ -76,7 +76,7 @@ router.get('/shift/getonly/:smid', async (request, response) => {
 
 router.put('/shift/update/:id', async (req, res) => {
     try {
-        const post = await Posts.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true});
+        const post = await Posts.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
         if (!post) {
             return res.status(404).json({ error: "Post not found" });
         }

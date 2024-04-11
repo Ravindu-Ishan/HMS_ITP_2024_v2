@@ -1,127 +1,126 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default class ShiftMain extends Component {
-  constructor(props) {
-    super(props);
+//import components here
+import EmptyNavArea from "../components/EmptyNavArea";
 
-    this.state = {
-      posts: [],
-    };
-  }
 
-  componentDidMount() {
-    this.retrievePosts();
-  }
+//import icons here
+import { RiEdit2Fill } from "react-icons/ri";
+import { FaSearch } from "react-icons/fa";
 
-  
-  retrievePosts() {
-    const {smid} = useParams();
-    axios.get(`/shift/getonly/${smid}`).then(res => {
-        if (res.data.success) {
-          this.setState({
-            posts: res.data.shifts
-          });
-          console.log(this.state.posts);
-        }
-      });
-      
-  }
+const ShiftMain = () => {
 
-  onDelete = (id) => {
-    axios.delete(`/shift/delete/${id}`).then((res) => {
-      alert("Deleted Successfully");
-      this.retrievePosts();
-    })
-    
-      
-  }
 
-  filterData(posts, searchkey) {
-    const result = posts.filter(post =>
-      
-      post.RoomNumber.includes(searchkey) ||
-      post.ScheduleTime.includes(searchkey) ||
-      post.ScheduleDate.includes(searchkey)
-    );
-    this.setState({ posts: result });
-  }
+    const { smid } = useParams(); //get url parameters 
 
-  handleSearchArea = (e) => {
-    const searchkey = e.currentTarget.value.toLowerCase();
-    axios.get("/shift")
-      .then(res => {
-        if (res.data.success) {
-          this.filterData(res.data.existingPosts, searchkey);
-        }
-      })
-      .catch(error => {
-        console.error("Error searching posts:", error);
-        // Handle error state here
-      });
-  }
+    const [posts, setPosts] = useState([]); //posts array state
 
-  render() {
+    const navigate = useNavigate(); //navigate state
+
+    const [search, setSearch] = useState(""); //search state
+
+    //method to retrieve shifts
+    const retrievePosts = () => {
+
+        axios.get(`/shift/getonly/${smid}`).then(res => {
+
+            setPosts(res.data.data);
+
+        }).catch((error) => {
+            console.log("Error fetching staff details:", error);
+        });
+    }
+
+    //method to delete shift
+    const onDelete = (id) => {
+        axios.delete(`/shift/delete/${id}`).then((res) => {
+            alert("Deleted Successfully");
+            retrievePosts();
+        })
+    }
+
+
+
+    useEffect(() => {
+        retrievePosts();
+    }, []);
+
+
+
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-9 mt-2 mb-2">
-            <h4>All Posts</h4>
-          </div>
+        <>
+            <EmptyNavArea />
 
-          <div className="col-lg-3 mt-2 mb-2">
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Search"
-              name="searchQuery"
-              onChange={this.handleSearchArea}
-            />
-          </div>
-        </div>
+            <main>
+                <div className="main-container">
+                    <div className="row">
+                        <div className="col-lg-9 mt-2 mb-2">
+                            <h4>All Posts</h4>
+                        </div>
 
-        <table className="table table-hover" style={{ marginTop: '40px' }}>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Schedule Time</th>
-              <th scope="col">Schedule Date</th>
-              <th scope="col">Room Number</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.posts.map((post, index) => (
-              <tr key={index}>
-                
-                <td>
-                  <a href={`/post/${post._id}`} style={{ textDecoration: 'none' }}>
-                  {index + 1}
-                  </a>
-                </td>
-                <td>{post.ScheduleTime}</td>
-                <td>{post.ScheduleDate}</td>
-                <td>{post.RoomNumber}</td>
-                
-                <td>
-                  <a className="btn btn-warning" href={`/edit/${post._id}`}>
-                    <i className="fas fa-edit"></i>&nbsp;Edit
-                  </a>
-                  &nbsp;
-                  <button className="btn btn-danger" href="#" onClick={() => this.onDelete(post._id)}>
-                    <i className="fas fa-trash-alt"></i>&nbsp;Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                        <div className="col-lg-3 mt-2 mb-2">
+                            <input
+                                className="form-control"
+                                type="search"
+                                placeholder="Search"
+                                name="searchQuery"
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                        </div>
+                    </div>
 
-        <button className="btn btn-success">
-          <a href="/add" style={{ textDecoration: 'none', color: 'white' }}>Create New Shift</a>
-        </button>
-      </div>
+                    <table className="table table-hover" style={{ marginTop: '40px' }}>
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Schedule Time</th>
+                                <th scope="col">Schedule Date</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {posts.filter((shift) => {
+                                return search.toLowerCase() === '' ?
+                                    shift :
+                                    shift.Location.includes(search) ||
+                                    shift.ScheduleTime.includes(search) ||
+                                    shift.ScheduleDate.includes(search)
+                            }).map((shift, index) => (
+                                <tr key={shift._id}>
+                                    <td>
+                                        <Link to={`/shift/${shift._id}`}> {index + 1}</Link>
+                                    </td>
+                                    <td>{shift.ScheduleTime}</td>
+                                    <td>{shift.ScheduleDate}</td>
+                                    <td>{shift.Location}</td>
+
+                                    <td>
+                                        <a className="btn btn-warning" href={`/shift/edit/${shift._id}`}>
+                                            <i className="fas fa-edit"></i>&nbsp;Edit
+                                        </a>
+                                        <button className="btn btn-danger" href="#" onClick={() => onDelete(shift._id)}>
+                                            <i className="fas fa-trash-alt"></i>&nbsp;Delete
+                                        </button>  &nbsp;
+
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    <button type="button"
+                        className=""
+                        onClick={() => navigate(`/shift/create/${smid}`)}>
+                        Create New
+                    </button>
+                </div>
+            </main >
+        </>
     );
-  }
-}
+};
+
+export default ShiftMain;

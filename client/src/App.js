@@ -10,6 +10,7 @@ import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
 import ShiftMain from "./pages/ShiftMain";
 import CreateShift from "./pages/CreateShift";
+import EditShift from './pages/EditShift';
 
 
 //import context
@@ -35,8 +36,9 @@ export default class App extends Component {
             <Route path="/staff/profile/:id" element={<StaffProfile />} />
             <Route path="/branch" element={<BranchesMain />} />
             <Route path="/user" element={<UserProfile />} />
-            <Route path="/shift/getonly/:smid" element={<ShiftMain />} />
-            <Route path="/shift/create" element={<CreateShift />} />
+            <Route path="/shift/shiftsof/:smid" element={<ShiftMain />} />
+            <Route path="/shift/save" element={<CreateShift />} />
+            <Route path='/shift/edit/:id' element={<EditShift />} />
           </Route>
 
         </Routes>

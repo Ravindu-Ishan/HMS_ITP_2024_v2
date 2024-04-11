@@ -139,7 +139,7 @@ const StaffProfile = () => {
   return (
     <>
       <div className="navarea">
-        <TopNav staffNIC={staff_NIC}></TopNav>
+        <TopNav smid={id} />
       </div>
 
       <main>

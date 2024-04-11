@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function TopNavStaff(staffNIC) {
+function TopNavStaff({ smid }) {
+
 
 
   return (
@@ -12,13 +13,13 @@ function TopNavStaff(staffNIC) {
         </div>
 
         <div className="rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
-          <Link to={"/"}>Profile</Link>
+          <Link to={`/test/testroute/${smid}`}>Profile</Link>
         </div>
         <div className="rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
           <Link to={"/"}>Profile</Link>
         </div>
         <div className=" rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
-          <Link to={"/"}>Profile</Link>
+          <Link to={`/shift/shiftsof/${smid}`}>Shifts</Link>
         </div>
       </nav>
     </div>
