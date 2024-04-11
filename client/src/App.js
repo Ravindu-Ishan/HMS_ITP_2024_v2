@@ -26,15 +26,15 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <Routes>
-          <StaffAuthContextProvider>
-            <Route path="/" element={<Login />} />
-            <Route element={<RootLayout />}>
-              <Route path="/staff" element={<StaffMain />} />
-              <Route path="/staff/profile/:id" element={<StaffProfile />} />
-              <Route path="/branch" element={<BranchesMain />} />
-              <Route path="/user" element={<UserProfile />} />
-            </Route>
-          </StaffAuthContextProvider>
+
+          <Route path="/" element={<Login />} />
+          <Route element={<RootLayout />}>
+            <Route path="/staff" element={<StaffMain />} />
+            <Route path="/staff/profile/:id" element={<StaffProfile />} />
+            <Route path="/branch" element={<BranchesMain />} />
+            <Route path="/user" element={<UserProfile />} />
+          </Route>
+
         </Routes>
       </BrowserRouter>
     );
