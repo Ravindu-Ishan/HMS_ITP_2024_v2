@@ -10,6 +10,9 @@ import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
 
 
+//import context
+import { StaffAuthContextProvider } from './context/StaffAuthContext';
+
 
 export default class App extends Component {
   constructor(props) {
@@ -23,13 +26,15 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route element={<RootLayout />}>
-            <Route path="/staff" element={<StaffMain />} />
-            <Route path="/staff/profile/:id" element={<StaffProfile />} />
-            <Route path="/branch" element={<BranchesMain />} />
-            <Route path="/user" element={<UserProfile />} />
-          </Route>
+          <StaffAuthContextProvider>
+            <Route path="/" element={<Login />} />
+            <Route element={<RootLayout />}>
+              <Route path="/staff" element={<StaffMain />} />
+              <Route path="/staff/profile/:id" element={<StaffProfile />} />
+              <Route path="/branch" element={<BranchesMain />} />
+              <Route path="/user" element={<UserProfile />} />
+            </Route>
+          </StaffAuthContextProvider>
         </Routes>
       </BrowserRouter>
     );
