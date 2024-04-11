@@ -8,6 +8,8 @@ import StaffProfile from "./pages/StaffProfile";
 import BranchesMain from "./pages/BranchesMain";
 import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
+import ShiftMain from "./pages/ShiftMain";
+import CreateShift from "./pages/CreateShift";
 
 
 
@@ -29,6 +31,8 @@ export default class App extends Component {
             <Route path="/staff/profile/:id" element={<StaffProfile />} />
             <Route path="/branch" element={<BranchesMain />} />
             <Route path="/user" element={<UserProfile />} />
+            <Route path="/shift/getonly/:smid" element={<ShiftMain />} />
+            <Route path="/shift/create" element={<CreateShift />} />
           </Route>
         </Routes>
       </BrowserRouter>
