@@ -17,7 +17,7 @@ const Login = () => {
 
             </div>
             <form className="bg-gray-400 bg-opacity-50 rounded-2xl px-6 py-8 space-y-6 max-w-md md:ml-auto max-md:mx-auto w-full"
-              onSubmit={handleSubmit}>
+              onSubmit={''}>
               <h3 className="text-2xl font-bold mb-5 text-center">
                 Welcome to MedFlow
               </h3>
