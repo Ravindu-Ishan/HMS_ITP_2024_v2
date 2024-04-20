@@ -4,13 +4,14 @@ const express = require('express');
 const Account = require('../models/accountModel');
 const OtherStaff = require('../models/otherstaffModel');
 const Staff = require('../models/staffModel');
+const globalData = require('../globalData.js');
 
 // express router
 const router = express.Router();
 
 /*------------------------------------- LOGIN Backend-----------------------------------------*/
 const JsonWebToken = require('jsonwebtoken');
-const SECRET = 'medflowhmssecretkeyhellobrowser123'
+const { SECRET } = require('../globalData.js');
 
 //create token for login
 const createToken = (smid, bid, role) => {
@@ -23,15 +24,8 @@ const createToken = (smid, bid, role) => {
 }
 
 //route to login
-router.get('/login', async (request, response) => {
+router.post('/login', async (request, response) => {
     try {
-        if (!request.body.username || !request.body.password) {
-            return response.status(400).send(
-                {
-                    message: 'Send all required fields',
-                }
-            );
-        }
 
         //get passed parameters and save to constants
         const username = request.body.username;
@@ -41,33 +35,36 @@ router.get('/login', async (request, response) => {
         const user = await Account.login(username, password);
         const smid = user.smid;
 
-        const queryBid = await OtherStaff.findOne({ smid: smid });
+        if (user != null) {
+            const queryBid = await OtherStaff.findOne({ smid: smid });
 
-        let bid;
+            let bid;
 
-        if (!queryBid) {
-            bid = "none";
+            if (!queryBid) {
+                bid = "none";
+            }
+            else {
+                bid = queryBid.bid;
+            }
+
+            const queryRole = await Staff.findOne({ _id: smid });
+
+            let role;
+
+            if (queryRole) {
+                role = queryRole.role;
+            }
+
+            const token = createToken(smid, bid, role);
+
+            return response.status(201).json(token);
         }
-        else {
-            bid = queryBid.bid;
-        }
 
-        const queryRole = await Staff.findOne({ _id: smid });
-
-        let role;
-
-        if (queryRole) {
-            role = queryRole.role;
-        }
-
-        const token = createToken(smid, bid, role);
-
-        return response.status(201).json(token);
 
     }
     catch (error) {
         console.log(error.message);
-        response.status(500).send({ message: error.message });
+        response.status(200).send({ message: error.message });
     }
 });
 

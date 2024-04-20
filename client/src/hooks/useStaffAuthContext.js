@@ -1,9 +1,7 @@
 import { StaffAuthContext } from "../context/StaffAuthContext";
 import { useContext } from "react";
 
-
-
-const useStaffAuthContext = () => {
+export const useStaffAuthContext = () => {
 
     const context = useContext(StaffAuthContext)
 
@@ -13,5 +11,3 @@ const useStaffAuthContext = () => {
 
     return context
 }
-
-export default useStaffAuthContext
