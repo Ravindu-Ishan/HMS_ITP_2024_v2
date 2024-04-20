@@ -1,31 +1,28 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import EmptyNavArea from "../components/EmptyNavArea";
 
-export default class CreateShift extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            ScheduleTime: "",
-            ScheduleDate: "",
-            RoomNumber: "",
-            errorMessage: "",
-        };
-    }
-    handleInputChange = (e) => {
-        const { name, value } = e.target;
-        this.setState({
-            [name]: value
-        });
-    };
 
+const CreateShift = () => {
+
+    const { smid } = useParams(); //get url parameters
+
+    
+    const [Location, setLocation] = useState("");
+    const [ScheduleTime, setScheduleTime] = useState("");
+    const [ScheduleDate, setScheduleDate] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    
+  
+  
     onSubmit = async (e) => {
-        e.preventDefault();
-        const { ScheduleTime, ScheduleDate, RoomNumber } = this.state;
+        
         const data = {
-            RoomNumber: RoomNumber,
-            ScheduleTime: ScheduleTime,
-            ScheduleDate: ScheduleDate,
+            Location: setLocation,
+            ScheduleTime: setScheduleTime,
+            ScheduleDate: setScheduleDate,
 
         };
 
@@ -33,7 +30,7 @@ export default class CreateShift extends Component {
             const res = await axios.post("post/save", data); // Adjust the URL
             if (res.data.success) {
                 alert("shift created successfully!");
-                this.setState({ ScheduleTime: "", ScheduleDate: "", RoomNumber: "" });
+                this.setState({ ScheduleTime: "", ScheduleDate: "", Location: "" });
             } else {
                 throw new Error(res.data.error || "Failed to create shift");
             }
@@ -43,8 +40,13 @@ export default class CreateShift extends Component {
         }
     };
 
-    render() {
-        const { ScheduleTime, ScheduleDate, RoomNumber, errorMessage } = this.state;
+    
+       
+
+        useEffect(() => {
+            
+        }, []);
+
         return (
             <>
 
@@ -64,7 +66,7 @@ export default class CreateShift extends Component {
                                         id="Time"
                                         name="Time"
                                         value={ScheduleTime}
-                                        onChange={this.handleInputChange}
+                                        onChange={(e) => setScheduleTime(e.target.value)}
                                         placeholder="Enter Time"
                                     />
                                 </div>
@@ -76,20 +78,20 @@ export default class CreateShift extends Component {
                                         id="Date"
                                         name="Date"
                                         value={ScheduleDate}
-                                        onChange={this.handleInputChange}
+                                        onChange={(e) => setScheduleDate(e.target.value)}
                                         placeholder="Enter Date"
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="RoomNumber">Location</label>
+                                    <label htmlFor="Location">Location</label>
                                     <input
                                         type="text"
                                         className="form-control"
-                                        id="RoomNumber"
-                                        name="RoomNumber"
-                                        value={RoomNumber}
-                                        onChange={this.handleInputChange}
-                                        placeholder="Enter Room Number"
+                                        id="Location"
+                                        name="Location"
+                                        value={Location}
+                                        onChange={(e) => setLocation(e.target.value)}
+                                        placeholder="Enter Location"
                                     />
                                 </div>
 
@@ -106,5 +108,8 @@ export default class CreateShift extends Component {
             </>
 
         );
-    }
+     
 }
+ 
+
+export default CreateShift;

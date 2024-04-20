@@ -27,7 +27,7 @@ function TopNavStaff({ smid }) {
         <div className="rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
           <Link to={"/"}>Profile</Link>
         </div>
-        <div className={isSelected("/shift") ? " rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-white hover:bg-gray-50 hover:text-gray-700 "}>
+        <div className={isSelected("/shift") ? " rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
           <Link to={`/shift/shiftsof/${smid}`}>Shifts</Link>
         </div>
       </nav>
