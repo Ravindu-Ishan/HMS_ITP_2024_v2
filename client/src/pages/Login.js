@@ -6,7 +6,12 @@ import axios from "axios";
 //main function
 const Login = () => {
   //states and functions
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+  }
   return (
     <div>
 
@@ -32,6 +37,8 @@ const Login = () => {
                   required
                   className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-2xl outline-[#333]"
                   placeholder="Email address"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div>
@@ -42,6 +49,8 @@ const Login = () => {
                   required
                   className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-2xl outline-[#333]"
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 

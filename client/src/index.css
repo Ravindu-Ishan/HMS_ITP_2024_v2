@@ -33,6 +33,7 @@
     "sidebar navarea navarea navarea user"
     "sidebar main main main user";
   /* grid-gap: 0.2rem; */
+  transition: grid-template-columns 0.5s ease;
 }
 
 
@@ -45,6 +46,7 @@
     "sidebarbtn navarea navarea navarea user"
     "sidebarbtn main main main user";
   /* grid-gap: 0.2rem; */
+  transition: grid-template-columns 0.5s ease;
 }
 
 .sidebarbtn{
@@ -110,7 +112,7 @@ main {
   align-items: center;
   padding: 20px 20px 20px 20px;
   margin-bottom:5px;
-  border-bottom: 1px solid rgb(172, 172, 206);
+  border-bottom: 2px solid #002f8731;
   color: #002F87;
   
 }
@@ -123,7 +125,7 @@ main {
 
 .sidebar-list {
   padding:0;
-  margin-top: 5px;
+  margin-top: 10px;
   list-style-type: none;
 }
 
