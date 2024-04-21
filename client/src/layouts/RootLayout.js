@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
+//import hooks
+import useLogout from "../hooks/useLogout";
+
 
 //import icons
 import { FaCircleUser } from "react-icons/fa6";
@@ -15,11 +18,18 @@ import { FaBedPulse } from "react-icons/fa6";
 import { MdInventory } from "react-icons/md";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaBuilding } from "react-icons/fa";
-
+import { RiLogoutBoxFill } from "react-icons/ri";
 
 
 //main funciton
 const RootLayout = () => {
+
+  //logou
+  const { logout } = useLogout();
+
+  const handleLogoutbtn = () => {
+    logout();
+  }
 
   const [isOpen, setOpen] = useState(true); //side bar open close state
   const [rootLayout, setLayoutStyle] = useState("root-layout"); //layout style css state
@@ -128,10 +138,20 @@ const RootLayout = () => {
                 </li>
               </Link>
             </ul>
+            <div className="text-right mt-44 p-5 border-t-2 border-t-[#002f8731]  text-gray-600">
+              <button
+                onClick={handleLogoutbtn}
+                className=""
+              >
+                <RiLogoutBoxFill className=" inline-flex" />Logout
+              </button>
+            </div>
+
+
           </div>
+
+
         </aside>
-
-
 
       ) : (
 

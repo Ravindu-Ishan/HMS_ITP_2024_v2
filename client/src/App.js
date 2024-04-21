@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useStaffAuthContext } from './hooks/useStaffAuthContext';
+import { jwtDecode } from "jwt-decode";
 
 //import pages here
 import Login from "./pages/Login";
@@ -10,34 +12,85 @@ import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
 
 
-//import context
-import { StaffAuthContextProvider } from './context/StaffAuthContext';
+function App() {
 
+  const { user } = useStaffAuthContext();
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-    };
+  let designatedRoute = '/';
+
+  const location = useLocation();
+
+  //on reaload
+  useEffect(() => {
+    // Save the current path every time it changes
+    if (user != null) {
+      localStorage.setItem('lastPath', location.pathname + location.search);
+    }
+  }, [location]);
+
+  //set route according to role
+  if (user) {
+    const userInfo = jwtDecode(JSON.stringify(user));
+    const userRole = userInfo.role.toLowerCase();
+
+    switch (userRole) {
+      case 'branch manager':
+        designatedRoute = "/branch";
+        break;
+      case 'hr manager':
+        designatedRoute = "/staff";
+        break;
+      case 'ward manager':
+        designatedRoute = "/ward";
+        break;
+      default:
+        designatedRoute = "/user";
+        break;
+    }
+
   }
 
-  render() {
-    return (
-      <BrowserRouter>
-        <Routes>
 
-          <Route path="/" element={<Login />} />
-          <Route element={<RootLayout />}>
-            <Route path="/staff" element={<StaffMain />} />
-            <Route path="/staff/profile/:id" element={<StaffProfile />} />
-            <Route path="/branch" element={<BranchesMain />} />
-            <Route path="/user" element={<UserProfile />} />
-          </Route>
+  let gotoRoute;
+  let lastPath = localStorage.getItem('lastPath'); //Retrieve the last path from localStorage
 
-        </Routes>
-      </BrowserRouter>
-    );
+  if (lastPath) {
+    gotoRoute = lastPath; // if exists use it as route when user is logged in
+  }
+  else if (lastPath == '/') {
+    gotoRoute = designatedRoute; //if lastPath was saved as the login by change
+  }
+  else {
+    gotoRoute = designatedRoute; //else use the designated Route
   }
 
+  return (
+    <Routes>
+      <Route path="/" element={!user ? <Login /> : <Navigate to={gotoRoute} />} />
+      <Route element={<RootLayout />}>
+        <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
+        <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
+        <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
+        <Route path="/user" element={user ? <UserProfile /> : <Navigate to="/" />} />
+      </Route>
+    </Routes>
+  );
 }
+
+export default App
+
+
+/*
+Above code implements dynamic navigation where the user is navigated to their respective section
+according to their set user role. 
+
+LastPath - if the user is logged in , refreshing any page will in default will send users
+back to the original designated route. Instead, if the user is logged in , save path to storage,
+use saved path in storage for current route.
+
+Note: Remove path data from storage on logout.
+
+Issue : What happens when token expires ?
+User must be logged out and path data must be destroyed.
+
+*/

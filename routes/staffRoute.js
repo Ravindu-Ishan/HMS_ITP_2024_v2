@@ -1,8 +1,9 @@
 const express = require('express');
-
 const Staff = require('../models/staffModel');
-
 const router = express.Router();
+
+//verify authentication
+const requireAuth = require('../middleware/requireStaffAuth');
 
 //route to create new staff entry
 router.post('/create', async (request, response) => {
@@ -32,6 +33,7 @@ router.post('/create', async (request, response) => {
         response.status(500).send({ message: error.message }); //status 500 - generic error response
     }
 });
+
 
 //route to get all staff entries
 router.get('/get', async (request, response) => {
