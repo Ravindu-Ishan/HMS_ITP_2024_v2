@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function TopNavStaff({ smid }) {
+function TopNavUser({ smid }) {
 
   const location = useLocation();
 
@@ -13,22 +13,22 @@ function TopNavStaff({ smid }) {
   return (
     <div className="navarea flex justify-center py-5  ">
       <nav className="gap-6 bg-white rounded-3xl flex shadow-md">
-        <div className={isSelected("/staff") ? " rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
-          <Link to={`/staff/profile/${smid}`}>Profile</Link>
+        <div className={isSelected("/user") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
+          <Link className="" to={`/user`}>My Profile</Link>
         </div>
 
         <div className="rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
-          <Link to={"/"}>Profile</Link>
+          <Link to={"/"}>My Qualifications</Link>
         </div>
         <div className="rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
-          <Link to={"/"}>Profile</Link>
+          <Link to={"/"}>My Shifts</Link>
         </div>
         <div className=" rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
-          <Link to={"/branch"}>Profile</Link>
+          <Link to={"/"}>My Leaves</Link>
         </div>
       </nav>
     </div>
   );
 }
 
-export default TopNavStaff;
+export default TopNavUser;
