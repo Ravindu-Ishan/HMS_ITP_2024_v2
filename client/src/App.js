@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useStaffAuthContext } from './hooks/useStaffAuthContext';
 import { jwtDecode } from "jwt-decode";
 
@@ -42,6 +42,15 @@ function App() {
         break;
       case 'ward manager':
         designatedRoute = "/ward";
+        break;
+      case 'lab technician':
+        designatedRoute = "/lab";
+        break;
+      case 'doctor':
+        designatedRoute = "/patient";
+        break;
+      case 'financial manager':
+        designatedRoute = "/finances";
         break;
       default:
         designatedRoute = "/user";
