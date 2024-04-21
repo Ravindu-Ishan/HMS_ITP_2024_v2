@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useStaffAuthContext } from "./useStaffAuthContext";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export const useLogin = () => {
 
@@ -29,6 +30,10 @@ export const useLogin = () => {
 
                     //update auth context
                     dispatch({ type: 'LOGIN', payload: response })
+
+                    //test - print token info on console
+                    //console.log(jwtDecode(JSON.stringify(response)));
+
                 }
 
             }).catch((error) => {

@@ -9,12 +9,15 @@ import "react-responsive-modal/styles.css";
 
 //import context
 import { StaffAuthContextProvider } from './context/StaffAuthContext';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <StaffAuthContextProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </StaffAuthContextProvider>
   </React.StrictMode>
 );
