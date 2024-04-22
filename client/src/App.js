@@ -18,8 +18,6 @@ import ShiftDetails from './pages/ShiftDetails';
 import Leaves from './pages/Leaves';
 
 
-
-
 function App() {
 
   const { user } = useStaffAuthContext();
