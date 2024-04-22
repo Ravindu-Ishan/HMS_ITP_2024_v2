@@ -16,7 +16,7 @@ import EditShift from './pages/EditShift';
 import AttendanceAndLeave from './pages/AttendanceAndLeave';
 import ShiftDetails from './pages/ShiftDetails';
 import Leaves from './pages/Leaves';
-import ShiftInProfile from './pages/ShiftInProfile';
+
 
 
 
@@ -90,12 +90,12 @@ function App() {
         <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
         <Route path="/user" element={user ? <UserProfile /> : <Navigate to="/" />} />
-        <Route path="/shift/shiftsof/:smid" element={<ShiftMain />} />
-        <Route path="/shift/create/:smid" element={<CreateShift />} />
-        <Route path='/shift/edit/:id' element={<EditShift />} />
-        <Route path='/attendence' element={<AttendanceAndLeave />} />
-        <Route path='/shift/:id' element={<ShiftDetails />} />
-        <Route path='/leaves' element={<Leaves />} />
+        <Route path="/shift/shiftsof/:smid" element={user ? <ShiftMain /> : <Navigate to="/" />} />
+        <Route path="/shift/create/:smid" element={user ? <CreateShift /> : <Navigate to="/" />} />
+        <Route path='/shift/edit/:id' element={user ? <EditShift /> : <Navigate to="/" />} />
+        <Route path='/attendence' element={user ? <AttendanceAndLeave /> : <Navigate to="/" />} />
+        <Route path='/shift/:id' element={user ? <ShiftDetails /> : <Navigate to="/" />} />
+        <Route path='/leaves' element={user ? <Leaves /> : <Navigate to="/" />} />
       </Route>
     </Routes>
   );
