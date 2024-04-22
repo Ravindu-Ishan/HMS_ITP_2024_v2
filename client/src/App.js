@@ -10,6 +10,7 @@ import StaffProfile from "./pages/StaffProfile";
 import BranchesMain from "./pages/BranchesMain";
 import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
+import StaffQualifications from "./pages/StaffQualifications"
 
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
       <Route element={<RootLayout />}>
         <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
         <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
+        <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
         <Route path="/user" element={user ? <UserProfile /> : <Navigate to="/" />} />
       </Route>
