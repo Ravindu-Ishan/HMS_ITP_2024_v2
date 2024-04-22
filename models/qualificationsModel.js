@@ -6,11 +6,16 @@ const qualificationsSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        document: {
+        docName: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        docDescription: {
             type: String,
             required: true,
         },
-        docDescription: {
+        docPath: {
             type: String,
             required: true,
         }
