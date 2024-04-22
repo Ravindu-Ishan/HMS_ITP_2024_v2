@@ -10,7 +10,8 @@ import StaffProfile from "./pages/StaffProfile";
 import BranchesMain from "./pages/BranchesMain";
 import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
-
+import StaffQualifications from "./pages/StaffQualifications"
+import UserQualifications from './pages/UserQualifications';
 
 function App() {
 
@@ -47,13 +48,13 @@ function App() {
         designatedRoute = "/lab";
         break;
       case 'doctor':
-        designatedRoute = "/user";
+        designatedRoute = "/user/profile";
         break;
       case 'financial manager':
         designatedRoute = "/finances";
         break;
       default:
-        designatedRoute = "/user";
+        designatedRoute = "/user/profile";
         break;
     }
 
@@ -80,8 +81,10 @@ function App() {
       <Route element={<RootLayout />}>
         <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
         <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
+        <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
-        <Route path="/user" element={user ? <UserProfile /> : <Navigate to="/" />} />
+        <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
+        <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
       </Route>
     </Routes>
   );
