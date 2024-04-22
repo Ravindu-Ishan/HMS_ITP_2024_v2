@@ -27,7 +27,7 @@
 .root-layout{
   display: grid;
   height: 100vh;
-  grid-template-columns: 0.7fr 1fr 1fr 1fr 0.2fr;
+  grid-template-columns: 0.9fr 1fr 1fr 1fr 0.1fr;
   grid-template-rows: 0.1fr;
   grid-template-areas:
     "sidebar navarea navarea navarea user"
@@ -40,7 +40,7 @@
 .root-layout-sidebarClosed{
   display: grid;
   height: 100vh;
-  grid-template-columns: 0.1fr 1fr 1fr 1fr 0.2fr;
+  grid-template-columns: 0.1fr 1fr 1fr 1fr 0.1fr;
   grid-template-rows: 0.1fr;
   grid-template-areas:
     "sidebarbtn navarea navarea navarea user"
@@ -166,28 +166,5 @@ main {
 /*---Media Queries---*/
 
 /* Medium Devices*/
-@media screen and (max-width:992px)
-{
-    .root-layout {
-        display: grid;
-        grid-template-columns: 1fr 0.2fr;/*4 columns, sidebarCol = 260px, other coloums - scale*/
-        grid-template-rows: 0.2fr; /*header size, other rows */
-        grid-template-areas: 
-            "navarea user"
-            "main user";
-        height:100vh;
-    }
 
-    #sidebar{
-       display: none;
-    }
 
-    .menu-icon{
-        display:inline;
-    }
-
-    .sidebar-title > span {
-        display:inline;
-    }
-
-}
