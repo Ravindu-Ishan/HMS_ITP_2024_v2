@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import firebaseapp from "../firebase";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import { Modal } from "react-responsive-modal";
@@ -14,8 +14,9 @@ import TopNavUser from "../components/TopNavUser";
 import CancelBtn from "../components/CancelBtn"
 
 //import icons here
-import { RiEdit2Fill } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { AiFillEye } from "react-icons/ai";
 
 //main function
 const UserQualifications = () => {
@@ -136,12 +137,17 @@ const UserQualifications = () => {
         onCloseModal();
     }
 
+    //view button handler
+    const handleView = (fileLink) => {
+        window.open(fileLink, "_blank");
+    }
+
 
     //get staff records
     useEffect(() => {
         setLoading(true); //set loading state to true
         axios
-            .get("/qualifications/get/:id")
+            .get(`/qualifications/get/${id}`)
             .then((response) => {
                 setQualifications(response.data.data); //.data.data because we have two parts, count and data parts in staffRoute.js
                 setLoading(false); //set loading state to false
@@ -160,13 +166,22 @@ const UserQualifications = () => {
             docName,
             docDescription,
             docPath,
+            fileNameSave,
         };
         setLoading(true);
         axios
-            .post("/upload/qualification", data)
+            .post("/qualifications/upload", data)
             .then((response) => {
-                setLoading(false);
+                alert("Successfully created")
                 setQualifications([...qualifications, response.data]);
+                //close the model
+                setUploadPerc(0);
+                setDocument(undefined);
+                setDocName("");
+                setDocDescription("");
+                onCloseModal();
+                //finally
+                setLoading(false);
             })
             .catch((error) => {
                 setLoading(false);
@@ -176,7 +191,28 @@ const UserQualifications = () => {
     };
 
 
-    //
+    //handle delete file
+    const handleDelete = (fileName, recordID) => {
+        //delete file from firebase if file was uploaded
+        const storage = getStorage();
+        // Create a reference to the file to delete
+        const storageRef = ref(storage, 'qualifications/' + fileName);
+
+        // Delete the file
+        deleteObject(storageRef).then(() => {
+            setLoading(true);
+            axios.delete(`/qualifications/delete/${recordID}`).then(() => {
+                setLoading(false);
+                alert('Qualification has been removed');
+                window.location.reload();
+            })
+
+        }).catch((error) => {
+            alert('An error has occured, please check the console');
+            setLoading(false);
+            console.log(error);
+        });
+    }
 
     return (
         <>
@@ -268,7 +304,7 @@ const UserQualifications = () => {
                                                     ></CancelBtn>
                                                     <PrimaryBtn
                                                         btntitle={"Submit"}
-                                                        onClick={handleNewFile}
+                                                        onClick={(e) => handleNewFile(e)}
                                                     ></PrimaryBtn>
                                                 </div>
                                             </form>
@@ -302,31 +338,24 @@ const UserQualifications = () => {
                                             <th className="p-3">Action</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
                                         {qualifications.filter((item) => {
                                             return search.toLowerCase() === '' ?
                                                 item :
-                                                item.staffName.toLowerCase().includes(search)
-                                                || item.staff_NIC.includes(search)
-                                                || item.role.toLowerCase().includes(search)
-                                        }).map((staff, index) => (
+                                                item.docName.toLowerCase().includes(search)
+                                                || item.docDescription.includes(search)
+
+                                        }).map((item, index) => (
                                             <tr
                                                 className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black"
-                                                key={staff._id}
+                                                key={item._id}
                                             >
                                                 <td className="text-center">{index + 1}</td>
-                                                <td className="text-center">{staff.staff_NIC}</td>
-                                                <td>{staff.staffName}</td>
-                                                <td className="text-center">{staff.role}</td>
+                                                <td className="text-center">{item.docName}</td>
+                                                <td className="text-center">{item.docDescription}</td>
                                                 <td className="text-center">
-                                                    <Link
-                                                        className=" text-blue-700 "
-                                                        to={`profile/${staff._id}`}
-                                                    >
-                                                        <RiEdit2Fill className="inline-block" />
-                                                        <p className="inline-block">Edit</p>
-                                                    </Link>
+                                                    <button className="text-red-400 hover:text-red-600" onClick={() => handleDelete(item.fileName, item._id)}><MdDelete className="inline-flex mb-1" />Delete</button>
+                                                    <button className="ml-2 hover:text-gray-800" onClick={() => handleView(item.docPath)}><AiFillEye className="inline-flex mb-1" />View</button>
                                                 </td>
                                             </tr>
                                         ))}

@@ -48,13 +48,13 @@ function App() {
         designatedRoute = "/lab";
         break;
       case 'doctor':
-        designatedRoute = "/user";
+        designatedRoute = "/user/profile";
         break;
       case 'financial manager':
         designatedRoute = "/finances";
         break;
       default:
-        designatedRoute = "/user";
+        designatedRoute = "/user/profile";
         break;
     }
 

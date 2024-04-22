@@ -4,9 +4,8 @@ const router = express.Router();
 
 //route to create new qualification
 router.post('/qualifications/upload', async (request, response) => {
-
     try {
-        if (!request.body.id || !request.body.docName || !request.body.docDescription || !request.body.docPath) {
+        if (!request.body.id || !request.body.docName || !request.body.docDescription || !request.body.docPath || !request.body.fileNameSave) {
             return response.status(400).send(
                 {
                     message: 'Send all required fields',
@@ -19,6 +18,7 @@ router.post('/qualifications/upload', async (request, response) => {
             docName: request.body.docName,
             docDescription: request.body.docDescription,
             docPath: request.body.docPath,
+            fileName: request.body.fileNameSave,
         };
 
         const qualificationdata = await Qualification.create(newQualification);
@@ -31,7 +31,7 @@ router.post('/qualifications/upload', async (request, response) => {
 
 });
 
-//route to get staff qualification of user
+//route to get many qualifications of a user
 router.get('/qualifications/get/:id', async (request, response) => {
     try {
         const { id } = request.params;
@@ -53,13 +53,13 @@ router.get('/qualifications/get/:id', async (request, response) => {
 router.delete('/qualifications/delete/:id', async (request, response) => {
     try {
         const { id } = request.params;
-        const result = await Staff.findByIdAndDelete(id);
+        const result = await Qualification.findByIdAndDelete(id);
 
         //if result is null
         if (!result) {
-            return response.status(404).json({ message: 'Staff member not found' });
+            return response.status(404).json({ message: 'Qualification not found' });
         }
-        return response.status(200).send({ message: 'Staff member deleted successfully' });
+        return response.status(200).send({ message: 'Qualification deleted successfully' });
 
     }
     catch (error) {
