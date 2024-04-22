@@ -12,6 +12,10 @@ import ShiftMain from "./pages/ShiftMain";
 import CreateShift from "./pages/CreateShift";
 import EditShift from './pages/EditShift';
 import AttendanceAndLeave from './pages/AttendanceAndLeave';
+import ShiftDetails from './pages/ShiftDetails';
+import Leaves from './pages/Leaves';
+import ShiftInProfile from './pages/ShiftInProfile';
+
 
 
 //import context
@@ -38,9 +42,13 @@ export default class App extends Component {
             <Route path="/branch" element={<BranchesMain />} />
             <Route path="/user" element={<UserProfile />} />
             <Route path="/shift/shiftsof/:smid" element={<ShiftMain />} />
-            <Route path="/shift/save" element={<CreateShift />} />
+            <Route path="/shift/create/:smid" element={<CreateShift />} />
             <Route path='/shift/edit/:id' element={<EditShift />} />
             <Route path='/attendence' element={<AttendanceAndLeave />} />
+            <Route path='/shift/:id' element={<ShiftDetails />} />
+            <Route path='/leaves' element={<Leaves />} />
+            <Route path='/leaves' element={<ShiftInProfile />} />
+          
           </Route>
 
         </Routes>

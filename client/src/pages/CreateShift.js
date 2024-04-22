@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import EmptyNavArea from "../components/EmptyNavArea";
+
 
 
 const CreateShift = () => {
 
     const { smid } = useParams(); //get url parameters
+    const navigate = useNavigate();
 
     
     const [Location, setLocation] = useState("");
@@ -17,20 +19,23 @@ const CreateShift = () => {
     
   
   
-    onSubmit = async (e) => {
+    const onSubmit = async (e) => {
         
+        e.preventDefault();
         const data = {
-            Location: setLocation,
-            ScheduleTime: setScheduleTime,
-            ScheduleDate: setScheduleDate,
+
+            smid: smid,
+            Location: Location,
+            ScheduleTime: ScheduleTime,
+            ScheduleDate: ScheduleDate,
 
         };
 
         try {
-            const res = await axios.post("post/save", data); // Adjust the URL
+            const res = await axios.post("/shift/save", data); // Adjust the URL
             if (res.data.success) {
                 alert("shift created successfully!");
-                this.setState({ ScheduleTime: "", ScheduleDate: "", Location: "" });
+                navigate(-1);
             } else {
                 throw new Error(res.data.error || "Failed to create shift");
             }
@@ -95,7 +100,7 @@ const CreateShift = () => {
                                     />
                                 </div>
 
-                                <button className="btn btn-success" type="submit" onClick={this.onSubmit}>
+                                <button className="btn btn-success" type="submit" onClick={onSubmit}>
                                     <i className="far fa-check-square"></i>
                                     &nbsp; Save
                                 </button>

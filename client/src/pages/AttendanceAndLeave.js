@@ -17,6 +17,8 @@ const AttendanceAndLeave = () => {
     
 
     return (
+
+        
         <table className="table table-hover" style={{ marginTop: '40px' }}>
                         <thead>
                             <tr>

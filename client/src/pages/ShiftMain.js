@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 //import components here
 import EmptyNavArea from "../components/EmptyNavArea";
+import TopNavStaff from "../components/TopNavStaff";
 
 
 //import icons here
@@ -52,16 +53,17 @@ const ShiftMain = () => {
 
     return (
         <>
-            <EmptyNavArea />
+         <div className="navarea">
+        <TopNavStaff smid={smid} />
+      </div>
+      
+    
 
             <main>
                 <div className="main-container">
                     <div className="row">
-                        <div className="col-lg-9 mt-2 mb-2">
-                            <h4>All Posts</h4>
-                        </div>
+                    <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
 
-                        <div className="col-lg-3 mt-2 mb-2">
                             <input
                                 className="form-control"
                                 type="search"
