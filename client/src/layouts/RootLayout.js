@@ -162,21 +162,6 @@ const RootLayout = () => {
                 </details>
               </li>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
               <Link to="/finance">
                 <li className={isSelected("/finance") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaMoneyCheckDollar className=" inline-flex mr-5" />
@@ -224,7 +209,7 @@ const RootLayout = () => {
       {/*user profile button*/}
 
       <div className="user">
-        <Link to={`user`}>
+        <Link to="/user/profile">
           <div className="bg-white rounded-l-lg shadow-md p-4 mt-5 fixed top-0 right-0 z-50 hover:border-y-2 hover:border-l-2 hover:border-green-200 ">
             <FaCircleUser className="text-3xl" />
           </div>

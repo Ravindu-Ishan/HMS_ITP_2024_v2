@@ -1,12 +1,9 @@
 const express = require('express');
 const Qualification = require('../models/qualificationsModel');
 const router = express.Router();
-const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
-
 
 //route to create new qualification
-router.post('/upload/qualification', async (request, response) => {
+router.post('/qualifications/upload', async (request, response) => {
 
     try {
         if (!request.body.id || !request.body.docName || !request.body.docDescription || !request.body.docPath) {
@@ -35,10 +32,10 @@ router.post('/upload/qualification', async (request, response) => {
 });
 
 //route to get staff qualification of user
-router.get('/get/qualification/:id', async (request, response) => {
+router.get('/qualifications/get/:id', async (request, response) => {
     try {
         const { id } = request.params;
-        const qualifications = await Qualification.find({ role: role });
+        const qualifications = await Qualification.find({ smid: id });
         return response.status(200).json(
             {
                 count: qualifications.length,
@@ -53,7 +50,7 @@ router.get('/get/qualification/:id', async (request, response) => {
 });
 
 //route for deleting a staff member
-router.delete('/:id', async (request, response) => {
+router.delete('/qualifications/delete/:id', async (request, response) => {
     try {
         const { id } = request.params;
         const result = await Staff.findByIdAndDelete(id);
