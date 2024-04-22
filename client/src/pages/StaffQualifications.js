@@ -35,7 +35,6 @@ const StaffQualifications = () => {
     const [docDescription, setDocDescription] = useState("");
     const [docPath, setDocPath] = useState("");
     const [uploadPerc, setUploadPerc] = useState(0);
-    const [fileDownloadURL, setfileDownloadURL] = useState('');
     const [fileNameSave, setFileNameSave] = useState('');
 
 
@@ -89,6 +88,7 @@ const StaffQualifications = () => {
                 // Upload completed successfully, now we can get the download URL
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     console.log('File available at', downloadURL);
+                    setDocPath(downloadURL);
                 });
             }
         );
@@ -109,10 +109,14 @@ const StaffQualifications = () => {
             }).catch((error) => {
                 console.log(error);
             });
+
         }
         //close the model
+        setUploadPerc(0);
+        setDocument(undefined);
+        setDocName("");
+        setDocDescription("");
         onCloseModal();
-
     }
 
     //search
@@ -147,6 +151,7 @@ const StaffQualifications = () => {
     const handleNewFile = (e) => {
         e.preventDefault();
         const data = {
+            id,
             docName,
             docDescription,
             docPath,
@@ -157,7 +162,6 @@ const StaffQualifications = () => {
             .then((response) => {
                 setLoading(false);
                 setQualifications([...qualifications, response.data]);
-                navigate("/qualifications");
             })
             .catch((error) => {
                 setLoading(false);
@@ -232,8 +236,8 @@ const StaffQualifications = () => {
                                                         name="docDescription"
                                                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                         placeholder=" "
-                                                        value={docName}
-                                                        onChange={(e) => setDocDescription((prev) => e.target.value)}
+                                                        value={docDescription}
+                                                        onChange={(e) => setDocDescription(e.target.value)}
                                                     />
                                                     <label
                                                         htmlFor="docDescription"
@@ -244,7 +248,7 @@ const StaffQualifications = () => {
                                                 </div>
 
                                                 <div className="relative z-0 w-full mb-5 group">
-                                                    <input type="file" name="qualification-file" className="bg-none" accept=".pdf" value={document} onChange={(e) => setDocument(e.target.value)} />
+                                                    <input type="file" name="qualification-file" accept=".pdf" onChange={(e) => setDocument((prev) => e.target.files[0])} />
                                                     {uploadPerc > 0 && "Uploading : " + uploadPerc + "%"}
                                                 </div>
 
