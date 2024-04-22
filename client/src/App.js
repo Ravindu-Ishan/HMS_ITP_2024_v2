@@ -47,7 +47,7 @@ function App() {
         designatedRoute = "/lab";
         break;
       case 'doctor':
-        designatedRoute = "/patient";
+        designatedRoute = "/user";
         break;
       case 'financial manager':
         designatedRoute = "/finances";
@@ -73,6 +73,7 @@ function App() {
     gotoRoute = designatedRoute; //else use the designated Route
   }
 
+  //routes go below
   return (
     <Routes>
       <Route path="/" element={!user ? <Login /> : <Navigate to={gotoRoute} />} />
