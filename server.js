@@ -1,3 +1,4 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -13,11 +14,6 @@ const otherstaffRoute = require('./routes/otherstaffRoute');
 const branchRoute = require('./routes/branchRoute');
 const doctorRoute = require('./routes/doctorRoute');
 const shiftRoute = require('./routes/ShiftRoute');
-
-// import staffRoute from "./routes/staffRoute.js"
-// import accountRoute from "./routes/accountRoute.js"
-// import otherstaffRoute from "./routes/otherstaffRoute.js"
-// import branchRoute from "./routes/branchRoute.js"
 
 //app middleware
 app.use(bodyParser.json());
