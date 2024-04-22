@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import firebaseapp from "../firebase";
-import { getStorage, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
+import { Modal } from "react-responsive-modal";
 
 //import components here
 import LoadingComponent from "../components/LoadingComponent";
-import ModelTemplate from "../components/ModelTemplate";
 import PrimaryBtn from "../components/PrimaryBtn";
 import TopNavStaff from "../components/TopNavStaff";
+import CancelBtn from "../components/CancelBtn"
 
 //import icons here
 import { RiEdit2Fill } from "react-icons/ri";
@@ -34,19 +35,83 @@ const StaffQualifications = () => {
     const [docDescription, setDocDescription] = useState("");
     const [docPath, setDocPath] = useState("");
     const [uploadPerc, setUploadPerc] = useState(0);
+    const [fileDownloadURL, setfileDownloadURL] = useState('');
+    const [fileNameSave, setFileNameSave] = useState('');
+
+
+    useEffect(() => {
+        document && uploadFile(document);
+    }, [document])
+
 
     const uploadFile = (file) => {
         const storage = getStorage(firebaseapp);
-        const storageRef = ref(storage, 'qualification/' + file.name);
+        const fileName = new Date().getTime() + file.name;
+        const storageRef = ref(storage, 'qualifications/' + fileName);
+        setFileNameSave(fileName); //save the current fileName storage refelence
         const uploadTask = uploadBytesResumable(storageRef, file);
+
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setUploadPerc(Math.round(progress)) //set the percentage to state variable
+
+                switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Upload is running');
+                        break;
+                }
+            },
+            (error) => {
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        // User doesn't have permission to access the object
+                        break;
+                    case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+
+                    // ...
+
+                    case 'storage/unknown':
+                        // Unknown error occurred, inspect error.serverResponse
+                        break;
+                }
+            },
+            () => {
+                // Upload completed successfully, now we can get the download URL
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log('File available at', downloadURL);
+                });
+            }
+        );
+
+
     }
 
     const handleCancel = () => {
+
+        if (uploadPerc == 100) {
+            //delete file from firebase if file was uploaded
+            const storage = getStorage();
+            // Create a reference to the file to delete
+            const storageRef = ref(storage, 'qualifications/' + fileNameSave);
+            // Delete the file
+            deleteObject(storageRef).then(() => {
+                // File deleted successfully
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
+        //close the model
         onCloseModal();
-
-        //delete file from firebase if file was uploaded
-
-        //cancel file upload if uploading
 
     }
 
@@ -62,11 +127,6 @@ const StaffQualifications = () => {
     //set staff records
     const [qualifications, setQualifications] = useState([]);
 
-
-    // 'file' comes from the Blob or File API
-    uploadBytes(storageRef, file).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-    });
 
     //get staff records
     useEffect(() => {
@@ -173,7 +233,7 @@ const StaffQualifications = () => {
                                                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                         placeholder=" "
                                                         value={docName}
-                                                        onChange={(e) => setDocDescription(e.target.value)}
+                                                        onChange={(e) => setDocDescription((prev) => e.target.value)}
                                                     />
                                                     <label
                                                         htmlFor="docDescription"
@@ -185,10 +245,11 @@ const StaffQualifications = () => {
 
                                                 <div className="relative z-0 w-full mb-5 group">
                                                     <input type="file" name="qualification-file" className="bg-none" accept=".pdf" value={document} onChange={(e) => setDocument(e.target.value)} />
+                                                    {uploadPerc > 0 && "Uploading : " + uploadPerc + "%"}
                                                 </div>
 
 
-                                                <div className="text-right">
+                                                <div className="inline-flex">
                                                     <CancelBtn
                                                         btntitle={"Cancel"}
                                                         onClick={handleCancel}
@@ -237,10 +298,10 @@ const StaffQualifications = () => {
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div >
 
                             {/*------------------------------------Data display table--------------------------------*/}
-                            <div className="overflow-x-auto sm:rounded-lg tablestyle">
+                            < div className="overflow-x-auto sm:rounded-lg tablestyle" >
                                 <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
                                     <thead className="text-xs text-gray-700 uppercase bg-white">
                                         <tr>
@@ -282,10 +343,10 @@ const StaffQualifications = () => {
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div >
                     )}
-                </div>
-            </main>
+                </div >
+            </main >
         </>
     );
 };
