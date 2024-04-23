@@ -94,9 +94,9 @@ function App() {
         <Route path="/shift/shiftsof/:smid" element={user ? <ShiftMain /> : <Navigate to="/" />} />
         <Route path="/shift/create/:smid" element={user ? <CreateShift /> : <Navigate to="/" />} />
         <Route path='/shift/edit/:id' element={user ? <EditShift /> : <Navigate to="/" />} />
-        <Route path='/attendence' element={user ? <AttendanceAndLeave /> : <Navigate to="/" />} />
+        <Route path='/attendence/main' element={user ? <AttendanceAndLeave /> : <Navigate to="/" />} />
         <Route path='/shift/:id' element={user ? <ShiftDetails /> : <Navigate to="/" />} />
-        <Route path='/leaves' element={user ? <Leaves /> : <Navigate to="/" />} />
+        <Route path='/attendence/leaves' element={user ? <Leaves /> : <Navigate to="/" />} />
         <Route path='/user/userShifts' element={user ? <UserShiftView /> : <Navigate to="/" />} />
         <Route path='/user/userLeaves' element={user ? <UserLeavesView /> : <Navigate to="/" />} />
         <Route path='/attendence/attendanceReport' element={user ? <AttendanceReport /> : <Navigate to="/" />} />

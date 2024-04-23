@@ -13,14 +13,13 @@ function TopNavAttendance({ smid }) {
   return (
     <div className="navarea flex justify-center py-5  ">
       <nav className="gap-6 bg-white rounded-3xl flex shadow-md">
-        <div className={isSelected("/attendence") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
-          <Link className="" to={`/attendence`}>Attendance</Link>
+        <div className={isSelected("/main") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
+          <Link className="" to={`/attendence/main`}>Attendance</Link>
         </div>
-
-        <div className="rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
-          <Link to={"/leaves"}>Leave Management</Link>
+        <div className={isSelected("/leave") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
+          <Link className="" to={`/attendence/leaves`}>Leaves</Link>
         </div>
-        <div className={isSelected("/attendence") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
+        <div className={isSelected("Report") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
           <Link to={"/attendence/attendanceReport"}>Attendance Reports</Link>
         </div>
       </nav>
