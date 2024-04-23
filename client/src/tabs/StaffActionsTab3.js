@@ -20,7 +20,7 @@ import { FaEyeSlash } from "react-icons/fa";
 function StaffActionsTab3({ smid }) {
 
     //id
-    const { id } = smid;
+    const id = smid;
 
     //model open close state
     const [modelState1, setModelOpen1] = useState(false);
@@ -54,12 +54,14 @@ function StaffActionsTab3({ smid }) {
     const onPasswordResetConfirm = () => {
         setLoading(true);
         const data = {
-            newPassword
+            newPassword,
         }
         axios.put(`/account/updatepassword/${id}`, data).then((response) => {
             alert(response.data.message);
-            setLoading(false)
+            setLoading(false);
+            closeModal1();
         }).catch((error) => {
+            alert("Something went wrong, please check console")
             setLoading(false)
             console.log(error)
         });
@@ -85,6 +87,10 @@ function StaffActionsTab3({ smid }) {
         setNewPassword('');
     }
 
+    const closeModal2 = () => {
+        setModelOpen2(false);
+    }
+
 
 
 
@@ -102,7 +108,7 @@ function StaffActionsTab3({ smid }) {
                     </li>
                     <li>
                         <div className='inline-flex text-red-400 hover:text-red-600'>
-                            <button className='inline-flex'>
+                            <button className='inline-flex' onClick={DeleteAccBtnHandler}>
                                 <TiUserDelete className='mr-2 mt-1 text-lg' /><p className='text-lg font-medium'>Delete Login Account Only</p>
                             </button>
                         </div>
@@ -117,6 +123,7 @@ function StaffActionsTab3({ smid }) {
 
             </div>
 
+            {/*Password Reset Modal*/}
 
             <div>
                 <Modal open={modelState1} onClose={closeModal1}
@@ -166,6 +173,44 @@ function StaffActionsTab3({ smid }) {
                     )}
                 </Modal>
 
+            </div>
+
+            {/*Account Delete Modal*/}
+
+            <div>
+                <Modal
+                    open={modelState2}
+                    onClose={closeModal2}
+                    classNames={{
+                        overlay: "customOverlay",
+                        modal: "customModal",
+                    }}
+                    closeOnOverlayClick={false}
+                    center={true}
+                    aria-labelledby="my-modal-title"
+                    aria-describedby="my-modal-description"
+                >
+                    <div className="p-4 md:p-5 text-center">
+                        <svg className="mx-auto mb-4 text-gray-400 w-12 h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        <h3 className="mb-5 text-lg font-normal text-gray-700">This action will delete the user account related this Staff Member, doing so will remove access to the system from the user. Their information will still be available. Do you wish to continue ?</h3>
+
+                        <div className=" inline-flex">
+                            <div className="mr-2">
+                                <button type="button" onClick={''} className="py-2.5 px-5 text-sm font-medium rounded-3xl text-white focus:outline-none bg-blue-700  hover:bg-blue-800">
+                                    Yes, Confirm
+                                </button>
+                            </div>
+                            <div>
+                                <button type="button" onClick={closeModal2} className=" py-2.5 px-5 text-sm font-medium rounded-3xl text-white bg-red-600 hover:bg-red-800   ">
+                                    No, Cancel
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </Modal>
             </div>
 
 
