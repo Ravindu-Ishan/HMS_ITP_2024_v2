@@ -49,60 +49,61 @@ const UserShiftView = () => {
 
     return (
         <>
-         <div className="navarea">
-         <TopNavUser/>
-         </div>
-      
-    
+            <div className="navarea">
+                <TopNavUser />
+            </div>
+
+
 
             <main>
                 <div className="main-container">
-                    
                     <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
 
-                            <input
-                                className="form-control"
-                                type="search"
-                                placeholder="Search"
-                                name="searchQuery"
-                                onChange={(e) => setSearch(e.target.value)}
-                            />
-                     </div>
-                    
-                    <div className="bg-white border border-gray-200 rounded-[50px] shadow-lg p-10 m-5">
-                    <table className="table table-hover" style={{ marginTop: '40px' }}>
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Schedule Time</th>
-                                <th scope="col">Schedule Date</th>
-                                <th scope="col">Location</th>
-                                
-                            </tr>
-                        </thead>
-                     </div>
-                        <tbody>
-                            {posts.filter((shift) => {
-                                return search.toLowerCase() === '' ?
-                                    shift :
-                                    shift.Location.includes(search) ||
-                                    shift.ScheduleTime.includes(search) ||
-                                    shift.ScheduleDate.includes(search)
-                            }).map((shift, index) => (
-                                <tr key={shift._id}>
-                                    <td>
-                                        <Link to={`/shift/${shift._id}`}> {index + 1}</Link>
-                                    </td>
-                                    <td>{shift.ScheduleTime}</td>
-                                    <td>{shift.ScheduleDate}</td>
-                                    <td>{shift.Location}</td>
+                        <input
+                            className="form-control"
+                            type="search"
+                            placeholder="Search"
+                            name="searchQuery"
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                    </div>
 
-                                    
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <div>
+                        <div className="bg-white border border-gray-200 rounded-[50px] shadow-lg p-10 m-5">
+                            <table className="table table-hover" style={{ marginTop: '40px' }}>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Schedule Time</th>
+                                        <th scope="col">Schedule Date</th>
+                                        <th scope="col">Location</th>
 
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {posts.filter((shift) => {
+                                        return search.toLowerCase() === '' ?
+                                            shift :
+                                            shift.Location.includes(search) ||
+                                            shift.ScheduleTime.includes(search) ||
+                                            shift.ScheduleDate.includes(search)
+                                    }).map((shift, index) => (
+                                        <tr key={shift._id}>
+                                            <td>
+                                                <Link to={`/shift/${shift._id}`}> {index + 1}</Link>
+                                            </td>
+                                            <td>{shift.ScheduleTime}</td>
+                                            <td>{shift.ScheduleDate}</td>
+                                            <td>{shift.Location}</td>
+
+
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div >
                 </div>
             </main >
         </>

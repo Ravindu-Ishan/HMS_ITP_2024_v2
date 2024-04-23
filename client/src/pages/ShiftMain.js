@@ -17,16 +17,6 @@ import { FaSearch } from "react-icons/fa";
 
 const ShiftMain = () => {
 
-    //inside main function
-    const { user } = useStaffAuthContext();
-    //get user id from token
-    let id;
-    if (user) {
-    const userInfo = jwtDecode(JSON.stringify(user));
-    id = userInfo.smid;
-   }
-
-
     const { smid } = useParams(); //get url parameters 
 
     const [posts, setPosts] = useState([]); //posts array state
@@ -65,39 +55,39 @@ const ShiftMain = () => {
 
     return (
         <>
-         <div className="navarea">
-        <TopNavStaff smid={smid} />
-      </div>
-      
-      
+            <div className="navarea">
+                <TopNavStaff smid={smid} />
+            </div>
+
+
 
             <main>
-                
+
                 <div className="main-container">
-                    
+
                     <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
-                             <input
-                                className="form-control"
-                                type="search"
-                                placeholder="Search"
-                                name="searchQuery"
-                                onChange={(e) => setSearch(e.target.value)}
-                            />
+                        <input
+                            className="form-control"
+                            type="search"
+                            placeholder="Search"
+                            name="searchQuery"
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
                     </div>
-                    </div>
-                    
-                    {/*------------data display table--------------- */}
-                    <div className="overflow-x-auto sm:rounded-lg tablestyle">
+                </div>
+
+                {/*------------data display table--------------- */}
+                <div className="overflow-x-auto sm:rounded-lg tablestyle">
                     <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
-                    <thead className="text-xs text-gray-700 uppercase bg-white">
-                    <tr>
-                      <th className="p-3">#</th>
-                      <th className="p-3">Schedule Time</th>
-                      <th className="p-3">Schedule Date</th>
-                      <th className="p-3">Location</th>
-                      <th className="p-3">Action</th>
-                    </tr>
-                  </thead>
+                        <thead className="text-xs text-gray-700 uppercase bg-white">
+                            <tr>
+                                <th className="p-3">#</th>
+                                <th className="p-3">Schedule Time</th>
+                                <th className="p-3">Schedule Date</th>
+                                <th className="p-3">Location</th>
+                                <th className="p-3">Action</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             {posts.filter((shift) => {
                                 return search.toLowerCase() === '' ?
@@ -115,17 +105,17 @@ const ShiftMain = () => {
                                     <td>{shift.Location}</td>
 
                                     <td>
-                                    <div class="flex space-x-4">
-                                        <a className=" text-blue-700 " href={`/shift/edit/${shift._id}`}>
-                                            <i className="fas fa-edit"></i>&nbsp;Edit
-                                        </a>
-                                        <button className=" text-blue-700 " href="#" onClick={() => onDelete(shift._id)}>
-                                            <i className="fas fa-trash-alt"></i>&nbsp;Delete
-                                        </button>  &nbsp;
-                                     </div>
+                                        <div class="flex space-x-4">
+                                            <Link className=" text-blue-700 " to={`/shift/edit/${shift._id}`}>
+                                                <i className="fas fa-edit"></i>&nbsp;Edit
+                                            </Link>
+                                            <button className=" text-blue-700 " href="#" onClick={() => onDelete(shift._id)}>
+                                                <i className="fas fa-trash-alt"></i>&nbsp;Delete
+                                            </button>  &nbsp;
+                                        </div>
                                     </td>
                                 </tr>
-                                
+
                             ))}
                         </tbody>
                     </table>
