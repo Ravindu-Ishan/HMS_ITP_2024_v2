@@ -144,37 +144,28 @@ router.put('/account/update/:smid', async (request, response) => {
 
 
 //route to update password only
-router.put('account/updatepassword/:smid', async (request, response) => {
+router.put('/account/updatepassword/:id', async (request, response) => {
     try {
-        if (!request.body.username || !request.body.email) {
+        if (!request.body.newPassword) {
             return response.status(400).send(
                 {
                     message: 'Send all required fields',
                 }
             );
         }
-        const smid = request.params.smid;
+        const smid = request.params.id;
+
         //get by NIC
         const account = await Account.findOne({ smid: smid });
 
         // Encrypt the password using the static method from the model
-        const hashedPassword = await Account.encryptPassword(request.body.password);
+        const hashedPassword = await Account.encryptPassword(request.body.newPassword);
 
-        //update detais
-        if (Account.validateEmail(request.body.email) == false) {
-            return response.status(400).send(
-                {
-                    message: 'Email is invalid',
-                }
-            );
-        }
-
-        account.email = request.body.email;
         account.password = hashedPassword;
         await account.save();
 
         //return success msg
-        return response.status(200).send({ message: 'Account updated successfully' });
+        return response.status(200).send({ message: 'Password updated successfully' });
     }
     catch (error) {
         console.log(error.message);
