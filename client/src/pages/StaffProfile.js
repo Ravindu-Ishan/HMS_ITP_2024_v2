@@ -96,7 +96,9 @@ const StaffProfile = () => {
   // on page load/reload - use effect
   useEffect(() => {
     fetchStaffDetails();
+
   }, []);
+
 
 
   const items = [

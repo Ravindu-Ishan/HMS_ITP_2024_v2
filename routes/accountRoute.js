@@ -111,6 +111,25 @@ router.get('/account/get/:smid', async (request, response) => {
     }
 });
 
+router.get('/account/available/:smid', async (request, response) => {
+    try {
+
+        const smid = request.params.smid;
+        const accdetails = await Account.findOne({ smid: smid });
+
+        if (accdetails) {
+            return response.send(true);
+        }
+        else {
+            return response.send(false);
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
 //route to update account details
 router.put('/account/update/:smid', async (request, response) => {
     try {
@@ -166,6 +185,49 @@ router.put('/account/updatepassword/:id', async (request, response) => {
 
         //return success msg
         return response.status(200).send({ message: 'Password updated successfully' });
+    }
+    catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+//route for deleting a branch - deleting a branch should delete the branch entry from the staff members aswell !
+router.delete('/account/delete/:id', async (request, response) => {
+    try {
+        const { id } = request.params;
+        const result = await Account.deleteOne({ smid: id });
+
+        //if result is null
+        if (!result) {
+            return response.status(404).json({ message: 'Account not found' });
+        }
+        return response.status(200).send({ message: 'Account deleted successfully' });
+
+    }
+    catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+router.post('/account/password/compare/:id', async (request, response) => {
+
+    try {
+        if (!request.body.previousPassword) {
+            return response.status(400).send(
+                {
+                    message: 'Send all required fields',
+                }
+            );
+        }
+
+        const previousPassword = request.body.previousPassword;
+        const { id } = request.params;
+        const comparePassword = await Account.compare(id, previousPassword);
+
+        return response.status(200).send(comparePassword); //returns boolean value true or false
+
     }
     catch (error) {
         console.log(error.message);

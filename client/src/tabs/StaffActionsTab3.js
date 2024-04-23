@@ -6,8 +6,6 @@ import { Modal } from "react-responsive-modal";
 import LoadingComponent from "../components/LoadingComponent";
 import PrimaryBtn from "../components/PrimaryBtn";
 import CancelBtn from "../components/CancelBtn";
-import ConfirmPopUp from "../components/ConfirmPopUp";
-import ModelTemplate from "../components/ModelTemplate";
 
 //import icons
 import { MdDelete } from "react-icons/md";
@@ -38,6 +36,8 @@ function StaffActionsTab3({ smid }) {
     const [type, setType] = useState('password');
     const [icon, setIcon] = useState(FaEyeSlash);
 
+
+
     //show password toggle
     const handleshowPassToggle = () => {
         if (type === 'password') {
@@ -50,7 +50,36 @@ function StaffActionsTab3({ smid }) {
     }
 
 
-    //
+    const ResetPassBtnHandler = () => {
+        axios.get(`/account/available/${id}`).then((response) => {
+            if (response.data == false) {
+                alert("There is no user account for the current staff profile. Please create one.");
+            }
+            else {
+                setModelOpen1(true);
+            }
+        }).catch((error) => {
+            console.log(error);
+        })
+
+
+    }
+
+    const DeleteAccBtnHandler = () => {
+        axios.get(`/account/available/${id}`).then((response) => {
+            if (response.data == false) {
+                alert("There is no user account for the current staff profile. Please create one.");
+            }
+            else {
+                setModelOpen2(true);
+            }
+        }).catch((error) => {
+            console.log(error);
+        })
+
+    }
+
+    //reset password confirm handler
     const onPasswordResetConfirm = () => {
         setLoading(true);
         const data = {
@@ -69,17 +98,25 @@ function StaffActionsTab3({ smid }) {
 
     }
 
+    //delete user account handler
+    const accountDeleteConfirm = () => {
+        setLoading(true);
+        axios.delete(`/account/delete/${id}`).then((response) => {
+            alert(response.data.message);
+            setLoading(false);
+            closeModal2();
+            window.location.reload();
+        }).catch((error) => {
+            alert("Something went wrong, please check console")
+            setLoading(false)
+            console.log(error)
+        });
 
-
-    const ResetPassBtnHandler = () => {
-        setModelOpen1(true);
     }
 
-    const DeleteAccBtnHandler = () => {
-        setModelOpen2(true);
-    }
+
     const DeleteMemberBtnHandler = () => {
-        setModelOpen2(true);
+        setModelOpen3(true);
     }
 
     const closeModal1 = () => {
@@ -92,13 +129,11 @@ function StaffActionsTab3({ smid }) {
     }
 
 
-
-
     return (
 
-        <>
-            <div>
-                <ul>
+        <div>
+            <ul>
+                <div>
                     <li>
                         <div className='inline-flex text-gray-500 hover:text-gray-800'>
                             <button className='inline-flex' onClick={ResetPassBtnHandler}>
@@ -112,16 +147,18 @@ function StaffActionsTab3({ smid }) {
                                 <TiUserDelete className='mr-2 mt-1 text-lg' /><p className='text-lg font-medium'>Delete Login Account Only</p>
                             </button>
                         </div>
-                    </li> <li>
-                        <div className='inline-flex text-red-400 hover:text-red-600'>
-                            <button className='inline-flex'>
-                                <MdDelete className='mr-2 mt-1 text-lg' /><p className='text-lg font-medium'>Delete Staff Memeber</p>
-                            </button>
-                        </div>
                     </li>
-                </ul>
+                </div >
+                <li>
+                    <div className='inline-flex text-red-400 hover:text-red-600'>
+                        <button className='inline-flex'>
+                            <MdDelete className='mr-2 mt-1 text-lg' /><p className='text-lg font-medium'>Delete Staff Memeber</p>
+                        </button>
+                    </div>
+                </li>
+            </ul >
 
-            </div>
+
 
             {/*Password Reset Modal*/}
 
@@ -135,7 +172,9 @@ function StaffActionsTab3({ smid }) {
                     center={true}>
 
                     {loading ? (
-                        <LoadingComponent />
+                        <div className='p-20'>
+                            <LoadingComponent />
+                        </div>
                     ) : (
                         <div>
                             <h2 id="my-modal-title">Reset Account Password</h2>
@@ -177,7 +216,7 @@ function StaffActionsTab3({ smid }) {
 
             {/*Account Delete Modal*/}
 
-            <div>
+            <div >
                 <Modal
                     open={modelState2}
                     onClose={closeModal2}
@@ -198,7 +237,7 @@ function StaffActionsTab3({ smid }) {
 
                         <div className=" inline-flex">
                             <div className="mr-2">
-                                <button type="button" onClick={''} className="py-2.5 px-5 text-sm font-medium rounded-3xl text-white focus:outline-none bg-blue-700  hover:bg-blue-800">
+                                <button type="button" onClick={accountDeleteConfirm} className="py-2.5 px-5 text-sm font-medium rounded-3xl text-white focus:outline-none bg-blue-700  hover:bg-blue-800">
                                     Yes, Confirm
                                 </button>
                             </div>
@@ -211,10 +250,10 @@ function StaffActionsTab3({ smid }) {
 
                     </div>
                 </Modal>
-            </div>
+            </div >
 
 
-        </>
+        </div>
 
     )
 }
