@@ -100,7 +100,7 @@ const CreateShift = () => {
                                     />
                                 </div>
 
-                                <button className="btn btn-success" type="submit" onClick={onSubmit}>
+                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" onClick={onSubmit}>
                                     <i className="far fa-check-square"></i>
                                     &nbsp; Save
                                 </button>

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; // Import Link from React Router
 
-
+//import components here
 import TopNav from "../components/TopNavStaff";
+import TopNavAttendance from '../components/TopNavAttendance';
 
 const Leaves = () => {
   const [leaves, setLeaves] = useState([]);
@@ -19,20 +20,33 @@ const Leaves = () => {
       });
   }, []);
 
+  // Handle approve action
   const handleApprove = (id) => {
-    // Handle approve action
+    
     // You can make a POST request to your backend API to update the leave status
+     axios.approve(`/leaves/approve/${id}`).then((res) => {
+          alert("Approved Successfully");
+         
+      })
   };
 
+   // Handle reject action
   const handleReject = (id) => {
-    // Handle reject action
-    // Similar to approve, make a POST request to update the leave status
+   // Similar to approve, make a POST request to update the leave status
+   axios.reject(`/leaves/reject/${id}`).then((res) => {
+    alert("Rejected Successfully");
+    
+})
   };
 
   return (
+    <>
+         <div className="navarea">
+         <TopNavAttendance/>
+         </div>
    
    <div>
-      <h1>Leave Requests</h1>
+      <h1>Leave Requests approval or reject page</h1>
       <table>
         <thead>
           <tr>
@@ -59,6 +73,7 @@ const Leaves = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

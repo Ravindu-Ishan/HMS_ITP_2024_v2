@@ -16,6 +16,9 @@ import EditShift from './pages/EditShift';
 import AttendanceAndLeave from './pages/AttendanceAndLeave';
 import ShiftDetails from './pages/ShiftDetails';
 import Leaves from './pages/Leaves';
+import UserShiftView from './pages/UserShiftView';
+import UserLeavesView from './pages/UserLeavesView';
+import AttendanceReport from './pages/AttendanceReport';
 
 
 function App() {
@@ -94,12 +97,15 @@ function App() {
         <Route path='/attendence' element={user ? <AttendanceAndLeave /> : <Navigate to="/" />} />
         <Route path='/shift/:id' element={user ? <ShiftDetails /> : <Navigate to="/" />} />
         <Route path='/leaves' element={user ? <Leaves /> : <Navigate to="/" />} />
+        <Route path='/user/userShifts' element={user ? <UserShiftView /> : <Navigate to="/" />} />
+        <Route path='/user/userLeaves' element={user ? <UserLeavesView /> : <Navigate to="/" />} />
+        <Route path='/attendence/attendanceReport' element={user ? <AttendanceReport /> : <Navigate to="/" />} />
       </Route>
     </Routes>
   );
 }
 
-export default App
+export default App;
 
 
 /*

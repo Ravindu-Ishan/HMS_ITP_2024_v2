@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 //import components here
 import EmptyNavArea from "../components/EmptyNavArea";
-
+import TopNavAttendance from "../components/TopNavAttendance";
 
 //import icons here
 import { RiEdit2Fill } from "react-icons/ri";
@@ -18,7 +18,13 @@ const AttendanceAndLeave = () => {
 
     return (
 
-        
+         <>
+         <div className="navarea">
+         <TopNavAttendance/>
+         </div>
+         
+         
+         
         <table className="table table-hover" style={{ marginTop: '40px' }}>
                         <thead>
                             <tr>
@@ -31,6 +37,7 @@ const AttendanceAndLeave = () => {
                             </tr>
                         </thead>
         </table>
+        </>
     );
 };
 

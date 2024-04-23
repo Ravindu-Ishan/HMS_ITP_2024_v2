@@ -69,9 +69,6 @@ router.get('/shift/getonly/:smid', async (request, response) => {
 });
 
 
-
-
-
 //update posts
 
 router.put('/shift/update/:id', async (req, res) => {
@@ -85,11 +82,6 @@ router.put('/shift/update/:id', async (req, res) => {
         return res.status(400).json({ error: err });
     }
 });
-
-
-
-
-
 
 
 //delete post
