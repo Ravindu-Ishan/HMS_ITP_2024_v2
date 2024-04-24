@@ -14,7 +14,8 @@ const otherstaffRoute = require('./routes/otherstaffRoute');
 const branchRoute = require('./routes/branchRoute');
 const doctorRoute = require('./routes/doctorRoute');
 const qualificationRoute = require('./routes/qualificationsRoute');
-
+const wardRoutes = require('./routes/wards');
+const bedRoutes = require('./routes/beds');
 
 //app middleware
 app.use(bodyParser.json());
@@ -29,6 +30,8 @@ app.use(otherstaffRoute);
 app.use(branchRoute);
 app.use(doctorRoute);
 app.use(qualificationRoute);
+app.use(wardRoutes);
+app.use(bedRoutes);
 
 const PORT = 8000;
 const DB_URL = 'mongodb+srv://root:password1234@medflow-hms.febircl.mongodb.net/maindatabase?retryWrites=true&w=majority&appName=MedFlow-HMS';

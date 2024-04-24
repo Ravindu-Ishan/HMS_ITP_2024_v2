@@ -13,6 +13,17 @@ import UserProfile from "./pages/UserProfile";
 import StaffQualifications from "./pages/StaffQualifications"
 import UserQualifications from './pages/UserQualifications';
 
+//ward component
+import Ward_Home from './pages/Ward_components/Ward_Home';
+import Ward_Details from './pages/Ward_components/Ward_Details';
+import Ward_Create from './pages/Ward_components/Ward_Create';
+import Ward_Edit from './pages/Ward_components/Ward_Edit';
+//bed component
+import Bed_Home from './pages/Bed_componenets/Bed_Home';
+import Bed_Details from './pages/Bed_componenets/Bed_Details';
+import Bed_Create from './pages/Bed_componenets/Bed_Create';
+import Bed_Edit from './pages/Bed_componenets/Bed_Edit';
+
 function App() {
 
   const { user } = useStaffAuthContext();
@@ -85,6 +96,16 @@ function App() {
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
         <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
         <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
+
+        <Route path="/wardHome" element={<Ward_Home />} />
+        <Route path="/wardAdd" element={<Ward_Create />} />
+        <Route path="/wardEdit/:id" element={<Ward_Edit />} />
+        <Route path="/wardDetails/:id" element={<Ward_Details />} />
+        <Route path="/beds" element={<Bed_Home />} />
+        <Route path="/addBed" element={<Bed_Create />} />
+        <Route path="/editBed/:id" element={<Bed_Edit />} />
+        <Route path="/bedDetails/:id" element={<Bed_Details />} />
+
       </Route>
     </Routes>
   );
