@@ -1,4 +1,3 @@
-import React from 'react'
 import { useStaffAuthContext } from './useStaffAuthContext'
 
 const useLogout = () => {
