@@ -7,7 +7,6 @@ const cors = require('cors');
 const app = express();
 
 //import routes
-const postRoutes = require('./routes/posts');
 const staffRoute = require('./routes/staffRoute');
 const accountRoute = require('./routes/accountRoute');
 const otherstaffRoute = require('./routes/otherstaffRoute');
@@ -22,8 +21,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //route middleware
-
-app.use(postRoutes);
 app.use(staffRoute);
 app.use(accountRoute);
 app.use(otherstaffRoute);
