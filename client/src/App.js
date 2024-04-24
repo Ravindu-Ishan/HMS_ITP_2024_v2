@@ -11,6 +11,18 @@ import BranchesMain from "./pages/BranchesMain";
 import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
 
+import ShiftMain from "./pages/ShiftMain";
+import CreateShift from "./pages/CreateShift";
+import EditShift from './pages/EditShift';
+import AttendanceAndLeave from './pages/AttendanceAndLeave';
+import ShiftDetails from './pages/ShiftDetails';
+import Leaves from './pages/Leaves';
+import UserShiftView from './pages/UserShiftView';
+import UserLeavesView from './pages/UserLeavesView';
+import AttendanceReport from './pages/AttendanceReport';
+
+import StaffQualifications from "./pages/StaffQualifications"
+import UserQualifications from './pages/UserQualifications';
 
 //import patient
 import CreatePatient from './pages/Patient_component/CreatePatient';
@@ -60,13 +72,13 @@ function App() {
         designatedRoute = "/lab";
         break;
       case 'doctor':
-        designatedRoute = "/user";
+        designatedRoute = "/user/profile";
         break;
       case 'financial manager':
         designatedRoute = "/finances";
         break;
       default:
-        designatedRoute = "/user";
+        designatedRoute = "/user/profile";
         break;
     }
 
@@ -91,15 +103,14 @@ function App() {
     <Routes>
       <Route path="/" element={!user ? <Login /> : <Navigate to={gotoRoute} />} />
       <Route element={<RootLayout />}>
+        {/*B K R I SASMIN*/}
         <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
         <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
+        <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
-<<<<<<< Updated upstream
-        <Route path="/user" element={user ? <UserProfile /> : <Navigate to="/" />} />
-=======
         <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
         <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
-
+         {/*Gihani*/}
         <Route path="/patienthome" element={<PatientHome />} />
         <Route path="/addpatient" element={<CreatePatient />} />
         <Route path="/editpatient/:id" element={<EditPatient />} />
@@ -111,13 +122,22 @@ function App() {
         <Route path="/editPrescriptions" element={<EditPrescriptions />} />
         <Route path="/prescriptionsDetails" element={<PrescriptionsDetails />} />
         <Route path="/labsReports" element={<LabReports />} />
->>>>>>> Stashed changes
+        {/*Iruni*/}
+        <Route path="/shift/shiftsof/:smid" element={user ? <ShiftMain /> : <Navigate to="/" />} />
+        <Route path="/shift/create/:smid" element={user ? <CreateShift /> : <Navigate to="/" />} />
+        <Route path='/shift/edit/:id' element={user ? <EditShift /> : <Navigate to="/" />} />
+        <Route path='/attendence/main' element={user ? <AttendanceAndLeave /> : <Navigate to="/" />} />
+        <Route path='/shift/:id' element={user ? <ShiftDetails /> : <Navigate to="/" />} />
+        <Route path='/attendence/leaves' element={user ? <Leaves /> : <Navigate to="/" />} />
+        <Route path='/user/userShifts' element={user ? <UserShiftView /> : <Navigate to="/" />} />
+        <Route path='/user/userLeaves' element={user ? <UserLeavesView /> : <Navigate to="/" />} />
+        <Route path='/attendence/attendanceReport' element={user ? <AttendanceReport /> : <Navigate to="/" />} />
       </Route>
     </Routes>
   );
 }
 
-export default App
+export default App;
 
 
 /*
