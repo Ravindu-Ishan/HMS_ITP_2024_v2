@@ -13,6 +13,13 @@ const accountRoute = require('./routes/accountRoute');
 const otherstaffRoute = require('./routes/otherstaffRoute');
 const branchRoute = require('./routes/branchRoute');
 const doctorRoute = require('./routes/doctorRoute');
+<<<<<<< Updated upstream
+=======
+const qualificationRoute = require('./routes/qualificationsRoute');
+const patientRoutes = require('./routes/patients');
+const prescriptionRoutes = require('./routes/prescriptions');
+
+>>>>>>> Stashed changes
 
 //app middleware
 app.use(bodyParser.json());
@@ -26,6 +33,13 @@ app.use(accountRoute);
 app.use(otherstaffRoute);
 app.use(branchRoute);
 app.use(doctorRoute);
+<<<<<<< Updated upstream
+=======
+app.use(qualificationRoute);
+app.use(patientRoutes);
+app.use(prescriptionRoutes);
+
+>>>>>>> Stashed changes
 
 const PORT = 8000;
 const DB_URL = 'mongodb+srv://root:password1234@medflow-hms.febircl.mongodb.net/maindatabase?retryWrites=true&w=majority&appName=MedFlow-HMS';

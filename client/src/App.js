@@ -12,6 +12,19 @@ import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
 
 
+//import patient
+import CreatePatient from './pages/Patient_component/CreatePatient';
+import EditPatient from './pages/Patient_component/EditPatient';
+import PatientHome from './pages/Patient_component/PatientHome';
+import PatientDetails from './pages/Patient_component/PatientDetails';
+import Summary from './pages/Patient_component/Summary';
+import ReportApp from './pages/reportcomponents/ReportApp';
+import LabReports from './pages/Patient_component/LabReports';
+import PrescriptionsHome from './pages/Patient_component/PrescriptionsHome';
+import CreatePrescriptions from './pages/Patient_component/CreatePrescriptions';
+import EditPrescriptions from './pages/Patient_component/EditPrescriptions';
+import PrescriptionsDetails from './pages/Patient_component/PrescriptionsDetails';
+
 function App() {
 
   const { user } = useStaffAuthContext();
@@ -81,7 +94,24 @@ function App() {
         <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
         <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
+<<<<<<< Updated upstream
         <Route path="/user" element={user ? <UserProfile /> : <Navigate to="/" />} />
+=======
+        <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
+        <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
+
+        <Route path="/patienthome" element={<PatientHome />} />
+        <Route path="/addpatient" element={<CreatePatient />} />
+        <Route path="/editpatient/:id" element={<EditPatient />} />
+        <Route path="/patient/:id" element={<PatientDetails />} />
+        <Route path="/reportHistory" element={<Summary />} />
+        <Route path="/reportApp" element={<ReportApp />} />
+        <Route path="/prescriptionsHome" element={<PrescriptionsHome />} />
+        <Route path="/createPrescriptions" element={<CreatePrescriptions />} />
+        <Route path="/editPrescriptions" element={<EditPrescriptions />} />
+        <Route path="/prescriptionsDetails" element={<PrescriptionsDetails />} />
+        <Route path="/labsReports" element={<LabReports />} />
+>>>>>>> Stashed changes
       </Route>
     </Routes>
   );
