@@ -20,6 +20,9 @@ import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaBuilding } from "react-icons/fa";
 import { RiLogoutBoxFill } from "react-icons/ri";
 
+//import images
+import brandLogo from "../images/brandLogo.png"
+
 
 //main funciton
 const RootLayout = () => {
@@ -60,7 +63,8 @@ const RootLayout = () => {
         <aside id="sidebar">
           <div className="overflow-auto hiddenScroll xl:h-full border border-gray-200 mr-2 rounded-tr-3xl drop-shadow-lg bg-white ">
             <div className="sidebar-title">
-              <div className="sidebar-brand">MedFlow</div>
+              <div className="sidebar-brand inline-flex"><img src={brandLogo} alt="brand logo" width={60} className="mr-2" /><div className="mt-2">MedFlow</div></div>
+
 
               <button className="" onClick={sidebarState}>
                 <IoMdCloseCircle className=" text-xl" />

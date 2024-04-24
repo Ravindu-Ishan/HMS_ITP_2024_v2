@@ -6,11 +6,12 @@ import { jwtDecode } from "jwt-decode";
 export const useLogin = () => {
 
     const [error, setError] = useState(null);
-
+    const [isLoading, setIsLoading] = useState(null);
     const { dispatch } = useStaffAuthContext();
 
     const login = (username, password) => {
 
+        setIsLoading(true);
         setError(null);
 
         const data = {
@@ -23,6 +24,7 @@ export const useLogin = () => {
 
                 if (response.data.message) {
                     setError(response.data.message);
+                    setIsLoading(false);
                 }
                 else {
                     //save the user to local storage
@@ -33,15 +35,16 @@ export const useLogin = () => {
 
                     //test - print token info on console
                     //console.log(jwtDecode(JSON.stringify(response)));
-
+                    setIsLoading(false);
                 }
 
             }).catch((error) => {
                 alert('An error occured')
                 console.log(error);
+                setIsLoading(false);
             });
     }
 
-    return { login, error }
+    return { login, error, isLoading }
 
 }

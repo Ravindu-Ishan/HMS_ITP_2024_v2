@@ -85,5 +85,20 @@ accountSchema.statics.validateEmail = async function (email) {
     return validator.isEmail(email)
 }
 
+
+
+//password comparision
+accountSchema.statics.compare = async function (smid, password) {
+    //find and save user data to user constant
+    const user = await this.findOne({ smid })
+
+    if (!user) {
+        throw Error('Could not find user')
+    }
+
+    const match = await bcrypt.compare(password, user.password)
+
+    return match
+}
 module.exports = mongoose.model('account', accountSchema);
 
