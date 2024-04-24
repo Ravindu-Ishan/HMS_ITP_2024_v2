@@ -86,7 +86,7 @@ const RootLayout = () => {
                   </div>
                 </li>
               </Link>
-              <Link to="/attendence">
+              <Link to="/attendence/main">
                 <li className={isSelected("/attendence") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaClipboardUser className=" inline-flex mr-5" />
                   <div className=" inline-flex">
