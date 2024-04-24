@@ -13,6 +13,25 @@ import UserProfile from "./pages/UserProfile";
 import StaffQualifications from "./pages/StaffQualifications"
 import UserQualifications from './pages/UserQualifications';
 
+
+//appointment routes
+import EditAppointment from './pages/appointmentComponents/EditAppointment';
+import CreateAppointment from './pages/appointmentComponents/CreateAppointment';
+import AppointmentHome from './pages/appointmentComponents/AppointmentHome';
+import AppointmentDetails from './pages/appointmentComponents/AppointmentDetails';
+import NavBar from './pages/appointmentComponents/NavBar';
+import ReportGen from './pages/appointmentComponents/ReportGen';
+import ReportApp from './pages/appointmentComponents/ReportApp';
+import DoctorView from './pages/doctorViewComponent/DoctorView';
+import DoctorPatientView from './pages/doctorViewComponent/DoctorPatientView';
+import DoctorEdit from './pages/doctorViewComponent/DoctorEdit';
+import DoctorAvailability from './pages/availabilityView/DoctorAvailability';
+import ServiceAvailability from './pages/availabilityView/ServiceAvailability';
+import LabAppointHome from './pages/labAppointments/LabAppointHome';
+import LabAppointCreate from './pages/labAppointments/LabAppointCreate';
+import LabAppointEdit from './pages/labAppointments/LabAppointEdit';
+import LabAppointDetails from './pages/labAppointments/LabAppointDetails';
+
 function App() {
 
   const { user } = useStaffAuthContext();
@@ -85,6 +104,22 @@ function App() {
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
         <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
         <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
+
+        <Route path="/appointmentHome" element={<AppointmentHome />} />
+        <Route path="/createAppointment" element={<CreateAppointment />} />
+        <Route path="/editAppointment/:id" element={<EditAppointment />} />
+        <Route path="/appointment/:id" element={<AppointmentDetails />} />
+        <Route path="/report" element={<ReportGen />}></Route>
+        <Route path="/reportApp" element={<ReportApp />}></Route>
+        <Route path="/doctorView" element={<DoctorView />}></Route>
+        <Route path="/doctorPatientView/:id" element={<DoctorPatientView />}></Route>
+        <Route path="/doctorReschedule/:id" element={<DoctorEdit />}></Route>
+        <Route path="/doctorAvailability" element={<DoctorAvailability />}></Route>
+        <Route path="/serviceAvailability" element={<ServiceAvailability />}></Route>
+        <Route path="/labAppointHome" element={<LabAppointHome />} />
+        <Route path="/labAppointHome/labAppointCreate" element={<LabAppointCreate />} />
+        <Route path="/labAppointHome/labAppointEdit/:id" element={<LabAppointEdit />} />
+        <Route path="/labApp/:id" element={<LabAppointDetails />} />
       </Route>
     </Routes>
   );
