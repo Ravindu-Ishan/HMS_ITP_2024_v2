@@ -13,6 +13,10 @@ const otherstaffRoute = require('./routes/otherstaffRoute');
 const branchRoute = require('./routes/branchRoute');
 const doctorRoute = require('./routes/doctorRoute');
 
+const appointmentRoutes = require('./routes/appointments');
+const labAppRoutes = require('./routes/labApps');
+
+
 const patientRoutes = require('./routes/patients');
 const prescriptionRoutes = require('./routes/prescriptions');
 
@@ -35,6 +39,10 @@ app.use(patientRoutes);
 app.use(prescriptionRoutes);
 app.use(shiftRoute);
 app.use(qualificationRoute);
+
+app.use(appointmentRoutes);
+app.use(labAppRoutes);
+
 app.use(wardRoutes);
 app.use(bedRoutes);
 
