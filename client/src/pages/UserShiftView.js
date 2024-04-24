@@ -18,8 +18,16 @@ import { FaSearch } from "react-icons/fa";
 
 const UserShiftView = () => {
 
+    const { user } = useStaffAuthContext();
+    //get user id from token
+    let smid;
+    if (user) {
+    const userInfo = jwtDecode(JSON.stringify(user));
+    smid = userInfo.smid;
+  }
 
-    const { smid } = useParams(); //get url parameters 
+
+   
 
     const [posts, setPosts] = useState([]); //posts array state
 
@@ -53,8 +61,6 @@ const UserShiftView = () => {
                 <TopNavUser />
             </div>
 
-
-
             <main>
                 <div className="main-container">
                     <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
@@ -69,14 +75,15 @@ const UserShiftView = () => {
                     </div>
 
                     <div>
-                        <div className="bg-white border border-gray-200 rounded-[50px] shadow-lg p-10 m-5">
-                            <table className="table table-hover" style={{ marginTop: '40px' }}>
-                                <thead>
+                     {/*------------data display table--------------- */}
+                     <div className="overflow-x-auto sm:rounded-lg tablestyle">
+                    <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
+                        <thead className="text-xs text-gray-700 uppercase bg-white">
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Schedule Time</th>
-                                        <th scope="col">Schedule Date</th>
-                                        <th scope="col">Location</th>
+                                        <th className="p-3">#</th>
+                                        <th className="p-3">Schedule Time</th>
+                                        <th className="p-3">Schedule Date</th>
+                                        <th className="p-3">Location</th>
 
                                     </tr>
                                 </thead>

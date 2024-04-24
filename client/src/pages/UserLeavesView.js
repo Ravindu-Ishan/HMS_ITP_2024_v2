@@ -1,24 +1,11 @@
-import { useStaffAuthContext } from '../hooks/useStaffAuthContext';
-import { jwtDecode } from "jwt-decode";
+import React from "react";
 
-//components
-import TopNavUser from "../components/TopNavUser";
-
-const UserLeavesView = () => {
+const UserLeavesView=() =>{
 
     return(
-        <>
-        <div className="navarea">
-        <TopNavUser/>
+        <div>
+            this is user leaves view
         </div>
-        
-        <main>
-            <div className="main-container">
-    
-              <div>hello this is user leaves view page</div>
-            </div>
-        </main>
-        </>
     )
-};
+}
 export default UserLeavesView;

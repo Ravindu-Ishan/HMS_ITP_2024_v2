@@ -59,12 +59,10 @@ const ShiftMain = () => {
                 <TopNavStaff smid={smid} />
             </div>
 
-
-
             <main>
 
                 <div className="main-container">
-
+                       {/*----------------------------search bar----------------------------------- */}
                     <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
                         <input
                             className="form-control"
@@ -76,11 +74,14 @@ const ShiftMain = () => {
                     </div>
                 </div>
 
+               
+
                 {/*------------data display table--------------- */}
                 <div className="overflow-x-auto sm:rounded-lg tablestyle">
                     <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
                         <thead className="text-xs text-gray-700 uppercase bg-white">
                             <tr>
+                                
                                 <th className="p-3">#</th>
                                 <th className="p-3">Schedule Time</th>
                                 <th className="p-3">Schedule Date</th>
@@ -96,13 +97,17 @@ const ShiftMain = () => {
                                     shift.ScheduleTime.includes(search) ||
                                     shift.ScheduleDate.includes(search)
                             }).map((shift, index) => (
-                                <tr key={shift._id}>
-                                    <td>
+
+                                <tr 
+                                className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black"
+                                key={shift._id}>
+
+                                    <td className="text-center py-2 px-4">
                                         <Link to={`/shift/${shift._id}`}> {index + 1}</Link>
                                     </td>
-                                    <td>{shift.ScheduleTime}</td>
-                                    <td>{shift.ScheduleDate}</td>
-                                    <td>{shift.Location}</td>
+                                    <td className="text-center py-2 px-4">{shift.ScheduleTime}</td>
+                                    <td className="text-center py-2 px-4">{shift.ScheduleDate}</td>
+                                    <td className="text-center py-2 px-4">{shift.Location}</td>
 
                                     <td>
                                         <div class="flex space-x-4">
@@ -121,10 +126,10 @@ const ShiftMain = () => {
                     </table>
 
                     <button type="button"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
                         onClick={() => navigate(`/shift/create/${smid}`)}>
                         Create New
-                    </button>
+                    </button>  
 
                 </div>
             </main >

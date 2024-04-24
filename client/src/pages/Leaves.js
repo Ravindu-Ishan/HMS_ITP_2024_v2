@@ -45,34 +45,34 @@ const Leaves = () => {
         <TopNavAttendance />
       </div>
 
-      <div>
-        <h1>Leave Requests approval or reject page</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Name</th>
-              <th>Leave Type</th>
-              <th>Reason</th>
-              <th>Duration</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {leaves.map(leave => (
-              <tr key={leave._id}>
-                <td>{leave.name}</td>
-                <td>{leave.date}</td>
-                <td>{leave.leaveType}</td>
-                <td>
-                  <button onClick={() => handleApprove(leave._id)}>Approve</button>
-                  <button onClick={() => handleReject(leave._id)}>Reject</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+       <main>
+        <div>
+        
+        
+          
+            {/*------------data display table--------------- */}
+            <div className="overflow-x-auto sm:rounded-lg tablestyle">
+             <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
+                        <thead className="text-xs text-gray-700 uppercase bg-white">
+                            <tr>
+                                <th className="p-3">Date</th>
+                                <th className="p-3">Name</th>
+                                <th className="p-3">LeaveType</th>
+                                <th className="p-3">Reason</th>
+                                <th className="p-3">Duration</th>
+                                <th className="p-3">Action</th>
+
+                            </tr>
+                        </thead>
+                 <tbody>
+                    
+                </tbody>
+             
+              </table>
+           </div>
+          </div>
+          
+      </main>
     </>
   );
 };

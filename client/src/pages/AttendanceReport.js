@@ -12,8 +12,9 @@ const AttendanceReport = () => {
         <div className="navarea">
          <TopNavAttendance/>
          </div>
-    
+            <main>
         <div>hello this is  attendance report page</div>
+        </main>
         </>
     )
 };

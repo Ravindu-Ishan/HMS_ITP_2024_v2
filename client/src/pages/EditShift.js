@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import EmptyNavArea from "../components/EmptyNavArea";
 
 const EditShift = () => {
 
@@ -87,55 +87,71 @@ const EditShift = () => {
     }
   };
 
-  return (
-    <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit shift</h1>
-      <form className="needs-validation" noValidate>
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Schedule Time</label>
-          <input
-            type="time"
-            className="form-control"
-            name="Time"
-            placeholder="Enter Time"
-            value={ScheduleTime}
-            onChange={(e) => setTime(e.target.value)}
-          />
-        </div>
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Schedule Date</label>
-          <input
-            type="date"
-            className="form-control"
-            name="Date"
-            placeholder="Enter Date"
-            value={ScheduleDate}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Location</label>
-          <input
-            type="text"
-            className="form-control"
-            name="RoomNumber"
-            placeholder="Enter RoomNumber"
-            value={Location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </div>
+        return (
+          <>
+          <EmptyNavArea />
+          <main>
+             <div className="max-w-md mx-auto">
+             <h1 className="text-lg font-bold mb-3">Edit shift</h1>
+                 <form className="needs-validation" noValidate>
+                 
+                   <div className="mb-6">
+                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="schedule-time">
+                      Schedule Time
+                      </label>
+                       <input
+                         id="schedule-time"
+                         type="time"
+                         className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                         name="Time"
+                         placeholder="Enter Time"
+                         value={ScheduleTime}
+                         onChange={(e) => setTime(e.target.value)}
+                      />
+                 </div>
+                    
+                  <div className="mb-6">
+                   <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="schedule-time">
+                    Schedule Date
+                    </label>
+                     <input
+                       id="schedule-date"
+                       type="date"
+                       className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                       name="Date"
+                       placeholder="Enter Date"
+                       value={ScheduleDate}
+                       onChange={(e) => setDate(e.target.value)}
+                     />
+                   </div>
 
-        <button
-          className="btn btn-success"
-          type="submit"
-          style={{ marginTop: '15px' }}
-          onClick={onSubmit}
-        >
-          <i className="far fa-check-square"></i>
-          &nbsp; Update
-        </button>
-      </form>
-    </div>
+                   <div className="mb-6">
+                   <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="schedule-time">
+                    Location
+                    </label>
+                      <input
+                        id="location"
+                        type="text"
+                        className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        name="RoomNumber"
+                        placeholder="Enter RoomNumber"
+                        value={Location}
+                        onChange={(e) => setLocation(e.target.value)}
+                      />
+                   </div>
+
+                <button
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  type="submit"
+                  onClick={onSubmit}
+                >
+                  <i className="far fa-check-square"></i>
+                  <span className="ml-2">Update</span>
+                </button>
+              </form>
+           </div>
+     </main>
+    </>
   );
 };
 

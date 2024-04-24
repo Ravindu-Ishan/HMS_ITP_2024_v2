@@ -22,6 +22,11 @@ const CreateShift = () => {
     const onSubmit = async (e) => {
         
         e.preventDefault();
+        if (!Location || !ScheduleTime || !ScheduleDate) {
+            setErrorMessage("Please fill out all fields.");
+            return;
+        }
+        
         const data = {
 
             smid: smid,
@@ -30,7 +35,7 @@ const CreateShift = () => {
             ScheduleDate: ScheduleDate,
 
         };
-
+           
         try {
             const res = await axios.post("/shift/save", data); // Adjust the URL
             if (res.data.success) {
@@ -58,16 +63,18 @@ const CreateShift = () => {
                 <EmptyNavArea />
 
                 <main>
-                    <div className="main-container">
-                        <div className="col-md-8 mt-4 mx-auto">
-                            <h1 className="h3 mb-3 font-weight-normal">Create new shift</h1>
+                    <div className="max-w-md mx-auto">
+                        
+                            <h1 className="text-lg font-bold mb-3">Create new shift</h1>
                             <form className="needs-validation" noValidate>
 
-                                <div className="form-group">
-                                    <label htmlFor="Time">Schedule Time</label>
+                                <div className="mb-6">
+                                <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="schedule-time">
+                                 Schedule Time
+                                </label>
                                     <input
                                         type="time"
-                                        className="form-control"
+                                        className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         id="Time"
                                         name="Time"
                                         value={ScheduleTime}
@@ -75,11 +82,13 @@ const CreateShift = () => {
                                         placeholder="Enter Time"
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="Date">Schedule Date</label>
+                                <div className="mb-6">
+                                <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="schedule-time">
+                                Schedule Date
+                                </label>
                                     <input
                                         type="date"
-                                        className="form-control"
+                                        className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         id="Date"
                                         name="Date"
                                         value={ScheduleDate}
@@ -87,11 +96,13 @@ const CreateShift = () => {
                                         placeholder="Enter Date"
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="Location">Location</label>
+                                <div className="mb-6">
+                                <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="schedule-time">
+                                Location
+                                </label>
                                     <input
                                         type="text"
-                                        className="form-control"
+                                        className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         id="Location"
                                         name="Location"
                                         value={Location}
@@ -100,13 +111,16 @@ const CreateShift = () => {
                                     />
                                 </div>
 
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" onClick={onSubmit}>
+                                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" 
+                                type="submit" 
+                                onClick={onSubmit}
+                                >
                                     <i className="far fa-check-square"></i>
-                                    &nbsp; Save
+                                    <span className="ml-2">Save</span>
                                 </button>
                                 {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
                             </form>
-                        </div>
+                        
 
                     </div>
                 </main>
