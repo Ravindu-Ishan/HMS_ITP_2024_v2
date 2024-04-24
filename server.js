@@ -18,7 +18,8 @@ const prescriptionRoutes = require('./routes/prescriptions');
 
 const shiftRoute = require('./routes/ShiftRoute');
 const qualificationRoute = require('./routes/qualificationsRoute');
-
+const wardRoutes = require('./routes/wards');
+const bedRoutes = require('./routes/beds');
 
 //app middleware
 app.use(bodyParser.json());
@@ -34,6 +35,8 @@ app.use(patientRoutes);
 app.use(prescriptionRoutes);
 app.use(shiftRoute);
 app.use(qualificationRoute);
+app.use(wardRoutes);
+app.use(bedRoutes);
 
 
 const PORT = 8000;
