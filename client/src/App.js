@@ -42,7 +42,7 @@ import EditPatient from './pages/Patient_component/EditPatient';
 import PatientHome from './pages/Patient_component/PatientHome';
 import PatientDetails from './pages/Patient_component/PatientDetails';
 import Summary from './pages/Patient_component/Summary';
-import ReportApp from './pages/reportcomponents/ReportApp';
+//import ReportApp from './pages/reportcomponents/ReportApp';
 import LabReports from './pages/Patient_component/LabReports';
 import PrescriptionsHome from './pages/Patient_component/PrescriptionsHome';
 import CreatePrescriptions from './pages/Patient_component/CreatePrescriptions';
@@ -134,13 +134,13 @@ function App() {
         <Route path="/editBed/:id" element={<Bed_Edit />} />
         <Route path="/bedDetails/:id" element={<Bed_Details />} />
 
-         {/*Gihani*/}
+        {/*Gihani*/}
         <Route path="/patienthome" element={<PatientHome />} />
         <Route path="/addpatient" element={<CreatePatient />} />
         <Route path="/editpatient/:id" element={<EditPatient />} />
         <Route path="/patient/:id" element={<PatientDetails />} />
         <Route path="/reportHistory" element={<Summary />} />
-        <Route path="/reportApp" element={<ReportApp />} />
+        {/*<Route path="/reportApp" element={<ReportApp />} />*/}
         <Route path="/prescriptionsHome" element={<PrescriptionsHome />} />
         <Route path="/createPrescriptions" element={<CreatePrescriptions />} />
         <Route path="/editPrescriptions" element={<EditPrescriptions />} />
