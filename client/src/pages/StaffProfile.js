@@ -14,6 +14,7 @@ import TabComponent from "../components/TabComponent";
 //import tabs here
 import StaffMoreDetailsTab1 from "../tabs/StaffMoreDetailsTab1";
 import StaffAccountTab2 from "../tabs/StaffAccountTab2";
+import StaffActionTab3 from "../tabs/StaffActionsTab3";
 
 //import icons here
 import { PiUserCircleFill } from "react-icons/pi";
@@ -95,7 +96,9 @@ const StaffProfile = () => {
   // on page load/reload - use effect
   useEffect(() => {
     fetchStaffDetails();
+
   }, []);
+
 
 
   const items = [
@@ -121,17 +124,8 @@ const StaffProfile = () => {
     {
       title: <div className="text-red-500 p-0">Actions</div>,
       content: (
-        <div className='border-2 border-blue-400 rounded-lg p-4'>
-          <h1 className='text-3xl text-blue-600'>Title Test 3</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-            aperiam asperiores doloribus velit dolore magnam ex consectetur fugit
-            earum illum qui similique architecto dolorum, minima enim quidem
-            voluptatibus at nulla deleniti harum! Totam, mollitia quos voluptatem
-            deleniti provident obcaecati rerum. amet consectetur adipisicing elit.
-            Dolores aperiam asperiores doloribus velit dolore magnam ex
-            consectetur fugit earum illum qui similiq
-          </p>
+        <div>
+          <StaffActionTab3 smid={id} />
         </div>
       ),
     },];
