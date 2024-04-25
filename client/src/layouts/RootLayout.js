@@ -94,8 +94,8 @@ const RootLayout = () => {
                   </div>
                 </li>
               </Link>
-              <Link to="/patient">
-                <li className={isSelected("/patient") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+              <Link to="/patienthome">
+                <li className={isSelected("/patienthome") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaUserInjured className=" inline-flex mr-5" />
                   <div className=" inline-flex">
                     Manage Patients

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate} from 'react-router-dom';
 import TopNavWard from '../../components/TopNavWards';
 
 const Ward_Edit = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [ward_type, set_ward_type] = useState("");
   const [ward_ID, set_ward_ID] = useState("");
@@ -104,6 +105,8 @@ const Ward_Edit = () => {
         set_doctor_specialist_ID("");
         set_doctor_specialist_name("");
         set_nurse_other_staff_ID("");
+
+        navigate(-1);
       } else {
         console.error('Failed to update ward:', response.data.error);
       }
