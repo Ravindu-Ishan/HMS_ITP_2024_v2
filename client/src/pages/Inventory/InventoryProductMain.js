@@ -74,12 +74,12 @@ export default class Home extends Component {
 <main>
 <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2 inline-flex items-center">
       <div className="container">
-        <div className="row">
+        <div>
         <div >
             <h4 className="font-bold">PRODUCT DETAILS</h4>
         </div>
 
-          <div>
+          <div >
             <input
               className="form-control"
               type="search"
