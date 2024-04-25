@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+//importing top navigation bar components
+import TopNavInventory from '../../components/TopNavInventory';
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -60,13 +63,27 @@ export default class Home extends Component {
 
   render() {
     return (
+      <>
+
+      {/* top nav imported to this section */}
+      <div className="navarea">
+        <TopNavInventory/>
+      </div>
+
+
+
+
+      <main>
+      <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2 inline-flex items-center">
+
       <div className="container">
         <div className="row">
-          <div className="col-lg-9 mt-2 mb-2">
-            <h4>RESTOCK DETAILS</h4>
-          </div>
+        <div >
+            <h4 className="font-bold">RESTOCK DETAILS</h4>
+        </div>
 
-          <div className="col-lg-3 mt-2 mb-2">
+
+          <div>
             <input
               className="form-control"
               type="search"
@@ -74,40 +91,44 @@ export default class Home extends Component {
               name="searchQuery"
               onChange={this.handleSearchArea}
             />
-          </div>
         </div>
-
-        <table className="table table-hover" style={{ marginTop: '40px' }}>
-          <thead>
+        </div>
+        </div>
+  </div>
+  <div className="overflow-x-auto sm:rounded-lg tablestyle">
+  <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
+  <thead className="text-xs text-gray-700 uppercase bg-white">
+          
             <tr>
-              <th style={{ width: '5%' }} scope="col">#</th>
-              <th style={{ width: '20%' }} scope="col">Restock ID</th>
-              <th style={{ width: '25%' }} scope="col">Restock Date</th>
-              <th style={{ width: '25%' }} scope="col">Restock Status</th>
-              <th style={{ width: '25%' }} scope="col">Restock Notes</th>
-
-              <th style={{ width: '25%' }} scope="col">Actions</th>
+              <th  className="p-4">#</th>
+              <th  className="p-4">Restock ID</th>
+              <th  className="p-4">Restock Date</th>
+              <th  className="p-4">Restock Status</th>
+              <th  className="p-4">Restock Notes</th>
+              <th className="p-4">Actions</th>
             </tr>
           </thead>
+
+
           <tbody>
             {this.state.restocks.map((restock, index) => (
-              <tr key={index}>
+              <tr className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black" key={index}>
                 <th scope="row">{index + 1}</th>
-                <td>
+                <td className="text-center py-2 px-4">
                   <a href={`/restock/${restock._id}`} style={{ textDecoration: 'none' }}>
                     {restock._id}
                   </a>
                 </td>
-                <td>{restock.restockDate}</td>
-                <td>{restock.restockStatus}</td>
-                <td>{restock.restockNote}</td>
+                <td className="text-center py-2 px-4">{restock.restockDate}</td>
+                <td className="text-center py-2 px-4">{restock.restockStatus}</td>
+                <td className="text-center py-4 px-4">{restock.restockNotes}</td>
 
-                <td>
+                <td class="flex space-x-4" className="text-black-700" >
                   <a className="btn btn-warning" href={`/productcreate`}>
                     <i className="fas fa-edit"></i>&nbsp;Restock Item
                   </a>
                   &nbsp;
-                  <button className="btn btn-danger" href="#" onClick={() => this.onDelete(restock._id)}>
+                  <button className="text-black-700"  href="#" onClick={() => this.onDelete(restock._id)}>
                     <i className="fas fa-trash-alt"></i>&nbsp;
                   </button>
                 </td>
@@ -115,11 +136,14 @@ export default class Home extends Component {
             ))}
           </tbody>
         </table>
-
-        <button className="btn btn-success">
-          <a href="/RestockAdd" style={{ textDecoration: 'none', color: 'white' }}>Add a New Restock Request</a>
+<div className="flex justify-center items-center ">
+        <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border-1 border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500">
+          <a href="/RestockAdd">Add a New Restock Request</a>
         </button>
       </div>
+      </div>
+      </main>
+      </>
     );
   }
 }
