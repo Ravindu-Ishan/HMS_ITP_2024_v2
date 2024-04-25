@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+import EmptyNavArea from "./EmptyNavArea";
+
 const ProductEditPost = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -101,15 +103,21 @@ const ProductEditPost = () => {
     }
   };
 
-  return (
-    <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit Product Details</h1>
-      <form className="needs-validation" noValidate>
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Product Name</label>
+     return (
+            <>
+
+            <EmptyNavArea />
+            
+            <main className="flex items-center justify-center">
+            <div className="max-w-md mx-auto">
+
+            <h1 className="text-lg font-bold mb-3">Edit Product</h1>
+
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Product Name</label>
           <input
             type="text"
-            className="form-control"
+            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             name="ProductName"
             placeholder="Enter Product Name"
             value={ProductName}
@@ -117,11 +125,11 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Product Expire Date</label>
+        <div  className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductExpire">Product Expire Date</label>
           <input
             type="date"
-            className="form-control"
+            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             name="ExpireDate"
             placeholder="Enter Product Expire Date"
             value={ExpireDate}
@@ -129,11 +137,11 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Product Manufacture Date</label>
+        <div  className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ManufactureDate">Product Manufacture Date</label>
           <input
             type="date"
-            className="form-control"
+            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             name="ManufactureDate"
             placeholder="Enter Manufacture Date"
             value={ManufactureDate}
@@ -141,11 +149,11 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Product Quantity</label>
+        <div  className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="Quantity">Product Quantity</label>
           <input
             type="number"
-            className="form-control"
+            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             name="Quantity"
             placeholder="Enter Product Quantity"
             value={Quantity}
@@ -153,11 +161,11 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Product Price</label>
+        <div  className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductPrice">Product Price</label>
           <input
             type="number"
-            className="form-control"
+            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             name="ProductPrice"
             placeholder="Enter Product Price"
             value={ProductPrice}
@@ -165,11 +173,11 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Supplier ID</label>
+        <div  className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierID">Supplier ID</label>
           <input
             type="text"
-            className="form-control"
+            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             name="SupplierID"
             placeholder="Enter Supplier ID"
             value={SupplierID}
@@ -177,17 +185,20 @@ const ProductEditPost = () => {
           />
         </div>
 
+        <div className="mb-6 text-center">
         <button
-          className="btn btn-success"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
           type="submit"
-          style={{ marginTop: '15px' }}
           onClick={onSubmit}
         >
           <i className="far fa-check-square"></i>
-          &nbsp; Update
+          Update
         </button>
-      </form>
+        </div>
+    
     </div>
+    </main>
+    </>
   );
 };
 

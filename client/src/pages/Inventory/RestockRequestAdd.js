@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+
+import EmptyNavArea from "./EmptyNavArea";
+
 export default class CreateRestock extends Component {
     constructor(props){
         super(props);
@@ -53,14 +56,22 @@ export default class CreateRestock extends Component {
     render() {
         const { restockDate, restockStatus, restockNotes, errorMessage } = this.state;
         return (
-            <div className="col-md-8 mt-4 mx-auto">
-                <h1 className="h3 mb-3 font-weight-normal">Restock Accepted Requests</h1>
+            <>
+
+            <EmptyNavArea />
+            
+            <main className="flex items-center justify-center">
+            <div className="max-w-md mx-auto">
+
+            <h1 className="text-lg font-bold mb-3">Restock Accepted Requests</h1>
                 <form className="needs-validation">
-                    <div className="form-group">
-                        <label htmlFor="restockDate">Restock Date</label>
+
+
+                    <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="restockDate">Restock Date</label>
                         <input
                             type="date"
-                            className="form-control"
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                             id="restockDate"
                             name="restockDate"
                             value={restockDate}
@@ -69,11 +80,11 @@ export default class CreateRestock extends Component {
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="restockStatus">Restock Status</label>
+                    <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="restockStatus">Restock Status</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                             id="restockStatus"
                             name="restockStatus"
                             value={restockStatus}
@@ -82,11 +93,11 @@ export default class CreateRestock extends Component {
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="restockNotes">Restock Notes</label>
+                    <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="restockNotes">Restock Notes</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                             id="restockNotes"
                             name="restockNotes"
                             value={restockNotes}
@@ -95,13 +106,18 @@ export default class CreateRestock extends Component {
                             required
                         />
                     </div>
-                    <button className="btn btn-success" type="submit" onClick={this.onSubmit}>
+                    <div className="mb-6 text-center">
+                    <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+                       type="submit" onClick={this.onSubmit}>
                         <i className="far fa-check-square"></i>
                         &nbsp; Restock
                     </button>
+                    </div>
                     {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
                 </form>
             </div>
-        );
+            </main>
+           </> 
+         );
     }
 }
