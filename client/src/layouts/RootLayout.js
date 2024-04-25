@@ -113,7 +113,7 @@ const RootLayout = () => {
                   </div>
                 </li>
               </Link>
-              <Link to="/inventory">
+              <Link to="/productmain">
                 <li className={isSelected("/inventory") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <MdInventory className=" inline-flex mr-5" />
                   <div className=" inline-flex">

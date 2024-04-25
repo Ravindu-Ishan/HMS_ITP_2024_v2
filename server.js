@@ -7,6 +7,9 @@ const cors = require('cors');
 const app = express();
 
 //import routes
+const productsRoutes = require('./routes/products');
+const SupplierRoutes = require('./routes/Supplier');
+const restockRoutes = require('./routes/restock')
 const postRoutes = require('./routes/posts');
 const staffRoute = require('./routes/staffRoute');
 const accountRoute = require('./routes/accountRoute');
@@ -26,6 +29,10 @@ app.use(accountRoute);
 app.use(otherstaffRoute);
 app.use(branchRoute);
 app.use(doctorRoute);
+app.use(productsRoutes);
+app.use(SupplierRoutes);
+app.use(restockRoutes);
+
 
 const PORT = 8000;
 const DB_URL = 'mongodb+srv://root:password1234@medflow-hms.febircl.mongodb.net/maindatabase?retryWrites=true&w=majority&appName=MedFlow-HMS';
