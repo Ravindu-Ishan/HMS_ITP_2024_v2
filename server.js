@@ -7,6 +7,12 @@ const cors = require('cors');
 const app = express();
 
 //import routes
+
+const productsRoutes = require('./routes/products');
+const SupplierRoutes = require('./routes/Supplier');
+const restockRoutes = require('./routes/restock')
+const postRoutes = require('./routes/posts');
+
 const staffRoute = require('./routes/staffRoute');
 const accountRoute = require('./routes/accountRoute');
 const otherstaffRoute = require('./routes/otherstaffRoute');
@@ -15,7 +21,6 @@ const doctorRoute = require('./routes/doctorRoute');
 
 const appointmentRoutes = require('./routes/appointments');
 const labAppRoutes = require('./routes/labApps');
-
 
 const patientRoutes = require('./routes/patients');
 const prescriptionRoutes = require('./routes/prescriptions');
@@ -35,7 +40,12 @@ app.use(accountRoute);
 app.use(otherstaffRoute);
 app.use(branchRoute);
 app.use(doctorRoute);
+
+app.use(productsRoutes);
+app.use(SupplierRoutes);
+app.use(restockRoutes);
 app.use(patientRoutes);
+
 app.use(prescriptionRoutes);
 app.use(shiftRoute);
 app.use(qualificationRoute);
@@ -45,6 +55,7 @@ app.use(labAppRoutes);
 
 app.use(wardRoutes);
 app.use(bedRoutes);
+
 
 
 const PORT = 8000;

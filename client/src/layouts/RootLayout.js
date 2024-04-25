@@ -144,8 +144,8 @@ const RootLayout = () => {
                   </summary>
 
                   <ul className="mt-1 pl-10">
-                    <Link to="/inventory">
-                      <li className={isSelected("/inventory") ? "p-3 text-sm text-[#002F87] font-semibold " : " hover:bg-gray-300 hover:rounded-2xl p-3 text-sm text-[#002F87]"}>
+                    <Link to="/productmain">
+                      <li className={isSelected("/productmain") ? "p-3 text-sm text-[#002F87] font-semibold " : " hover:bg-gray-300 hover:rounded-2xl p-3 text-sm text-[#002F87]"}>
                         <MdInventory className=" inline-flex mr-5" />
                         <div className=" inline-flex">
                           Manage Inventory
