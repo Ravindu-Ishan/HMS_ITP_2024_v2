@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-export default class NavBar extends Component {
+
+export default class PatientNavBar extends Component {
 
   render() {
     return (
@@ -12,9 +13,21 @@ export default class NavBar extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">Posts</a>
+            <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="/">Manage Patient</a>
+
               </li>
+              <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="/patient/:id">Patient Info</a>
+
+              </li>
+              <li className="nav-item">
+                <a className="nav-link active" aria-current="page" href="/prescriptionsHome">Prescriptions</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link active" aria-current="page" href="/labsReports">Lab Reports</a>
+              </li>
+              
             </ul>
           </div>
         </div>
@@ -22,3 +35,5 @@ export default class NavBar extends Component {
     );
   }
 }
+
+
