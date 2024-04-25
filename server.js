@@ -11,7 +11,6 @@ const app = express();
 const productsRoutes = require('./routes/products');
 const SupplierRoutes = require('./routes/Supplier');
 const restockRoutes = require('./routes/restock')
-const postRoutes = require('./routes/posts');
 
 const staffRoute = require('./routes/staffRoute');
 const accountRoute = require('./routes/accountRoute');
