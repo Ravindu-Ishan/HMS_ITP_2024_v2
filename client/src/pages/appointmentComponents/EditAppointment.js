@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 const EditAppointment = () => {
   const { id } = useParams();
@@ -128,8 +129,16 @@ const EditAppointment = () => {
   };
 
   return (
-    <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit Appointment</h1>
+
+    <>
+
+<div className='navarea'>
+  <TopNavAppointmet/>
+</div>
+
+    <main>
+    <div className='max-w-3xl mx-auto'>
+      <h1 className='text-2xl font-bold mb-4'>Edit Appointment</h1>
       <form className="needs-validation" noValidate>
 
         <div className="form-group" style={{ marginBottom: '15px' }}>
@@ -306,7 +315,7 @@ const EditAppointment = () => {
           </div>
 
         <button
-          className="btn btn-success"
+          className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
           type="submit"
           style={{ marginTop: '15px' }}
           onClick={onSubmit}
@@ -316,6 +325,8 @@ const EditAppointment = () => {
         </button>
       </form>
     </div>
+    </main>
+    </>
   );
 };
 

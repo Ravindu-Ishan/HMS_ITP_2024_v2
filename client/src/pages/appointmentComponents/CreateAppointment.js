@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Component } from 'react';
 //import React, {useState, useEffect} from 'react';
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 export default class CreateAppointment extends Component {
   constructor(props) {
@@ -73,8 +74,15 @@ export default class CreateAppointment extends Component {
   render() {
 
     return (
-      <div className="col-md-8 mt-4 mx-auto">
-        <h1 className="h3 mb-3 font-weight-normal">Create new appointment</h1>
+      <>
+
+        <div className='navarea'>
+          <TopNavAppointmet/>
+        </div>
+
+      <main>
+      <div className='max-w-3xl mx-auto'>
+        <h1 className='text-2xl font-bold mb-4'>Create new appointment</h1>
         <form className="needs-validation" noValidate>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
@@ -92,6 +100,7 @@ export default class CreateAppointment extends Component {
             <input type="text"
               className="form-control"
               name="description"
+              maxLength={12}
               placeholder="Enter Patient's NIC"
               value={this.state.description}
               onChange={this.handleInputChange} />
@@ -239,13 +248,20 @@ export default class CreateAppointment extends Component {
           </div>
 
 
-          <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }} onClick={this.onSubmit}>
+          <button className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" type="submit" style={{ marginTop: '15px' }} onClick={this.onSubmit}>
             <i className="far fa-check-square"></i>
             &nbsp; Save
           </button>
 
+          <button className="text-white bg-green-700 hover:bg-green-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" type="submit" style={{ marginTop: '15px' }}>
+            <i className="far fa-check-square"></i>
+            &nbsp; Proceed Payment
+          </button>
+
         </form>
       </div>
+      </main>
+      </>
     );
   }
 }

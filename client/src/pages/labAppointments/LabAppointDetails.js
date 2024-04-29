@@ -23,6 +23,8 @@ const AppointmentDetails = () => {
   const { pname, nic, service, status, doctor, dateOfBirth, age, phone } = labApp;
 
   return (
+<>
+<main>
 
     <div style={{marginTop: '20px'}}>
 
@@ -49,6 +51,9 @@ const AppointmentDetails = () => {
 
       
     </div>
+
+    </main>
+</>
   );
 };
 

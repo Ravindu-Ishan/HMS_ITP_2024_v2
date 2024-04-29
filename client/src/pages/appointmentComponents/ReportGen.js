@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 export default class ReportGen extends Component {
   constructor(props) {
@@ -10,10 +11,18 @@ export default class ReportGen extends Component {
 
   render() {
     return (
+
+      <>
+
+      <div className='navarea'>
+          <TopNavAppointmet/>
+        </div>
+
+      <main>
       <div>
         
-        <button><a href="/reportApp" style={{textDecoration:'none', color:'black'}}>Create Report</a></button>
-        <button>Upload Report</button>
+        <button className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"><a href="/reportApp">Create Report</a></button>
+        <button className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">Upload Report</button>
 
         <table className="table">
           <thead>
@@ -39,6 +48,9 @@ export default class ReportGen extends Component {
         </table>
 
       </div>
+
+      </main>
+      </>
     );
   }
 }

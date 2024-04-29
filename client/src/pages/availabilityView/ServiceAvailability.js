@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 export default class ServiceAvailability extends Component {
   constructor(props) {
@@ -59,6 +59,14 @@ export default class ServiceAvailability extends Component {
   render() {
     //const { selectedDoctor } = this.state;
     return (
+
+      <>
+
+      <div className='navarea'>
+          <TopNavAppointmet/>
+        </div>
+
+      <main>
 
       <div className="container">
 
@@ -134,6 +142,9 @@ export default class ServiceAvailability extends Component {
         )} */}
 
       </div>
+
+      </main>
+      </>
     );
   }
 }
