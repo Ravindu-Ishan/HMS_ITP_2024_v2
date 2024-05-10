@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import TopNavWard from '../../components/TopNavWards';
 
 const Bed_Edit = () => {
   const { id } = useParams();
@@ -91,86 +92,93 @@ const Bed_Edit = () => {
   };
 
   return (
-    <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit Patient Details</h1>
-      <form className="needs-validation" noValidate>
+    <>
+      <div className="navarea">
+        <TopNavWard />
+      </div>
+      <main>
+        <div className="col-md-8 mt-4 mx-auto">
+          <h1 className="h3 mb-3 font-weight-normal">Edit Patient Details</h1>
+          <form className="needs-validation" noValidate>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="patientID" style={{ marginBottom: '5px' }}>Patient ID</label>
-          <input
-            type="text"
-            className="form-control"
-            id="patientID"
-            name="patient_ID"
-            placeholder="Enter patient_ID"
-            value={patient_ID}
-            onChange={handleInputChange}
-          />
-        </div>
-        
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="patientName" style={{ marginBottom: '5px' }}>Patient Name</label>
-          <input
-            type="text"
-            className="form-control"
-            id="patientName"
-            name="patient_name"
-            placeholder="Enter patient_name"
-            value={patient_name}
-            onChange={handleInputChange}
-          />
-        </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="patientID" style={{ marginBottom: '5px' }}>Patient ID</label>
+              <input
+                type="text"
+                className="form-control"
+                id="patientID"
+                name="patient_ID"
+                placeholder="Enter patient_ID"
+                value={patient_ID}
+                onChange={handleInputChange}
+              />
+            </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="wardID" style={{ marginBottom: '5px' }}>Ward ID</label>
-          <input
-            type="text"
-            className="form-control"
-            id="wardID"
-            name="ward_ID"
-            placeholder="Enter ward_ID"
-            value={ward_ID}
-            onChange={handleInputChange}
-          />
-        </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="patientName" style={{ marginBottom: '5px' }}>Patient Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="patientName"
+                name="patient_name"
+                placeholder="Enter patient_name"
+                value={patient_name}
+                onChange={handleInputChange}
+              />
+            </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="bedID" style={{ marginBottom: '5px' }}>Bed ID</label>
-          <input
-            type="text"
-            className="form-control"
-            id="bedID"
-            name="bed_ID"
-            placeholder="Enter bed_ID"
-            value={bed_ID}
-            onChange={handleInputChange}
-          />
-        </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="wardID" style={{ marginBottom: '5px' }}>Ward ID</label>
+              <input
+                type="text"
+                className="form-control"
+                id="wardID"
+                name="ward_ID"
+                placeholder="Enter ward_ID"
+                value={ward_ID}
+                onChange={handleInputChange}
+              />
+            </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="bedLocation" style={{ marginBottom: '5px' }}>Bed Location</label>
-          <input
-            type="text"
-            className="form-control"
-            id="bedLocation"
-            name="bed_location"
-            placeholder="Enter bed_location"
-            value={bed_location}
-            onChange={handleInputChange}
-          />
-        </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="bedID" style={{ marginBottom: '5px' }}>Bed ID</label>
+              <input
+                type="text"
+                className="form-control"
+                id="bedID"
+                name="bed_ID"
+                placeholder="Enter bed_ID"
+                value={bed_ID}
+                onChange={handleInputChange}
+              />
+            </div>
 
-        <button
-          className="btn btn-success"
-          type="submit"
-          style={{ marginTop: '15px' }}
-          onClick={onSubmit}
-        >
-          <i className="far fa-check-square"></i>
-          &nbsp; Update & Save
-        </button>
-      </form>
-    </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="bedLocation" style={{ marginBottom: '5px' }}>Bed Location</label>
+              <input
+                type="text"
+                className="form-control"
+                id="bedLocation"
+                name="bed_location"
+                placeholder="Enter bed_location"
+                value={bed_location}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <button
+              className="btn btn-success"
+              type="submit"
+              style={{ marginTop: '15px' }}
+              onClick={onSubmit}
+            >
+              <i className="far fa-check-square"></i>
+              &nbsp; Update & Save
+            </button>
+          </form>
+        </div>
+      </main>
+    </>
   );
 };
 
