@@ -125,87 +125,128 @@ const EditPatient = () => {
         <main>
         <div className="col-md-8 mt-4 mx-auto">
            
-            <h1 className="h3 mb-3 font-weight-normal">Edit Patient's Details</h1>
-            <form className="needs-validation" noValidate>
-                <div className="form-group">
-                    <label htmlFor="description">Patient's Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="description"
-                        name="description"
-                        placeholder="Enter Patient's Name"
-                        maxLength={50}
-                        value={description}
-                        onChange={handleInputChange}
-                    />
+        <div className="text-xl ml-5 mb-5 font-bold text-gray-600">
+                Basic Patient Info
                 </div>
+            {/*<form className="needs-validation" noValidate>*/}
+            <form class="w-full max-w-sm">
+  <div class="md:flex md:items-center mb-6">
+    <div class="md:w-1/3">
+      <label class="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+        Patient's Name  :
+      </label>
+    </div>
+    <div class="md:w-2/3">
+      <input class="bg-white appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+       type="text"
+        id="description"
+        name="description"
+        placeholder="Enter Patient's Name"
+        maxLength={50}
+        value={description}
+        onChange={handleInputChange}
+        style={{ width: '500px' }} // Adjust the width as needed
+        />
+    </div>
+  </div>
+
+  <div class="md:flex md:items-center mb-6">
+  <div class="md:w-1/3">
+    <label class="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+      NIC  :
+    </label>
+  </div>
+  <div class="md:w-2/3">
+    <input 
+      class="bg-white appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+      type="text"
+      id="topic"
+      name="topic"
+      placeholder="Enter NIC No"
+      maxLength={50}
+      value={topic}
+      onChange={handleInputChange}
+      style={{ width: '500px' }} // Adjust the width as needed
+    />
+  </div>
+</div>
+
+  <div class="md:flex md:items-center mb-6">
+    <div class="md:w-1/3">
+      <label class="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+        Age  :
+      </label>
+    </div>
+    <div class="md:w-2/3">
+      <input class="bg-white appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+       type="text"
+        id="age"
+        name="age"
+        placeholder="Enter Patient's Age"
+        maxLength={50}
+        value={age}
+        onChange={handleInputChange}
+        style={{ width: '500px' }} // Adjust the width as needed
+        />
+    </div>
+  </div>
+  
+
+  <div class="md:flex md:items-center mb-6">
+    <div class="md:w-1/3">
+      <label class="block text-black font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+        Contact No  :
+      </label>
+    </div>
+    <div class="md:w-2/3">
+      <input class="bg-white appearance-none border-2 border-gray-200 rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+       type="text"
+        id="postCategory"
+        name="postCategory"
+        placeholder="Enter Contact No"
+        maxLength={50}
+        value={postCategory}
+        onChange={handleInputChange}
+        style={{ width: '500px' }} // Adjust the width as needed
+        />
+    </div>
+  </div>
+
+  
+    </form>
+
+                <form className="needs-validation" noValidate>
 
                 <div className="form-group">
-                    <label htmlFor="topic">NIC</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="topic"
-                        name="topic"
-                        placeholder="Enter NIC No"
-                        maxLength={12}
-                        value={topic}
-                        onChange={handleInputChange}
-                    />
+                <div className="text-xl ml-5 mb-5 font-bold text-gray-600">
+                Medical History
                 </div>
-
-                <div className="form-group">
-                    <label htmlFor="age">Age</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="age"
-                        name="age"
-                        placeholder="Enter Patient's Age"
-                        maxLength={3}
-                        value={age}
-                        onChange={handleInputChange}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="postCategory">Contact No</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="postCategory"
-                        name="postCategory"
-                        placeholder="Enter Contact No"
-                        maxLength={10}
-                        value={postCategory}
-                        onChange={handleInputChange}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="medicalhistory">Past Medical History</label>
+                
                     <textarea
-                        className="form-control"
+                        className="form-control rounded-lg"
                         id="medicalhistory"
                         name="medicalhistory"
                         rows="5"
-                        style={{ width: "100%", maxWidth: "100%" }}
+                        style={{ width: "1000px", maxWidth: "100%", textAlign: "center" }}
                         placeholder="Description of medical history"
                         value={medicalhistory}
                         onChange={handleInputChange}
+                        
                     />
                 </div>
-
+                
+                
+                <div className="flex justify-center">
                 <button 
-                    className="btn btn-success" 
+                    className="bg-cyan-400 text-black rounded-full px-4 py-2 border-1 border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500" 
                     type="submit" 
                     style={{ marginTop: "15px" }} 
                     onClick={onSubmit}
                 >
                     <i className="far fa-check-square"></i>
                     &nbsp; Update Patient's Details
-                </button>
+    </button>
+    </div>
             </form>
               
         </div>
