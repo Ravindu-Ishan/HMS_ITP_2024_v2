@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import NavBar from './NavBar';
+import { useNavigate } from 'react-router-dom';
+
+//importing top navigation bar components
+import TopNavPatient from '../../components/TopNavPatient';
 
 const EditPatient = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [description, setDescription] = useState("");
     const [topic, setTopic] = useState("");
@@ -92,12 +96,18 @@ const EditPatient = () => {
                 topic,
                 age,
                 postCategory,
-                medicalhistory
+                medicalhistory,
             };
 
             const response = await axios.put(`/patient/update/${id}`, data);
             if (response.data.success) {
                 alert("Patient Details Updated Successfully");
+                setDescription("");
+                setTopic("");
+                setAge("");
+                setPostCategory("");
+                setMedicalHistory("");
+                navigate('/patienthome');
             } else {
                 console.error('Failed to update patient details:', response.data.error);
             }
@@ -107,15 +117,22 @@ const EditPatient = () => {
     };
 
     return (
+        <>
+        {/* top nav imported to this section */}
+        <div className="navarea">
+            <TopNavPatient/>
+        </div>
+        <main>
         <div className="col-md-8 mt-4 mx-auto">
-            <NavBar />
+           
             <h1 className="h3 mb-3 font-weight-normal">Edit Patient's Details</h1>
             <form className="needs-validation" noValidate>
-                <div className="form-group" style={{ marginBottom: "15px" }}>
-                    <label style={{ marginBottom: "5px" }}>Patient's Name</label>
+                <div className="form-group">
+                    <label htmlFor="description">Patient's Name</label>
                     <input
                         type="text"
                         className="form-control"
+                        id="description"
                         name="description"
                         placeholder="Enter Patient's Name"
                         maxLength={50}
@@ -124,11 +141,12 @@ const EditPatient = () => {
                     />
                 </div>
 
-                <div className="form-group" style={{ marginBottom: "15px" }}>
-                    <label style={{ marginBottom: "5px" }}>NIC</label>
+                <div className="form-group">
+                    <label htmlFor="topic">NIC</label>
                     <input
                         type="text"
                         className="form-control"
+                        id="topic"
                         name="topic"
                         placeholder="Enter NIC No"
                         maxLength={12}
@@ -137,11 +155,12 @@ const EditPatient = () => {
                     />
                 </div>
 
-                <div className="form-group" style={{ marginBottom: "15px" }}>
-                    <label style={{ marginBottom: "5px" }}>Age</label>
+                <div className="form-group">
+                    <label htmlFor="age">Age</label>
                     <input
                         type="text"
                         className="form-control"
+                        id="age"
                         name="age"
                         placeholder="Enter Patient's Age"
                         maxLength={3}
@@ -150,11 +169,12 @@ const EditPatient = () => {
                     />
                 </div>
 
-                <div className="form-group" style={{ marginBottom: "15px" }}>
-                    <label style={{ marginBottom: "5px" }}>Contact No</label>
+                <div className="form-group">
+                    <label htmlFor="postCategory">Contact No</label>
                     <input
                         type="text"
                         className="form-control"
+                        id="postCategory"
                         name="postCategory"
                         placeholder="Enter Contact No"
                         maxLength={10}
@@ -163,10 +183,11 @@ const EditPatient = () => {
                     />
                 </div>
 
-                <div className="form-group" style={{ marginBottom: "15px", width: "870px" }}>
-                    <label style={{ marginBottom: "5px" }}>Past Medical History</label>
+                <div className="form-group">
+                    <label htmlFor="medicalhistory">Past Medical History</label>
                     <textarea
                         className="form-control"
+                        id="medicalhistory"
                         name="medicalhistory"
                         rows="5"
                         style={{ width: "100%", maxWidth: "100%" }}
@@ -186,7 +207,11 @@ const EditPatient = () => {
                     &nbsp; Update Patient's Details
                 </button>
             </form>
+              
         </div>
+        </main>
+        </>
+        
     );
 };
 

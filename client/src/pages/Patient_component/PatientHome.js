@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import NavBar from './NavBar';
 
+//importing top navigation bar components
+import TopNavPatient from '../../components/TopNavPatient';
 
 export default class PatientHome extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ export default class PatientHome extends Component {
       })
       .catch(error => {
         console.error('Error retrieving patients:', error);
+        // Handle error state here
       });
   }
 
@@ -58,12 +60,20 @@ export default class PatientHome extends Component {
 
   render() {
     return (
+      <>
+
+      {/* top nav imported to this section */}
+      <div className="navarea">
+        <TopNavPatient/>
+      </div>
+
+<main>      
       <div className="container">
-        <NavBar />
         <div className="row">
           <div className="col-lg-9 mt-2 mb-2">
             <h4>All Patients</h4>
           </div>
+
           <div className="col-lg-3 mt-2 mb-2">
             <input
               className="form-control"
@@ -74,51 +84,65 @@ export default class PatientHome extends Component {
             />
           </div>
         </div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">Patient ID</th>
-              <th scope="col">NIC</th>
-              <th scope="col">Patient's Name</th>
-              <th scope="col">Contact No</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.patients.map((patients, index) => (
-              <tr key={index}>
-                <th scope="row">{index + 1}</th>
-                <td>
-                  <a href={`/patient/${patients._id}`} style={{ textDecoration: 'none' }}>
-                    {patients._id}
-                  </a>
-                </td>
-                <td>{patients.topic}</td>
-                <td>{patients.description}</td>
-                <td>{patients.postCategory}</td>
+        </div>
 
-                <td>
-                  <a className="btn btn-warning" href={`/editpatient/${patients._id}`}>
-                    <i className="fas fa-edit"></i>&nbsp;Edit
-                  </a>
-                  &nbsp;
-                  <button className="btn btn-danger" onClick={() => this.onDelete(patients._id)}>
-                    <i className="far fa-trash-alt"></i>&nbsp;Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
 
-        <button className="btn btn-success">
-          <a href="/addpatient" style={{ textDecoration: 'none', color: 'white' }}> + Create New Patient</a>
+  <div className="overflow-x-auto sm:rounded-lg tablestyle">
+  <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
+  <thead className="text-xs text-gray-700 uppercase bg-white">      
+        
+      <tr>
+              <th className="p-1">No</th>
+              <th className="p-1">Patient ID</th>
+              <th className="p-1">NIC</th>
+              <th className="p-1">Patient's Name</th>
+              <th className="p-1">Contact No</th>
+              <th className="p-1s">Actions</th>
+              
+      </tr>
+  </thead>
+  <tbody>
+  {this.state.patients.map((patients, index) => (
+    <tr className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black" key={index}>
+      <th scope="row">{index + 1}</th>
+      <td className="text-center py-2 px-2">
+        <a href={`/patient/${patients._id}`}>{patients._id}</a>
+      </td>
+      <td className="text-center py-2 px-2"> 
+        {patients.topic}
+      </td>
+      <td className="text-center py-2 px-2"> 
+        {patients.description}
+      </td>
+      <td className="text-center py-2 px-2"> 
+        {patients.postCategory}
+      </td>
+      <td className="flex space-x-4 py-2 px-2">
+        <a className="btn btn-primary" href={`/editpatient/${patients._id}`}>
+          <i className="fas fa-edit"></i>&nbsp;Edit
+        </a>
+        <button className="btn btn-danger" onClick={() => this.onDelete(patients._id)}>
+          <i className="fas fa-trash-alt"></i>&nbsp;Delete
         </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
+
+          </table>
+  <div className="flex justify-center items-center h-screen">
+        <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border-1 border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500">
+                 <a href="/addpatient"> + Create New Patient</a>
+        </button>
+  </div>
       </div>
+</main>
+      </>
     );
   }
 }
+
 
 
 
