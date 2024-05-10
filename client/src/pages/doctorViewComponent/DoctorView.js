@@ -1,44 +1,8 @@
 
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-
-// const DoctorView = ({ doctor }) => {
-//   const [appointments, setAppointments] = useState([]);
-
-//   useEffect(() => {
-//     const fetchAppointments = async () => {
-//       try {
-//         const response = await axios.get(`/appointments/${doctor}`);
-//         setAppointments(response.data);
-//       } catch (error) {
-//         console.error('Error fetching appointments:', error);
-//       }
-//     };
-
-//     fetchAppointments();
-//   }, [doctor]);
-
-//   return (
-//     <div>
-//       <h2>{doctor}'s Appointments</h2>
-//       <ul>
-//         {appointments.map((appointment) => (
-//           <li key={appointment._id}>
-//             {/* Display appointment details */}
-//             `${appointment.topic} - ${appointment.description}`
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default DoctorView;
-
 
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 export default class DoctorView extends Component {
   constructor(props) {
@@ -116,6 +80,13 @@ export default class DoctorView extends Component {
   render() {
     //const { selectedDoctor } = this.state;
     return (
+      <>
+
+        <div className='navarea'>
+          <TopNavAppointmet/>
+        </div>
+
+      <main>
 
       <div className="container">
 
@@ -169,7 +140,7 @@ export default class DoctorView extends Component {
               <td>{appointments.description}</td>
              
               <td>
-                <a className="btn btn-warning" href={`/doctorReschedule/${appointments._id}`}>
+                <a className="text-white bg-yellow-500 hover:bg-yellow-600  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" href={`/doctorReschedule/${appointments._id}`}>
                   <i className="fas fa-edit"></i>&nbsp;Reschedule
                 </a>
                 {/* &nbsp;
@@ -191,6 +162,9 @@ export default class DoctorView extends Component {
         )} */}
 
       </div>
+
+      </main>
+      </>
     );
   }
 }

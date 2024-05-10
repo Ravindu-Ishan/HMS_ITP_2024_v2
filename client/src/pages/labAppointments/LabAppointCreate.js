@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Component } from 'react';
 //import React, {useState, useEffect} from 'react';
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 export default class LabAppointHome extends Component {
   constructor(props) {
@@ -67,9 +68,16 @@ export default class LabAppointHome extends Component {
   render() {
 
     return (
+      <>
+
+        <div className='navarea'>
+          <TopNavAppointmet/>
+        </div>
+      <main>
+
       <div className="col-md-8 mt-4 mx-auto">
         <h1 className="h3 mb-3 font-weight-normal">Create new appointment</h1>
-        <form className="needs-validation" autoComplete='off' noValidate>
+        <form className="needs-validation" noValidate>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
             <label style={{ marginBottom: '5px' }}>Name</label>
@@ -192,13 +200,17 @@ export default class LabAppointHome extends Component {
           </div>
 
 
-          <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }} onClick={this.onSubmit}>
+          <button className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" type="submit" style={{ marginTop: '15px' }} onClick={this.onSubmit}>
             <i className="far fa-check-square"></i>
             &nbsp; Save
           </button>
 
+        
         </form>
       </div>
+
+      </main>
+      </>
     );
   }
 }
