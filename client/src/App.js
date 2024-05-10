@@ -10,6 +10,14 @@ import StaffProfile from "./pages/StaffProfile";
 import BranchesMain from "./pages/BranchesMain";
 import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
+import InventoryProductCreate from './pages/Inventory/InventoryProductCreate';
+import InventoryProductEdit from './pages/Inventory/InventoryProductEdit';
+import InventoryProductMain from './pages/Inventory/InventoryProductMain';
+import InventorySupplierCreate from './pages/Inventory/InventorySupplierCreate';
+import InventorySupplierEdit from './pages/Inventory/InventorySupplierEdit';
+import InventorySupplierMain from './pages/Inventory/InventorySupplierMain';
+import RestockRequestView from './pages/Inventory/RestockRequestView';
+import RestockRequestAdd from './pages/Inventory/RestockRequestAdd';
 
 import ShiftMain from "./pages/ShiftMain";
 import CreateShift from "./pages/CreateShift";
@@ -95,7 +103,7 @@ function App() {
         designatedRoute = "/staff";
         break;
       case 'ward manager':
-        designatedRoute = "/ward";
+        designatedRoute = "/wardHome";
         break;
       case 'front deskOfficer':
         designatedRoute = "/appointmentHome"
@@ -139,6 +147,17 @@ function App() {
         <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
         <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
+
+   
+            <Route path="/productmain" exact element={<InventoryProductMain />} />
+            <Route path="/productcreate" element={<InventoryProductCreate />} />
+            <Route path="/productedit/:id" element={<InventoryProductEdit />} />
+            <Route path="/suppliercreate" element={<InventorySupplierCreate />} />
+            <Route path="/supplieredit/:id" element={<InventorySupplierEdit />} />
+            <Route path="/suppliermain" exact element={<InventorySupplierMain />} />
+            <Route path="/RestockView" exact element={<RestockRequestView />} />
+            <Route path="/RestockAdd" exact element={<RestockRequestAdd />} />
+
         <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
         <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
 

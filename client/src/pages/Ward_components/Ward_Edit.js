@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate} from 'react-router-dom';
+import TopNavWard from '../../components/TopNavWards';
 
 const Ward_Edit = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [ward_type, set_ward_type] = useState("");
   const [ward_ID, set_ward_ID] = useState("");
@@ -103,6 +105,8 @@ const Ward_Edit = () => {
         set_doctor_specialist_ID("");
         set_doctor_specialist_name("");
         set_nurse_other_staff_ID("");
+
+        navigate(-1);
       } else {
         console.error('Failed to update ward:', response.data.error);
       }
@@ -112,135 +116,142 @@ const Ward_Edit = () => {
   };
 
   return (
-    <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit Ward Details</h1>
-      <form className="needs-validation" noValidate>
+    <>
+      <div className="navarea">
+        <TopNavWard />
+      </div>
+      <main>
+        <div className="col-md-8 mt-4 mx-auto">
+          <h1 className="h3 mb-3 font-weight-normal">Edit Ward Details</h1>
+          <form className="needs-validation" noValidate>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="wardType" style={{ marginBottom: '5px' }}>Ward Type</label>
-          <select
-            className="form-control"
-            id="wardType"
-            name="ward_type"
-            value={ward_type}
-            onChange={handleInputChange}
-          >
-            {/* List of options for ward types */}
-            <option value="">Select ward type</option>
-            <option value="General">General</option>
-            <option value="ICU">ICU</option>
-            <option value="Pediatrics">Pediatrics</option>
-            <option value="Surgery">Surgery</option>
-            <option value="Maternity">Maternity</option>
-            <option value="Orthopedic">Orthopedic</option>
-            <option value="Cardiology">Cardiology</option>
-            <option value="Psychiatric">Psychiatric</option>
-          </select>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="wardType" style={{ marginBottom: '5px' }}>Ward Type</label>
+              <select
+                className="form-control"
+                id="wardType"
+                name="ward_type"
+                value={ward_type}
+                onChange={handleInputChange}
+              >
+                {/* List of options for ward types */}
+                <option value="">Select ward type</option>
+                <option value="General">General</option>
+                <option value="ICU">ICU</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Surgery">Surgery</option>
+                <option value="Maternity">Maternity</option>
+                <option value="Orthopedic">Orthopedic</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Psychiatric">Psychiatric</option>
+              </select>
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="wardID" style={{ marginBottom: '5px' }}>Ward ID</label>
+              <input
+                type="text"
+                className="form-control"
+                id="wardID"
+                name="ward_ID"
+                placeholder="Enter ward_ID"
+                value={ward_ID}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="BedCount" style={{ marginBottom: '5px' }}>Bed Count</label>
+              <input
+                type="number"
+                className="form-control"
+                id="BedCount"
+                name="bed_count"
+                placeholder="Enter bed_count"
+                value={bed_count}
+                onChange={handleInputChange}
+                min="0"
+              />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="specialRequirements" style={{ marginBottom: '5px' }}>Special Requirements</label>
+              <input
+                type="text"
+                className="form-control"
+                id="specialRequirements"
+                name="special_requirements"
+                placeholder="Enter special_requirements"
+                value={special_requirements}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="inventoryDetails" style={{ marginBottom: '5px' }}>Inventory Details</label>
+              <input
+                type="text"
+                className="form-control"
+                id="inventoryDetails"
+                name="inventory_details"
+                placeholder="Enter inventory_details"
+                value={inventory_details}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="DoctorSpecialistID" style={{ marginBottom: '5px' }}>Doctor/Specialist ID</label>
+              <input
+                type="text"
+                className="form-control"
+                id="DoctorSpecialistID"
+                name="doctor_specialist_ID"
+                placeholder="Enter doctor_specialist_ID"
+                value={doctor_specialist_ID}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="DoctorSpecialistName" style={{ marginBottom: '5px' }}>Doctor/Specialist Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="DoctorSpecialistName"
+                name="doctor_specialist_name"
+                placeholder="Enter doctor_specialist_name"
+                value={doctor_specialist_name}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="NurseOtherStaffIDs" style={{ marginBottom: '5px' }}>Nurses/Other Staff Member IDs</label>
+              <input
+                type="text"
+                className="form-control"
+                id="NurseOtherStaffIDs"
+                name="nurse_other_staff_ID"
+                placeholder="Enter nurse_other_staff_ID"
+                value={nurse_other_staff_ID}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <button
+              className="btn btn-success"
+              type="submit"
+              style={{ marginTop: '15px' }}
+              onClick={onSubmit}
+            >
+              <i className="far fa-check-square"></i>
+              &nbsp; Update & Save
+            </button>
+          </form>
         </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="wardID" style={{ marginBottom: '5px' }}>Ward ID</label>
-          <input
-            type="text"
-            className="form-control"
-            id="wardID"
-            name="ward_ID"
-            placeholder="Enter ward_ID"
-            value={ward_ID}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="BedCount" style={{ marginBottom: '5px' }}>Bed Count</label>
-          <input
-            type="number"
-            className="form-control"
-            id="BedCount"
-            name="bed_count"
-            placeholder="Enter bed_count"
-            value={bed_count}
-            onChange={handleInputChange}
-            min="0"
-          />
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="specialRequirements" style={{ marginBottom: '5px' }}>Special Requirements</label>
-          <input
-            type="text"
-            className="form-control"
-            id="specialRequirements"
-            name="special_requirements"
-            placeholder="Enter special_requirements"
-            value={special_requirements}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="inventoryDetails" style={{ marginBottom: '5px' }}>Inventory Details</label>
-          <input
-            type="text"
-            className="form-control"
-            id="inventoryDetails"
-            name="inventory_details"
-            placeholder="Enter inventory_details"
-            value={inventory_details}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="DoctorSpecialistID" style={{ marginBottom: '5px' }}>Doctor/Specialist ID</label>
-          <input
-            type="text"
-            className="form-control"
-            id="DoctorSpecialistID"
-            name="doctor_specialist_ID"
-            placeholder="Enter doctor_specialist_ID"
-            value={doctor_specialist_ID}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="DoctorSpecialistName" style={{ marginBottom: '5px' }}>Doctor/Specialist Name</label>
-          <input
-            type="text"
-            className="form-control"
-            id="DoctorSpecialistName"
-            name="doctor_specialist_name"
-            placeholder="Enter doctor_specialist_name"
-            value={doctor_specialist_name}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label htmlFor="NurseOtherStaffIDs" style={{ marginBottom: '5px' }}>Nurses/Other Staff Member IDs</label>
-          <input
-            type="text"
-            className="form-control"
-            id="NurseOtherStaffIDs"
-            name="nurse_other_staff_ID"
-            placeholder="Enter nurse_other_staff_ID"
-            value={nurse_other_staff_ID}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <button
-          className="btn btn-success"
-          type="submit"
-          style={{ marginTop: '15px' }}
-          onClick={onSubmit}
-        >
-          <i className="far fa-check-square"></i>
-          &nbsp; Update & Save
-        </button>
-      </form>
-    </div>
+      </main>
+    </>
   );
 };
 
