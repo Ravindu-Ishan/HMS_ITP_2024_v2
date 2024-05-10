@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import validator from "validator";
+import { isOnlySpaces, isOnlyAlphabet, isAlphanumeric } from "../hooks/validations";
 
 //import components here
 import LoadingComponent from "../components/LoadingComponent";
@@ -15,10 +17,14 @@ import { FaSearch } from "react-icons/fa";
 //main function
 const StaffMain = () => {
   //create new staff record
-  const [staff_NIC, setNIC] = useState("");
-  const [staffName, setstaffName] = useState("");
-  const [dateOfBirth, setdob] = useState("");
-  const [role, setrole] = useState("");
+  const [pstaff_NIC, setNIC] = useState("");
+  const [pstaffName, setstaffName] = useState("");
+  const [pdateOfBirth, setdob] = useState("");
+  const [prole, setrole] = useState("");
+
+  //form message and valid state
+  const [errorMsg, setErrorMsg] = useState('');
+  const [valid, setValid] = useState(true);
 
   //search
   const [search, setSearch] = useState("");
@@ -48,27 +54,65 @@ const StaffMain = () => {
   }, []);
 
   //create new staff record method
-  const handleNewStaffRecord = () => {
-    const data = {
-      staff_NIC,
-      staffName,
-      dateOfBirth,
-      role,
-    };
-    setLoading(true);
-    axios
-      .post("/create", data)
-      .then((response) => {
-        setLoading(false);
-        setRecords([...staffrecords, response.data]);
-        navigate("/staff");
-      })
-      .catch((error) => {
-        setLoading(false);
-        alert("An error happened. Please check console");
-        console.log(error);
-      });
-  };
+  const HandleNewStaffRecord = () => {
+
+    //------front-end validations----------
+    setValid(true); //initialize form valid state
+
+    //sanitizations
+    const staff_NIC = validator.trim(pstaff_NIC);
+    const staffName = validator.trim(pstaffName);
+    const dateOfBirth = pdateOfBirth;
+    const role = validator.trim(prole);
+
+    //check if all fields are set
+
+    if (validator.isEmpty(staff_NIC) || validator.isEmpty(staffName) || validator.isEmpty(dateOfBirth) || validator.isEmpty(role)) {
+      setErrorMsg('Please fill out all fields');
+      setValid(false);
+    }
+    if (isOnlyAlphabet(role) == false || isOnlyAlphabet(staffName) == false) {
+      setErrorMsg('Full Name and Role cannot have numeric characters');
+      setValid(false);
+    }
+    if (!isAlphanumeric(staff_NIC)) {
+      setErrorMsg('NIC cannot have special characters')
+      setValid(false);
+    }
+    if (isOnlySpaces(staff_NIC) || isOnlySpaces(staffName) || isOnlySpaces(dateOfBirth) || isOnlySpaces(role)) {
+      setErrorMsg('Error, unnecessary whitespaces detected in form fields');
+      setValid(false);
+    }
+    if (valid == true) {
+      const data = {
+        staff_NIC,
+        staffName,
+        dateOfBirth,
+        role,
+      }
+      setLoading(true);
+      axios
+        .post("/create", data)
+        .then((response) => {
+          alert("Staff member added successfully !")
+          setLoading(false);
+          setRecords([...staffrecords, response.data]);
+          //reset form states
+          setErrorMsg('');
+          setNIC('');
+          setdob('');
+          setrole('');
+          setstaffName('');
+          navigate("/staff");
+        })
+        .catch((error) => {
+          alert("Something went wrong , please check console")
+          setLoading(false);
+          console.log(error);
+        });
+    }
+  }
+
 
   return (
     <>
@@ -81,7 +125,6 @@ const StaffMain = () => {
             <div>
               {/*------------------------------------Create new entry button, pop up model and search bar card---------------------------------*/}
               <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
-
                 <ModelTemplate
                   btntitle={"Create New"}
                   modaltitle={"New Staff Member"}
@@ -94,7 +137,7 @@ const StaffMain = () => {
                             name="floating_nic"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
-                            value={staff_NIC}
+                            value={pstaff_NIC}
                             onChange={(e) => setNIC(e.target.value)}
                           />
                           <label
@@ -111,7 +154,7 @@ const StaffMain = () => {
                             name="floating_name"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
-                            value={staffName}
+                            value={pstaffName}
                             onChange={(e) => setstaffName(e.target.value)}
                           />
                           <label
@@ -128,7 +171,7 @@ const StaffMain = () => {
                             name="floating_date"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
-                            value={dateOfBirth}
+                            value={pdateOfBirth}
                             onChange={(e) => setdob(e.target.value)}
                           />
                           <label
@@ -145,7 +188,7 @@ const StaffMain = () => {
                             name="floating_role"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
-                            value={role}
+                            value={prole}
                             onChange={(e) => setrole(e.target.value)}
                           />
                           <label
@@ -156,11 +199,13 @@ const StaffMain = () => {
                           </label>
                         </div>
                       </form>
-
+                      <div>
+                        {errorMsg && <div className="text-red-500 text-center"> {errorMsg} </div>}
+                      </div>
                       <div className="text-right">
                         <PrimaryBtn
                           btntitle={"Submit"}
-                          onClick={handleNewStaffRecord}
+                          onClick={HandleNewStaffRecord}
                         ></PrimaryBtn>
                       </div>
                     </div>

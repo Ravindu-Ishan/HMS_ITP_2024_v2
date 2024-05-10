@@ -20,6 +20,9 @@ import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaBuilding } from "react-icons/fa";
 import { RiLogoutBoxFill } from "react-icons/ri";
 
+//import images
+import brandLogo from "../images/brandLogo.png"
+
 
 //main funciton
 const RootLayout = () => {
@@ -60,7 +63,8 @@ const RootLayout = () => {
         <aside id="sidebar">
           <div className="overflow-auto hiddenScroll xl:h-full border border-gray-200 mr-2 rounded-tr-3xl drop-shadow-lg bg-white ">
             <div className="sidebar-title">
-              <div className="sidebar-brand">MedFlow</div>
+              <div className="sidebar-brand inline-flex"><img src={brandLogo} alt="brand logo" width={60} className="mr-2" /><div className="mt-2">MedFlow</div></div>
+
 
               <button className="" onClick={sidebarState}>
                 <IoMdCloseCircle className=" text-xl" />
@@ -162,21 +166,6 @@ const RootLayout = () => {
                 </details>
               </li>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
               <Link to="/finance">
                 <li className={isSelected("/finance") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaMoneyCheckDollar className=" inline-flex mr-5" />
@@ -224,7 +213,7 @@ const RootLayout = () => {
       {/*user profile button*/}
 
       <div className="user">
-        <Link to={`user`}>
+        <Link to="/user/profile">
           <div className="bg-white rounded-l-lg shadow-md p-4 mt-5 fixed top-0 right-0 z-50 hover:border-y-2 hover:border-l-2 hover:border-green-200 ">
             <FaCircleUser className="text-3xl" />
           </div>
