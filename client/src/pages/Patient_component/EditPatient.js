@@ -226,7 +226,7 @@ const EditPatient = () => {
                         className="form-control rounded-lg"
                         id="medicalhistory"
                         name="medicalhistory"
-                        rows="5"
+                        rows="10"
                         style={{ width: "1000px", maxWidth: "100%", textAlign: "center" }}
                         placeholder="Description of medical history"
                         value={medicalhistory}
