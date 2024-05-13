@@ -3,7 +3,7 @@ const UserLeavesView = require('../models/UserLeavesViewModel'); // Import the c
 const router = express.Router();
 
 // Save leave entry
-router.post('/leave/save', async (req, res) => {
+router.post('/user/userLeaves/save', async (req, res) => {
     try {
         const newLeaveEntry = new UserLeavesView(req.body); // Use the new model
         await newLeaveEntry.save();
@@ -16,7 +16,7 @@ router.post('/leave/save', async (req, res) => {
 });
 
 // Get leave entries
-router.get('/leave', async (req, res) => {
+router.get('/user/userLeaves', async (req, res) => {
     try {
         const leaveEntries = await UserLeavesView.find().exec(); // Use the new model
         res.status(200).json({ success: true, existingLeaveEntries: leaveEntries });
@@ -27,7 +27,7 @@ router.get('/leave', async (req, res) => {
 });
 
 // Get a specific leave entry by ID
-router.get('/leave/getbyID/:id', async (req, res) => {
+router.get('/user/userLeaves/getbyID/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const leaveEntry = await UserLeavesView.findById(id); // Use the new model
@@ -46,7 +46,7 @@ router.get('/leave/getbyID/:id', async (req, res) => {
 });
 
 // Update leave entry
-router.put('/leave/update/:id', async (req, res) => {
+router.put('/user/userLeaves/update/:id', async (req, res) => {
     try {
         const leaveEntry = await UserLeavesView.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
         if (!leaveEntry) {
@@ -59,7 +59,7 @@ router.put('/leave/update/:id', async (req, res) => {
 });
 
 // Delete leave entry
-router.delete('/leave/delete/:id', async (req, res) => {
+router.delete('/user/userLeaves/delete/:id', async (req, res) => {
     try {
         const deletedLeaveEntry = await UserLeavesView.findByIdAndDelete(req.params.id).exec();
         if (!deletedLeaveEntry) {
