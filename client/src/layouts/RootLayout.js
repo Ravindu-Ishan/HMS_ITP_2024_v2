@@ -78,8 +78,8 @@ const RootLayout = () => {
                   Manage Staff
                 </li>
               </Link>
-              <Link to="/appointment">
-                <li className={isSelected("/appointment") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+              <Link to="/appointmentHome">
+                <li className={isSelected("/appointmentHome") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaClipboardList className="inline-flex mr-5" />
                   <div className="inline-flex">
                     Manage Appointments
@@ -94,7 +94,7 @@ const RootLayout = () => {
                   </div>
                 </li>
               </Link>
-              <Link to="/patient">
+              <Link to="/patienthome">
                 <li className={isSelected("/patient") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaUserInjured className=" inline-flex mr-5" />
                   <div className=" inline-flex">
@@ -110,8 +110,8 @@ const RootLayout = () => {
                   </div>
                 </li>
               </Link>
-              <Link to="/wards">
-                <li className={isSelected("/wards") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+              <Link to="/wardHome">
+                <li className={isSelected("/ward") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaBedPulse className=" inline-flex mr-5" />
                   <div className=" inline-flex">
                     Manage Wards
@@ -144,8 +144,8 @@ const RootLayout = () => {
                   </summary>
 
                   <ul className="mt-1 pl-10">
-                    <Link to="/inventory">
-                      <li className={isSelected("/inventory") ? "p-3 text-sm text-[#002F87] font-semibold " : " hover:bg-gray-300 hover:rounded-2xl p-3 text-sm text-[#002F87]"}>
+                    <Link to="/productmain">
+                      <li className={isSelected("/productmain") ? "p-3 text-sm text-[#002F87] font-semibold " : " hover:bg-gray-300 hover:rounded-2xl p-3 text-sm text-[#002F87]"}>
                         <MdInventory className=" inline-flex mr-5" />
                         <div className=" inline-flex">
                           Manage Inventory
