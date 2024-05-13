@@ -15,6 +15,7 @@ import TopNavStaff from "../components/TopNavStaff";
 import { RiEdit2Fill } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
 
+
 const ShiftMain = () => {
 
     const { smid } = useParams(); //get url parameters 
@@ -61,20 +62,26 @@ const ShiftMain = () => {
 
             <main>
 
-                <div className="main-container">
-                       {/*----------------------------search bar----------------------------------- */}
-                    <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
-                        <input
-                            className="form-control"
-                            type="search"
-                            placeholder="Search"
-                            name="searchQuery"
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                    </div>
-                </div>
+            <div className="main-container flex justify-end">
+            {/* Search bar */}
+            <div className="w-1/4 bg-white border border-gray-200 rounded-xl shadow pt-2 px-4">
+             <input
+            className="w-full form-control"
+            type="search"
+            placeholder="Search"
+            name="searchQuery"
+            onChange={(e) => setSearch(e.target.value)}
+               />
+         </div>
+            </div>
 
-               
+                <div className="flex justify-left ">
+                    <button type="button"
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        onClick={() => navigate(`/shift/create/${smid}`)}>
+                        Create New
+                    </button>
+                </div>
 
                 {/*------------data display table--------------- */}
                 <div className="overflow-x-auto sm:rounded-lg tablestyle">
@@ -125,11 +132,7 @@ const ShiftMain = () => {
                         </tbody>
                     </table>
                     
-                    <button type="button"
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
-                        onClick={() => navigate(`/shift/create/${smid}`)}>
-                        Create New
-                    </button>  
+                      
                     
                 </div>
             </main >

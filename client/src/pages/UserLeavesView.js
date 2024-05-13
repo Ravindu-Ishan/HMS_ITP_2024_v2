@@ -17,7 +17,15 @@ import { FaSearch } from "react-icons/fa";
 
 const UserLeavesView = () => {
 
-    const { smid } = useParams(); //get url parameters 
+    const { user } = useStaffAuthContext();
+    //get user id from token
+    let smid;
+    if (user) {
+    const userInfo = jwtDecode(JSON.stringify(user));
+    smid = userInfo.smid;
+    }
+
+    
 
     const [leaveEntries, setLeaveEntries] = useState([]); //posts array state
 
@@ -27,6 +35,8 @@ const UserLeavesView = () => {
 
     //method to retrieve leaves
     const retrieveLeaves = () => {
+
+       
 
         axios.get(`/user/userLeaves/getonly/${smid}`).then(res => {
 

@@ -1,13 +1,23 @@
-import React, { useEffect, useState } from "react";
+/*import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import EmptyNavArea from "../components/EmptyNavArea";
+import { useStaffAuthContext } from '../hooks/useStaffAuthContext';
+import { jwtDecode } from "jwt-decode";
 
 
 
 const CreateLeave = () => {
 
-    const { smid } = useParams(); //get url parameters
+    const { user } = useStaffAuthContext();
+    //get user id from token
+    let smid;
+    if (user) {
+    const userInfo = jwtDecode(JSON.stringify(user));
+    smid = userInfo.smid;
+    }
+
+    
     const navigate = useNavigate();
 
     
@@ -45,16 +55,19 @@ const CreateLeave = () => {
         };
            
         try {
-            const res = await axios.post("/user/userLeaves/create/save", data); // Adjust the URL
+            const res = await axios.post("/user/userLeaves/save", data); // Adjust the URL
             if (res.data.success) {
                 alert("leave created successfully!");
                 navigate(-1);
             } else {
                 throw new Error(res.data.error || "Failed to create leave");
             }
-        } catch (error) {
+        } /*catch (error) {
             console.error("Error creating leave:", error);
-            this.setState({ errorMessage: error.message || "Failed to create leave" });
+            setErrorMessage( "Failed to create leave" );
+        }catch (error) {
+            console.error("Error creating leave:", error);
+            setErrorMessage("Failed to create leave");
         }
     };
 
@@ -64,6 +77,78 @@ const CreateLeave = () => {
         useEffect(() => {
          
         }, []);
+        */
+
+
+        import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import EmptyNavArea from "../components/EmptyNavArea";
+import { useStaffAuthContext } from '../hooks/useStaffAuthContext';
+import { jwtDecode } from "jwt-decode";
+
+const CreateLeave = () => {
+
+    const { user } = useStaffAuthContext();
+    //get user id from token
+    let smid;
+    if (user) {
+        const userInfo = jwtDecode(JSON.stringify(user));
+        smid = userInfo.smid;
+    }
+
+
+    const navigate = useNavigate();
+
+
+    const [leaveDate, setleaveDate] = useState("");
+    const [leaveName, setleaveName] = useState("");
+    const [leaveType, setleaveType] = useState("");
+    const [leaveReason, setleaveReason] = useState("");
+    const [leaveDuration, setleaveDuration] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+
+
+    const onSubmit = async (e) => {
+
+        e.preventDefault();
+
+        //validations
+        if (!leaveDate || !leaveName || !leaveType || !leaveReason || !leaveDuration) {
+            setErrorMessage("Please fill out all fields.");
+            return;
+        };
+
+
+        const data = {
+
+            smid: smid,
+            leaveDate: leaveDate,
+            leaveName: leaveName,
+            leaveType: leaveType,
+            leaveReason: leaveReason,
+            leaveDuration: leaveDuration,
+
+        };
+
+        try {
+            const res = await axios.post("/userLeaves/save", data); // Adjust the URL
+            if (res.data.success) {
+                alert("leave created successfully!");
+                navigate(-1);
+            } else {
+                throw new Error(res.data.error || "Failed to create leave");
+            }
+        } catch (error) {
+            console.error("Error creating leave:", error);
+            setErrorMessage("Failed to create leave");
+        }
+    };
+
+    useEffect(() => {
+
+    }, []);
 
         return (
             <>
@@ -84,7 +169,7 @@ const CreateLeave = () => {
                                         type="date"
                                         className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         id="Date"
-                                        name="Date"
+                                        name="LeaveDate"
                                         value={leaveDate}
                                         onChange={(e) => setleaveDate(e.target.value)}
                                         placeholder="Enter Date"
@@ -98,7 +183,7 @@ const CreateLeave = () => {
                                         type="text"
                                         className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         id="text"
-                                        name="text"
+                                        name="leaveName"
                                         value={leaveName}
                                         onChange={(e) => setleaveName(e.target.value)}
                                         placeholder="Enter Name"
@@ -112,7 +197,7 @@ const CreateLeave = () => {
                                         type="text"
                                         className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         id="text"
-                                        name="text"
+                                        name="leaveType"
                                         value={leaveType}
                                         onChange={(e) => setleaveType(e.target.value)}
                                         placeholder="Enter Leave Type"
@@ -126,7 +211,7 @@ const CreateLeave = () => {
                                         type="text"
                                         className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         id="text"
-                                        name="text"
+                                        name="leaveReason"
                                         value={leaveReason}
                                         onChange={(e) => setleaveReason(e.target.value)}
                                         placeholder="Enter Reason"
@@ -140,7 +225,7 @@ const CreateLeave = () => {
                                         type="text"
                                         className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         id="text"
-                                        name="text"
+                                        name="leaveDuration"
                                         value={leaveDuration}
                                         onChange={(e) => setleaveDuration(e.target.value)}
                                         placeholder="Enter Leave Duration"

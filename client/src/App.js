@@ -23,6 +23,7 @@ import AttendanceReport from './pages/AttendanceReport';
 import CreateLeave from './pages/CreateLeave';
 import EditLeave from './pages/EditLeave';
 
+
 import StaffQualifications from "./pages/StaffQualifications"
 import UserQualifications from './pages/UserQualifications';
 
@@ -111,6 +112,7 @@ function App() {
         <Route path='/attendence/attendanceReport' element={user ? <AttendanceReport /> : <Navigate to="/" />} />
         <Route path='/user/userLeaves/create/:smid' element={user ? <CreateLeave /> : <Navigate to="/" />} />
         <Route path='/user/userLeaves/edit/:id' element={user ? <EditLeave /> : <Navigate to="/" />} />
+       
       </Route>
     </Routes>
   );

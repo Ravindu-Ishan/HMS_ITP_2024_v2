@@ -1,35 +1,35 @@
 const mongoose = require('mongoose');
 
-const userLeavesViewSchema = new mongoose.Schema({
+const attendanceSchema = new mongoose.Schema({
 
     smid: {
         type: String,
         required: true,
     },
 
-    leaveDate: {
-        type: String,
-        required: true,
-    },
-    leaveName: {
+    AttendanceName: {
         type: String,
         required: true
     },
-    leaveType: {
+    AttendanceLocation: {
         type: String,
         required: true
     },
-    leaveReason: {
+    AttendanceDate: {
         type: String,
         required: true
     },
-    leaveDuration: {
+    AttendanceShiftTime: {
         type: String,
         required: true
     },
-    
+    AttendanceArrivalTime: {
+        type: String,
+        required: true
+    }
+
 
 
 });
 
-module.exports = mongoose.model('UserLeavesView', userLeavesViewSchema)
+module.exports = mongoose.model('Attendance', attendanceSchema)
