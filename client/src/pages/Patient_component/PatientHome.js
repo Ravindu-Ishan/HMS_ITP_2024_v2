@@ -84,6 +84,7 @@ export default class PatientHome extends Component {
             />
           </div>
         </div>
+        
         </div>
 
 
@@ -131,11 +132,12 @@ export default class PatientHome extends Component {
 
 
           </table>
-  <div className="flex justify-center items-center h-screen">
-        <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border-1 border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500">
-                 <a href="/addpatient"> + Create New Patient</a>
-        </button>
-  </div>
+        <div className="flex justify-center items-center h-screen">
+              <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border-1 border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500">
+                      <a href="/addpatient"> + Create New Patient</a>
+              </button>
+</div>
+
       </div>
 </main>
       </>
