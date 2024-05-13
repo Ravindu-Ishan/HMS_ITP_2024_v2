@@ -16,7 +16,8 @@ export default class CreateAppointment extends Component {
       age: "",
       timeSchedule: "",
       dateSchedule: "",
-      phone: ""
+      phone: "",
+      appointId: ""
     };
   }
 
@@ -34,7 +35,7 @@ export default class CreateAppointment extends Component {
     e.preventDefault();
     alert("Appointment Successfully Created");
 
-    const { topic, description, postCategory, doctor, status, dateOfBirth, age, timeSchedule, dateSchedule, phone } = this.state;
+    const { topic, description, postCategory, doctor, status, dateOfBirth, age, timeSchedule, dateSchedule, phone, appointId } = this.state;
 
     const data = {
       topic: topic,
@@ -46,7 +47,8 @@ export default class CreateAppointment extends Component {
       age: age,
       timeSchedule: timeSchedule,
       dateSchedule: dateSchedule,
-      phone: phone
+      phone: phone,
+      appointId: appointId
     };
 
     console.log(data);
@@ -64,7 +66,8 @@ export default class CreateAppointment extends Component {
             age: "",
             timeSchedule: "",
             dateSchedule: "",
-            phone: ""
+            phone: "",
+            appointId: ""
           }
         )
       }
@@ -84,6 +87,16 @@ export default class CreateAppointment extends Component {
       <div className='max-w-3xl mx-auto'>
         <h1 className='text-2xl font-bold mb-4'>Create new appointment</h1>
         <form className="needs-validation" noValidate>
+
+          <div className="form-group" style={{ marginBottom: '15px' }}>
+            <label style={{ marginBottom: '5px' }}>Appointment ID</label>
+            <input type="text"
+              className="form-control"
+              name="appointId"
+              placeholder="Enter Appointment ID"
+              value={this.state.appointId}
+              onChange={this.handleInputChange} />
+          </div>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
             <label style={{ marginBottom: '5px' }}>Name</label>

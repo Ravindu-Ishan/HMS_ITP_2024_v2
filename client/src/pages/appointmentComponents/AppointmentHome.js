@@ -56,6 +56,7 @@ export default class AppointmentHome extends Component {
   filterData(appointments,searchKey){
 
     const result = appointments.filter((appointment) =>
+      appointment.appointId.toLowerCase().includes(searchKey) ||
       appointment.topic.toLowerCase().includes(searchKey) ||
       appointment.description.toLowerCase().includes(searchKey) ||
       appointment.postCategory.toLowerCase().includes(searchKey) ||
@@ -135,7 +136,7 @@ export default class AppointmentHome extends Component {
                       <td className="text-center py-2 px-4">{index + 1}</td>
                       <td className="text-center py-2 px-4">
                         <a href={`/appointment/${appointment._id}`} style={{ textDecoration: 'none' }}>
-                          {appointment._id}
+                          {appointment.appointId}
                         </a>
                       </td>
                       <td className="text-center py-2 px-4">

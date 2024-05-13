@@ -1,200 +1,101 @@
-
 import React, { Component } from 'react';
 import axios from 'axios';
-import TopNavAppointmet from '../../components/TopNavAppointment';
-
+import TopNavAppointment from '../../components/TopNavAppointment';
 
 export default class DoctorAvailability extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      appointments:[],
-      //selectedDoctor: null // Add selected doctor state
+      shifts: [],
+      searchQuery: ''
     };
   }
 
-  componentDidMount(){
-    this.retrievePosts();
+  componentDidMount() {
+    this.retrieveShifts();
   }
 
-
-  //get request
-  retrievePosts(){
-    axios.get("/appointments").then(res =>{
-      if(res.data.success){
+  retrieveShifts() {
+    axios.get("/shift").then(res => {
+      if (res.data.success) {
         this.setState({
-          appointments:res.data.existingAppointments
+          shifts: res.data.existingPosts
         });
-
-        console.log(this.state.appointments);
       }
+    }).catch(error => {
+      console.error("Error fetching shifts:", error);
     });
   }
 
-
-  // // Function to filter appointments by selected doctor
-  // filterAppointmentsByDoctor(doctor) {
-  //   return this.state.posts.filter(post => post.doctor === doctor);
-  // }
-
-  // // Handler for selecting a doctor
-  // handleDoctorSelect = (doctor) => {
-  //   this.setState({ selectedDoctor: doctor });
-  // }
-
-
-
-  onDelete = (id) =>{
-
-    axios.delete(`/appointments/delete/${id}`).then((res) =>{
-      alert("Delete successfully");
-      this.retrievePosts();
-    })
-  }
-
-
-  filterData(appointments,searchKey){
-
-    const result = appointments.filter((appointment) =>
-      appointment.doctor.toLowerCase().includes(searchKey) ||
-      appointment.specialization.toLowerCase().includes(searchKey) ||
-      appointment.date.toLowerCase().includes(searchKey) 
-    )
-
-    this.setState({appointments:result})
-
-  }
-
-
-  handleSearchArea = (e) =>{
-
-    const searchKey = e.currentTarget.value;
-
-    axios.get("/appointments").then(res =>{
-      if(res.data.success){
-        this.filterData(res.data.existingAppointments, searchKey)
-      }
-    });
-
+  handleSearchArea = (e) => {
+    const searchKey = e.currentTarget.value.toLowerCase();
+    this.setState({ searchQuery: searchKey });
   }
 
   render() {
-    //const { selectedDoctor } = this.state;
+    const { shifts, searchQuery } = this.state;
+    const filteredShifts = shifts.filter(shift =>
+      shift.ScheduleDate.toLowerCase().includes(searchQuery)
+    );
+
     return (
       <>
-
-      <div className='navarea'>
-          <TopNavAppointmet/>
+        <div className='navarea'>
+          <TopNavAppointment />
         </div>
 
-      <main>
-       
-
-      <div className="container">
-
-        <div className="col-lg-3 mt-2 mb-2 font-bold">
-        <h4>Doctors/Specialists</h4>
-        </div>
-
-        <div className="row">
-          
-          <div className="col-lg-3 mt-2 mb-2">
-            <input
-            className="form-control"
-            type="search"
-            placeholder="Doctor/Specialist"
-            name="searchQuery"
-            onChange={this.handleSearchArea}>
-            </input>
-          </div>
-
-          <div className="col-lg-3 mt-2 mb-2">
-            <input
-            className="form-control"
-            type="search"
-            placeholder="Select Specialization"
-            name="searchQuery"
-            onChange={this.handleSearchArea}>
-            </input>
-          </div>
-
-          <div className="col-lg-3 mt-2 mb-2">
-            <input
-            className="form-control"
-            type="date"
-            placeholder="Select Date"
-            name="searchQuery"
-            onChange={this.handleSearchArea}>
-            </input>
-          </div>
-
-        </div>
-        
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Doctor/Specialist</th>
-              <th scope="col">Specialization</th>
-              <th scope="col">Available Date</th>
-              <th scope="col">Available Time</th>
-              <th scope="col"></th>
-
-            </tr>
-          </thead>
-          <tbody>
-          {this.state.appointments.map((appointments, index) => (
-            <tr key={index}>
-              <th scope="row">{index+1}</th>
-
-              <td>
-                 {appointments.doctor}
-              </td>
-
-              <td>
-                {appointments._id}
-              </td>
-
-              {/* <td>
-                <a href={`/doctorPatientView/${appointments._id}`} style={{textDecoration:'none'}}>
-                {appointments._id}
-                </a>
+        <main>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-3 mt-2 mb-2">
+                <input
+                  className="form-control"
+                  type="search"
+                  placeholder="Doctor/Specialist"
+                  onChange={this.handleSearchArea}
+                />
                 
-              </td> */}
+              </div>
 
-              <td>{appointments.topic}</td>
-              <td>{appointments.description}</td>
-             
-              <td>
-                {/* add a slot decrement method */}
+              <div className="col-lg-3 mt-2 mb-2">
+                <input
+                  className="form-control"
+                  type="search"
+                  placeholder="Date"
+                  onChange={this.handleSearchArea}
+                />
+                
+              </div>
+            </div>
 
-                {/* <a className="btn btn-warning" href={`/doctorReschedule/${posts._id}`}>
-                  <i className="fas fa-edit"></i>&nbsp;Reschedule
-                </a> */}
-                {/* &nbsp;
-                <a className="btn btn-danger" href="#" onClick={() => this.onDelete(posts._id)}>
-                  <i className="fas fa-trash"></i>&nbsp;Delete
-                </a> */}
-              </td>
-            </tr>
-          ))}
-          </tbody>
-
-        </table>
-
-            {/* <button className="btn btn-success"><a href="/add" style={{textDecoration:'none', color:'white'}}> + New Appointment</a></button>
-             */}
-            {/* Render DoctorView for the selected doctor
-          {selectedDoctor && (
-          <DoctorView doctor={selectedDoctor} />
-        )} */}
-
-      </div>
-
-      </main></>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Doctor/Specialist</th>
+                  <th scope="col">Specialization</th>
+                  <th scope="col">Available Date</th>
+                  <th scope="col">Available Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredShifts.map((shift, index) => (
+                  <tr key={index}>
+                    <th scope="row">{index + 1}</th>
+                    <td>{shift.smid}</td>
+                    <td></td>
+                    <td>{shift.ScheduleDate}</td>
+                    <td>{shift.ScheduleTime}</td>
+                    
+                    
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </>
     );
   }
 }
-
-//export default MyComponent;

@@ -21,7 +21,7 @@ const AppointmentDetails = () => {
     return <div>Loading...</div>;
   }
 
-  const { topic, description, postCategory, status, doctor, dateOfBirth, age, dateSchedule, timeSchedule } = appointment;
+  const { topic, description, postCategory, status, doctor, dateOfBirth, age, dateSchedule, timeSchedule, appointId } = appointment;
 
   return (
     <>
@@ -35,6 +35,10 @@ const AppointmentDetails = () => {
           <h2 className='text-2xl font-bold mb-4'>{topic}</h2>
   
           <dl className='grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8'>
+            <div className='mb-4'>
+              <dt className='text-sm font-medium text-gray-500'>Appointment ID</dt>
+              <dd className='mt-1 text-lg font-semibold'>{appointId}</dd>
+            </div>
             <div className='mb-4'>
               <dt className='text-sm font-medium text-gray-500'>Patients' Name</dt>
               <dd className='mt-1 text-lg font-semibold'>{topic}</dd>
