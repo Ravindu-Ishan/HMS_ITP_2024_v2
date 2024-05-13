@@ -7,30 +7,54 @@ const cors = require('cors');
 const app = express();
 
 //import routes
-const postRoutes = require('./routes/posts');
+
+const productsRoutes = require('./routes/products');
+const SupplierRoutes = require('./routes/Supplier');
+const restockRoutes = require('./routes/restock')
+
 const staffRoute = require('./routes/staffRoute');
 const accountRoute = require('./routes/accountRoute');
 const otherstaffRoute = require('./routes/otherstaffRoute');
 const branchRoute = require('./routes/branchRoute');
 const doctorRoute = require('./routes/doctorRoute');
+
+const appointmentRoutes = require('./routes/appointments');
+const labAppRoutes = require('./routes/labApps');
+
+const patientRoutes = require('./routes/patients');
+const prescriptionRoutes = require('./routes/prescriptions');
+
 const shiftRoute = require('./routes/ShiftRoute');
 const qualificationRoute = require('./routes/qualificationsRoute');
-
+const wardRoutes = require('./routes/wards');
+const bedRoutes = require('./routes/beds');
 
 //app middleware
 app.use(bodyParser.json());
 app.use(cors());
 
 //route middleware
-
-app.use(postRoutes);
 app.use(staffRoute);
 app.use(accountRoute);
 app.use(otherstaffRoute);
 app.use(branchRoute);
 app.use(doctorRoute);
+
+app.use(productsRoutes);
+app.use(SupplierRoutes);
+app.use(restockRoutes);
+app.use(patientRoutes);
+
+app.use(prescriptionRoutes);
 app.use(shiftRoute);
 app.use(qualificationRoute);
+
+app.use(appointmentRoutes);
+app.use(labAppRoutes);
+
+app.use(wardRoutes);
+app.use(bedRoutes);
+
 
 
 const PORT = 8000;
