@@ -97,84 +97,84 @@ const Bed_Edit = () => {
         <TopNavWard />
       </div>
       <main>
+
         <div className="col-md-8 mt-4 mx-auto">
-          <h1 className="h3 mb-3 font-weight-normal">Edit Patient Details</h1>
+
           <form className="needs-validation" noValidate>
+            <h1 className="text-3xl font-bold text-gray-800 ml-2">Edit Patient Details</h1>
 
-            <div className="form-group" style={{ marginBottom: '15px' }}>
-              <label htmlFor="patientID" style={{ marginBottom: '5px' }}>Patient ID</label>
-              <input
-                type="text"
-                className="form-control"
-                id="patientID"
-                name="patient_ID"
-                placeholder="Enter patient_ID"
-                value={patient_ID}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-group" style={{ marginBottom: '15px' }}>
-              <label htmlFor="patientName" style={{ marginBottom: '5px' }}>Patient Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="patientName"
-                name="patient_name"
-                placeholder="Enter patient_name"
-                value={patient_name}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-group" style={{ marginBottom: '15px' }}>
-              <label htmlFor="wardID" style={{ marginBottom: '5px' }}>Ward ID</label>
-              <input
-                type="text"
-                className="form-control"
-                id="wardID"
-                name="ward_ID"
-                placeholder="Enter ward_ID"
-                value={ward_ID}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-group" style={{ marginBottom: '15px' }}>
-              <label htmlFor="bedID" style={{ marginBottom: '5px' }}>Bed ID</label>
-              <input
-                type="text"
-                className="form-control"
-                id="bedID"
-                name="bed_ID"
-                placeholder="Enter bed_ID"
-                value={bed_ID}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-group" style={{ marginBottom: '15px' }}>
-              <label htmlFor="bedLocation" style={{ marginBottom: '5px' }}>Bed Location</label>
-              <input
-                type="text"
-                className="form-control"
-                id="bedLocation"
-                name="bed_location"
-                placeholder="Enter bed_location"
-                value={bed_location}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <button
-              className="btn btn-success"
-              type="submit"
-              style={{ marginTop: '15px' }}
-              onClick={onSubmit}
-            >
-              <i className="far fa-check-square"></i>
-              &nbsp; Update & Save
-            </button>
+            <form className="max-w-sm mx-auto">
+              
+              <div className="form-group mb-5">
+                <label htmlFor="patientID" className="mb-1 block text-gray-600 font-medium">Patient ID</label>
+                <input
+                  type="text"
+                  className="form-control rounded-full border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 pl-4 pr-12 py-2 w-full"
+                  id="patientID"
+                  name="patient_ID"
+                  placeholder="Enter patient_ID"
+                  value={patient_ID}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group mb-5">
+                <label htmlFor="patientName" className="mb-1 block text-gray-600 font-medium">Patient Name</label>
+                <input
+                  type="text"
+                  className="form-control rounded-full border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 pl-4 pr-12 py-2 w-full"
+                  id="patientName"
+                  name="patient_name"
+                  placeholder="Enter patient_name"
+                  value={patient_name}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group mb-5">
+                <label htmlFor="wardID" className="mb-1 block text-gray-600 font-medium">Ward ID</label>
+                <input
+                  type="text"
+                  className="form-control rounded-full border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 pl-4 pr-12 py-2 w-full"
+                  id="wardID"
+                  name="ward_ID"
+                  placeholder="Enter ward_ID"
+                  value={ward_ID}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group mb-5">
+                <label htmlFor="bedID" className="mb-1 block text-gray-600 font-medium">Bed ID</label>
+                <input
+                  type="text"
+                  className="form-control rounded-full border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 pl-4 pr-12 py-2 w-full"
+                  id="bedID"
+                  name="bed_ID"
+                  placeholder="Enter bed_ID"
+                  value={bed_ID}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group mb-5">
+                <label htmlFor="bedLocation" className="mb-1 block text-gray-600 font-medium">Bed Location</label>
+                <input
+                  type="text"
+                  className="form-control rounded-full border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 pl-4 pr-12 py-2 w-full"
+                  id="bedLocation"
+                  name="bed_location"
+                  placeholder="Enter bed_location"
+                  value={bed_location}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <button
+                className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+                type="submit"
+                style={{ marginTop: '15px' }}
+                onClick={onSubmit}
+              >
+                <i className="far fa-check-square"></i>
+                &nbsp; Update & Save
+              </button>
+            </form>
           </form>
         </div>
       </main>
