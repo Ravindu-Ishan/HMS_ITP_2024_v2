@@ -59,7 +59,7 @@ const StaffProfile = () => {
   const handleSaveClick = () => {
 
     //------front-end validations----------
-    //setValid(true); //initialize form valid state
+    //initialize form valid state
 
     let valid = true
     let errormsg = ''
@@ -70,8 +70,7 @@ const StaffProfile = () => {
     const dateOfBirth = pdateOfBirth;
     const role = validator.trim(prole);
 
-    //check if all fields are set
-
+    //validation checks
     if (validator.isEmpty(staff_NIC) || validator.isEmpty(staffName) || validator.isEmpty(dateOfBirth) || validator.isEmpty(role)) {
       errormsg = 'Please fill out all fields'
       valid = false
