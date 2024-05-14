@@ -147,13 +147,20 @@ export default class AppointmentHome extends Component {
                       <td className="text-center py-2 px-4">{appointment.doctor}</td>
                       <td className="text-center py-2 px-4">{appointment.status}</td>
                       <td className="text-center py-2 px-4">
-                        <a className="text-blue-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" href={`/editAppointment/${appointment._id}`}>
+                        <button>
+                          <a className="text-blue-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" href={`/editAppointment/${appointment._id}`}>
                           <i className="fas fa-edit"></i>&nbsp;Edit
                         </a>
+                        </button>
+                        
                         &nbsp;
-                        <a className="text-red-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" href="#" onClick={() => this.onDelete(appointment._id)}>
+
+                        <button>
+                          <a className="text-red-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" href="#" onClick={() => this.onDelete(appointment._id)}>
                           <i className="fas fa-trash"></i>&nbsp;Delete
                         </a>
+                        </button>
+                        
                       </td>
                     </tr>
                   ))}
