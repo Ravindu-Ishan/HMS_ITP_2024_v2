@@ -107,6 +107,8 @@ function App() {
       case 'ward manager':
         designatedRoute = "/wardHome";
         break;
+      case 'front deskOfficer':
+        designatedRoute = "/appointmentHome"
       case 'lab technician':
         designatedRoute = "/lab";
         break;
@@ -161,6 +163,8 @@ function App() {
         <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
         <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
 
+        <Route path="/user/myAppointments" element={user ? <DoctorView /> : <Navigate to="/" />} />
+
 
         {/*Lithara*/}
         <Route path="/appointmentHome" element={<AppointmentHome />} />
@@ -178,6 +182,7 @@ function App() {
         <Route path="/labAppointHome/labAppointCreate" element={<LabAppointCreate />} />
         <Route path="/labAppointHome/labAppointEdit/:id" element={<LabAppointEdit />} />
         <Route path="/labApp/:id" element={<LabAppointDetails />} />
+        
 
         {/*Praveen*/}
         <Route path="/wardHome" element={<Ward_Home />} />
