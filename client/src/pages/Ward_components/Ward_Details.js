@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+import TopNavWard from '../../components/TopNavWards';
+
 const Ward_Details = () => {
     const { id } = useParams();
     const [ward, setWard] = useState(null);
@@ -61,33 +63,41 @@ const Ward_Details = () => {
 
     // Render the ward details
     return (
-        <div style={{ marginTop: '20px' }}>
-            <h2>Ward: {ward_ID}</h2>
-            <dl className="row">
-                <dt className="col-sm-3">Ward Type</dt>
-                <dd className="col-sm-9">{ward_type}</dd>
-
-                <dt className="col-sm-3">Bed Count</dt>
-                <dd className="col-sm-9">{bed_count}</dd>
-
-                <dt className="col-sm-3">Special Requirements</dt>
-                <dd className="col-sm-9">{special_requirements}</dd>
-
-                <dt className="col-sm-3">Inventory Details</dt>
-                <dd className="col-sm-9">{inventory_details}</dd>
-
-                <dt className="col-sm-3">Doctor/Specialist ID</dt>
-                <dd className="col-sm-9">{doctor_specialist_ID}</dd>
-
-                <dt className="col-sm-3">Doctor/Specialist Name</dt>
-                <dd className="col-sm-9">{doctor_specialist_name}</dd>
-
-                <dt className="col-sm-3">Nurse/Other Staff Member IDs</dt>
-                <dd className="col-sm-9">{nurse_other_staff_ID}</dd>
-                
-            </dl>
-        </div>
+        <>
+            <div className="navarea">
+                <TopNavWard />
+            </div>
+    
+            <main className="container mx-auto mt-6">
+                <div className="mt-6">
+                    <h2 className="text-2xl font-bold mb-4">Ward: {ward_ID}</h2>
+                    <dl className="grid grid-cols-3 gap-6">
+                        <dt className="font-semibold text-gray-700">Ward Type</dt>
+                        <dd className="col-span-2">{ward_type}</dd>
+    
+                        <dt className="font-semibold text-gray-700">Bed Count</dt>
+                        <dd className="col-span-2">{bed_count}</dd>
+    
+                        <dt className="font-semibold text-gray-700">Special Requirements</dt>
+                        <dd className="col-span-2">{special_requirements}</dd>
+    
+                        <dt className="font-semibold text-gray-700">Inventory Details</dt>
+                        <dd className="col-span-2">{inventory_details}</dd>
+    
+                        <dt className="font-semibold text-gray-700">Doctor/Specialist ID</dt>
+                        <dd className="col-span-2">{doctor_specialist_ID}</dd>
+    
+                        <dt className="font-semibold text-gray-700">Doctor/Specialist Name</dt>
+                        <dd className="col-span-2">{doctor_specialist_name}</dd>
+    
+                        <dt className="font-semibold text-gray-700">Nurse/Other Staff Member IDs</dt>
+                        <dd className="col-span-2">{nurse_other_staff_ID}</dd>
+                    </dl>
+                </div>
+            </main>
+        </>
     );
+    
 };
 
 export default Ward_Details;

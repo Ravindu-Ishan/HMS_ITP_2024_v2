@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Component } from 'react';
 //import React, {useState, useEffect} from 'react';
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 export default class LabAppointHome extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ export default class LabAppointHome extends Component {
       status: "",
       dateOfBirth: "",
       age: "",
-      phone: ""
+      phone: "",
+      labAppId: ""
     };
   }
 
@@ -31,7 +33,7 @@ export default class LabAppointHome extends Component {
     e.preventDefault();
     alert("Appointment Successfully Created");
 
-    const { pname, nic, service, doctor, status, dateOfBirth, age, phone } = this.state;
+    const { pname, nic, service, doctor, status, dateOfBirth, age, phone, labAppId } = this.state;
 
     const data = {
       pname: pname,
@@ -41,7 +43,8 @@ export default class LabAppointHome extends Component {
       status: status,
       dateOfBirth: dateOfBirth,
       age: age,
-      phone: phone
+      phone: phone,
+      labAppId: labAppId
     };
 
     console.log(data);
@@ -57,7 +60,8 @@ export default class LabAppointHome extends Component {
             status: "",
             dateOfBirth: "",
             age: "",
-            phone: ""
+            phone: "",
+            labAppId: ""
           }
         )
       }
@@ -67,15 +71,32 @@ export default class LabAppointHome extends Component {
   render() {
 
     return (
+      <>
+
+        <div className='navarea'>
+          <TopNavAppointmet/>
+        </div>
+      <main>
+
       <div className="col-md-8 mt-4 mx-auto">
-        <h1 className="h3 mb-3 font-weight-normal">Create new appointment</h1>
-        <form className="needs-validation" autoComplete='off' noValidate>
+        <h1 className="h3 mb-3 font-weight-normal">Create New Appointment</h1>
+        <form className="needs-validation" noValidate>
+
+          <div className="form-group" style={{ marginBottom: '15px' }}>
+            <label style={{ marginBottom: '5px' }}>Appointment ID</label>
+            <input type="text"
+              className="form-control"
+              name="labAppId"
+              placeholder="Enter Appointment ID"
+              value={this.state.labAppId}
+              onChange={this.handleInputChange} />
+          </div>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
             <label style={{ marginBottom: '5px' }}>Name</label>
             <input type="text"
               className="form-control"
-              name="topic"
+              name="pname"
               placeholder="Enter Patient's Name"
               value={this.state.pname}
               onChange={this.handleInputChange} />
@@ -85,7 +106,7 @@ export default class LabAppointHome extends Component {
             <label style={{ marginBottom: '5px' }}>NIC</label>
             <input type="text"
               className="form-control"
-              name="description"
+              name="nic"
               placeholder="Enter Patient's NIC"
               value={this.state.nic}
               onChange={this.handleInputChange} />
@@ -95,7 +116,7 @@ export default class LabAppointHome extends Component {
             <label style={{ marginBottom: '5px' }}>Lab Test Type</label>
             <input type="text"
               className="form-control"
-              name="labtestType"
+              name="service"
               placeholder="Enter Lab Test Type"
               value={this.state.service}
               onChange={this.handleInputChange} />
@@ -118,6 +139,9 @@ export default class LabAppointHome extends Component {
               className="form-control"
               name="dateOfBirth"
               placeholder="Enter birth date"
+              max={
+                new Date().toISOString().split('T')[0]
+               }
               value={this.state.dateOfBirth}
               onChange={this.handleInputChange} />
           </div>
@@ -192,13 +216,17 @@ export default class LabAppointHome extends Component {
           </div>
 
 
-          <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }} onClick={this.onSubmit}>
+          <button className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" type="submit" style={{ marginTop: '15px' }} onClick={this.onSubmit}>
             <i className="far fa-check-square"></i>
             &nbsp; Save
           </button>
 
+        
         </form>
       </div>
+
+      </main>
+      </>
     );
   }
 }
