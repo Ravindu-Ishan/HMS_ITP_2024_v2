@@ -25,8 +25,8 @@ import { PiUserCircleFill } from "react-icons/pi";
 const StaffProfile = () => {
 
   //form message and valid state
-  const [errorMsg, setErrorMsg] = useState('');
-  const [valid, setValid] = useState(true);
+  //const [errorMsg, setErrorMsg] = useState('');
+  //const [valid, setValid] = useState(null);
 
   const [isDisabled, setIsDisabled] = useState(true); //form activation state
   const { id } = useParams(); //get url parameters
@@ -59,7 +59,10 @@ const StaffProfile = () => {
   const handleSaveClick = () => {
 
     //------front-end validations----------
-    setValid(true); //initialize form valid state
+    //setValid(true); //initialize form valid state
+
+    let valid = true
+    let errormsg = ''
 
     //sanitizations
     const staff_NIC = validator.trim(pstaff_NIC);
@@ -70,20 +73,23 @@ const StaffProfile = () => {
     //check if all fields are set
 
     if (validator.isEmpty(staff_NIC) || validator.isEmpty(staffName) || validator.isEmpty(dateOfBirth) || validator.isEmpty(role)) {
-      setErrorMsg('Please fill out all fields');
-      setValid(false);
+      errormsg = 'Please fill out all fields'
+      valid = false
     }
     if (isOnlyAlphabet(role) == false || isOnlyAlphabet(staffName) == false) {
-      setErrorMsg('Full Name and Role cannot have numeric characters');
-      setValid(false);
+      errormsg = 'Full Name and Role cannot have numeric or special characters'
+      valid = false
     }
     if (!isAlphanumeric(staff_NIC)) {
-      setErrorMsg('NIC cannot have special characters')
-      setValid(false);
+      errormsg = 'NIC cannot have special characters'
+      valid = false
     }
     if (isOnlySpaces(staff_NIC) || isOnlySpaces(staffName) || isOnlySpaces(dateOfBirth) || isOnlySpaces(role)) {
-      setErrorMsg('Error, unnecessary whitespaces detected in form fields');
-      setValid(false);
+      errormsg = 'Error, unnecessary whitespaces detected in form fields'
+      valid = false
+    }
+    if (!valid) {
+      alert(errormsg)
     }
     if (valid == true) {
       const data = {
@@ -103,14 +109,12 @@ const StaffProfile = () => {
         .catch((error) => {
           setLoading(false);
           window.location.reload(); //reset page if save unsuccessful
-          alert("An error happened. Please check console");
+          alert(error);
           console.log("Error saving staff details:", error);
         });
     }
-
-
-
   };
+
   //get staff member details
   const fetchStaffDetails = () => {
     setLoading(true);
