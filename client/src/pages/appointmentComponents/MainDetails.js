@@ -1,15 +1,15 @@
 export default function MainDetails(
-    {name, address, email, phone, bankName, catagory}
+    {name, address, email, phone, bankName, catagory, invoiceDate,invoiceNo}
 ){
     return(
         <>
-        <section className="flex flex-col">
-            <h2 className="font-bold text-xl uppercase mb-1 md:text-3xl">{name}</h2>
-            <p className="uppercase">{address}</p>
-            <p>{email}</p>
-            <p>{phone}</p>
-            <p>{bankName}</p>
-        </section>
+        <article className="mt-5 mb-10 flex items-end justify-start">
+            <ul>
+                <li className="p-1"><span className="font-bold">Front Desk Officer: </span>{name}</li>
+                <li className="p-1"><span className="font-bold">Report ID: </span>{invoiceNo}</li>
+                <li className="p-1"><span className="font-bold">Report date: </span>{invoiceDate}</li>
+            </ul>
+        </article>
        
         </>
     )

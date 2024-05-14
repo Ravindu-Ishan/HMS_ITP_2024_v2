@@ -5,51 +5,56 @@ const labAppSchema = new mongoose.Schema({
     //Name
     pname:{
         type: String,
-        required: true
+        required: false
     },
 
     //NIC
     nic:{
         type: String,
-        required: true
+        required: false
     },
 
     //service
     service:{
         type: String,
-        required: true
+        required: false
     },
 
     //status
     status:{
         type: String,
-        required: true
+        required: false
     },   
    
     //ScheduleTime
     doctor:{
         type: String,
-        required: true
+        required: false
     },
 
     //Age
     age:{
         type: String,
-        required: true
+        required: false
     },
 
     //BirthDate
     dateOfBirth:{
         type: String,
-        required: true
+        required: false
     },
 
     //Phone
     phone:{
         type: String,
-        required: true
+        required: false
     },
 
+    //Appointment ID
+    labAppId:{
+        type: String,
+        required: false
+    },
 });
 
 

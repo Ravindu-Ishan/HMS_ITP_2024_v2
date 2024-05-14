@@ -8,22 +8,22 @@ export default class AppointmentHome extends Component {
     super(props);
 
     this.state = {
-      appointments:[],
+      appointments: [],
       selectedDoctor: null // Add selected doctor state
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.retrievePosts();
   }
 
 
   //get request
-  retrievePosts(){
-    axios.get("/appointments").then(res =>{
-      if(res.data.success){
+  retrievePosts() {
+    axios.get("/appointments").then(res => {
+      if (res.data.success) {
         this.setState({
-          appointments:res.data.existingAppointments
+          appointments: res.data.existingAppointments
         });
 
         console.log(this.state.appointments);
@@ -44,16 +44,16 @@ export default class AppointmentHome extends Component {
 
 
 
-  onDelete = (id) =>{
+  onDelete = (id) => {
 
-    axios.delete(`/appointment/delete/${id}`).then((res) =>{
+    axios.delete(`/appointment/delete/${id}`).then((res) => {
       alert("Delete successfully");
       this.retrievePosts();
     })
   }
 
 
-  filterData(appointments,searchKey){
+  filterData(appointments, searchKey) {
 
     const result = appointments.filter((appointment) =>
       appointment.appointId.toLowerCase().includes(searchKey) ||
@@ -63,17 +63,17 @@ export default class AppointmentHome extends Component {
       appointment.status.toLowerCase().includes(searchKey)
     )
 
-    this.setState({appointments:result})
+    this.setState({ appointments: result })
 
   }
 
 
-  handleSearchArea = (e) =>{
+  handleSearchArea = (e) => {
 
     const searchKey = e.currentTarget.value;
 
-    axios.get("/appointments").then(res =>{
-      if(res.data.success){
+    axios.get("/appointments").then(res => {
+      if (res.data.success) {
         this.filterData(res.data.existingAppointments, searchKey)
       }
     });
@@ -85,34 +85,32 @@ export default class AppointmentHome extends Component {
 
     return (
       <>
-    
+
         <div className='navarea'>
-          <TopNavAppointmet/>
+          <TopNavAppointmet />
         </div>
-    
+
         <main>
           <div className="container">
             <div className="row">
               <div className="col-lg-9 mt-2 mb-2">
-                <h2 className='font-bold'>Doctor Appointments</h2>
-              </div>
-    
-              <div className="col-lg-9 mt-2 mb-2">
-                <button className="text-white bg-green-700 hover:bg-green-500  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"><a href='/labAppointHome' style={{ textDecoration: 'none', color: 'inherit' }}>Service Appointments</a></button>
-              </div>
-    
-              <div className="col-lg-3 mt-2 mb-2">
-                <input
-                  className="form-control"
-                  type="search"
-                  placeholder="Search"
-                  name="searchQuery"
-                  autoComplete='off'
-                  onChange={this.handleSearchArea}
-                />
+                <h4 className="p-3 text-2xl font-bold text-gray-800 ml-2">Appointments</h4>
+
+                <div className="ml-6 col-lg-9 mt-2 mb-2">
+                  <button className="text-white bg-green-700 hover:bg-green-500  font-medium rounded-full text-m px-5 py-2.5 text-center me-2 mb-2"><a href='/labAppointHome' style={{ textDecoration: 'none', color: 'inherit' }}>Lab Appointments</a></button>
+                </div>
+
+                <div className="ml-6 col-lg-3 mt-2 mb-2">
+                  <input
+                    className="appearance-none block w-300 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    type="search"
+                    placeholder="Search"
+                    name="searchQuery"
+                    onChange={this.handleSearchArea} />
+                </div>
               </div>
             </div>
-    
+
             <div className="table-responsive overflow-x-auto sm:rounded-lg tablestyle"> {/* Adding this div for responsive table */}
               <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 table table-striped table-bordered"> {/* Adding Bootstrap table classes */}
                 <thead className="text-xs text-gray-700 uppercase bg-white thead-dark"> {/* Adding dark background for table header */}
@@ -124,12 +122,12 @@ export default class AppointmentHome extends Component {
                     <th className="p-3" scope="col">Category</th>
                     <th className="p-3" scope="col">Doctor/Specialist</th>
                     <th className="p-3" scope="col">Status</th>
-                    <th className="p-3" scope="col">Actions</th> {/* Changed from empty header */}
+                    <th className="p-3" scope="col"></th> {/* Changed from empty header */}
                   </tr>
                 </thead>
                 <tbody>
                   {this.state.appointments.map((appointment, index) => (
-                    <tr 
+                    <tr
                       className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black"
                       key={index}
                     >
@@ -162,22 +160,22 @@ export default class AppointmentHome extends Component {
                 </tbody>
               </table>
             </div>
-    
+
             <button className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
               <a href="/createAppointment" style={{ textDecoration: 'none', color: 'white' }}> + New Appointment</a>
             </button>
-    
+
             {/* Render DoctorView for the selected doctor */}
             {selectedDoctor && (
               <DoctorView doctor={selectedDoctor} />
             )}
           </div>
         </main>
-    
+
       </>
     );
-    
-    
+
+
   }
 }
 

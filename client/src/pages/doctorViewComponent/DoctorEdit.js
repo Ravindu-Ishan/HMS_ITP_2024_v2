@@ -160,10 +160,10 @@ const EditAppointment = () => {
               <dt className='text-sm font-medium text-gray-500'>Age</dt>
               <dd className='mt-1 text-lg font-semibold'>{age}</dd>
             </div>
-            <div className='mb-4'>
+            {/* <div className='mb-4'>
               <dt className='text-sm font-medium text-gray-500'>Doctor/Specialist</dt>
               <dd className='mt-1 text-lg font-semibold'>{doctor}</dd>
-            </div>
+            </div> */}
 
             <div className="form-group" style={{ marginBottom: '15px' }}>
               <label className="font-bold" style={{ marginBottom: '5px' }}>Schedule Date</label>

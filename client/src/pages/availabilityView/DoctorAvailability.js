@@ -47,55 +47,65 @@ export default class DoctorAvailability extends Component {
 
         <main>
           <div className="container">
-            <div className="row">
+            <h3 className="p-3 text-2xl font-bold text-gray-800 ml-2">Doctors/Specialists</h3>
+            <div className="row" style={{ display: 'flex', justifyContent: 'space-around' }}>
               <div className="col-lg-3 mt-2 mb-2">
                 <input
-                  className="form-control"
+                  className="appearance-none block w-300 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="search"
                   placeholder="Doctor/Specialist"
-                  onChange={this.handleSearchArea}
-                />
-                
+                  name="doctorSearchQuery"
+                  onChange={this.handleSearchArea} />
               </div>
 
               <div className="col-lg-3 mt-2 mb-2">
                 <input
-                  className="form-control"
+                  className="appearance-none block w-300 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="search"
+                  placeholder="Specialisation"
+                  name="specialisationSearchQuery"
+                  onChange={this.handleSearchArea} />
+              </div>
+
+              <div className="col-lg-3 mt-2 mb-2">
+                <input
+                  className="appearance-none block w-300 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   type="search"
                   placeholder="Date"
-                  onChange={this.handleSearchArea}
-                />
-                
+                  name="dateSearchQuery"
+                  onChange={this.handleSearchArea} />
               </div>
             </div>
 
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Doctor/Specialist</th>
-                  <th scope="col">Specialization</th>
-                  <th scope="col">Available Date</th>
-                  <th scope="col">Available Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredShifts.map((shift, index) => (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{shift.smid}</td>
-                    <td></td>
-                    <td>{shift.ScheduleDate}</td>
-                    <td>{shift.ScheduleTime}</td>
-                    
-                    
+
+            <div className="table-responsive overflow-x-auto sm:rounded-lg tablestyle">
+              <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 table table-striped table-bordered">
+                <thead className="text-xs text-gray-700 uppercase bg-white thead-dark">
+                  <tr>
+                    <th className="p-3" scope="col">#</th>
+                    <th className="p-3" scope="col">Doctor/Specialist</th>
+                    <th className="p-3" scope="col">Specialization</th>
+                    <th className="p-3" scope="col">Available Date</th>
+                    <th className="p-3" scope="col">Available Time</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {filteredShifts.map((shift, index) => (
+                    <tr className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black" key={index}>
+                      <td className="text-center py-2 px-4">{index + 1}</td>
+                      <td className="text-center py-2 px-4">{shift.smid}</td>
+                      <td className="text-center py-2 px-4">{/* Add specialization here if available */}</td>
+                      <td className="text-center py-2 px-4">{shift.ScheduleDate}</td>
+                      <td className="text-center py-2 px-4">{shift.ScheduleTime}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </main>
       </>
     );
+
   }
 }

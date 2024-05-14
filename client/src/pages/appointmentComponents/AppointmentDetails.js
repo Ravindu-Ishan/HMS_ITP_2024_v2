@@ -34,7 +34,7 @@ const AppointmentDetails = () => {
   
           <h2 className='text-2xl font-bold mb-4'>{topic}</h2>
   
-          <dl className='grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8'>
+          <dl className='grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 bg-white sm:rounded-lg p-7'>
             <div className='mb-4'>
               <dt className='text-sm font-medium text-gray-500'>Appointment ID</dt>
               <dd className='mt-1 text-lg font-semibold'>{appointId}</dd>
