@@ -144,13 +144,14 @@ function App() {
     <Routes>
       <Route path="/" element={!user ? <Login /> : <Navigate to={gotoRoute} />} />
       <Route element={<RootLayout />}>
-        {/*B K R I SASMIN*/}
-        <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
-        <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
-        <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
-        <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
+        
+            {/*B K R I SASMIN*/}
+             <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
+             <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
+             <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
+             <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
 
-   
+            {/*S.H.K Bulathgama*/}
             <Route path="/productmain" exact element={<InventoryProductMain />} />
             <Route path="/productcreate" element={<InventoryProductCreate />} />
             <Route path="/productedit/:id" element={<InventoryProductEdit />} />
@@ -160,8 +161,8 @@ function App() {
             <Route path="/RestockView" exact element={<RestockRequestView />} />
             <Route path="/RestockAdd" exact element={<RestockRequestAdd />} />
 
-        <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
-        <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
+            <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
+            <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
 
         <Route path="/user/myAppointments" element={user ? <DoctorView /> : <Navigate to="/" />} />
 
@@ -203,8 +204,8 @@ function App() {
         {/*<Route path="/reportApp" element={<ReportApp />} />*/}
         <Route path="/prescriptionsHome" element={<PrescriptionsHome />} />
         <Route path="/createPrescriptions" element={<CreatePrescriptions />} />
-        <Route path="/editPrescriptions" element={<EditPrescriptions />} />
-        <Route path="/prescriptionsDetails" element={<PrescriptionsDetails />} />
+        <Route path="/editPrescriptions/:id" element={<EditPrescriptions />} />
+        <Route path="/prescription/:id" element={<PrescriptionsDetails />} />
         <Route path="/labsReports" element={<LabReports />} />
         {/*Iruni*/}
         <Route path="/shift/shiftsof/:smid" element={user ? <ShiftMain /> : <Navigate to="/" />} />
