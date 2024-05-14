@@ -71,15 +71,9 @@ export default class Home extends Component {
       </div>
 
 
-<main>
-<div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2 inline-flex items-center">
-      <div className="container">
-        <div>
-        <div >
-            <h4 className="font-bold">PRODUCT DETAILS</h4>
-        </div>
-
-          <div >
+      <main>
+        <div className="flex justify-between items-center sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow py-5 px-10">
+          <div className="flex items-center space-x-4">
             <input
               className="form-control"
               type="search"
@@ -88,10 +82,14 @@ export default class Home extends Component {
               onChange={this.handleSearchArea}
             />
           </div>
-        </div>
-        </div>
-
+          <div className="absolute left-1/2 transform -translate-x-1/2">
+  <h3 className="font-bold text-xl">PRODUCT DETAILS</h3>
 </div>
+
+          <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500">
+            <a href="/productcreate">Add New Product</a>
+          </button>
+        </div>
 
   <div className="overflow-x-auto sm:rounded-lg tablestyle">
   <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
@@ -105,7 +103,7 @@ export default class Home extends Component {
               <th className="p-4">Manufacture Date</th>
               <th className="p-4">Quantity</th>
               <th className="p-4">Product Price</th>
-              <th className="p-4">Supplier ID</th>
+              <th className="p-4">Supplier Name</th>
               <th className="p-4">Actions</th>
         </tr>
   </thead>
@@ -114,7 +112,7 @@ export default class Home extends Component {
   {this.state.products.map((product, index) => (
     <tr className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black" key={index}>
       <th scope="row">{index + 1}</th>
-      <td className="text-center py-2 px-2">
+      <td className="text-center py-2 px-2 w-[4ch]">
         <a href={`/product/${product._id}`}>{product._id}</a>
       </td>
       <td className="text-center py-2 px-2">{product.ProductName}
@@ -127,7 +125,7 @@ export default class Home extends Component {
       </td>
       <td className="text-center py-2 px-2">{product.ProductPrice}
       </td>
-      <td className="text-center py-2 px-2">{product.SupplierID}
+      <td className="text-center py-2 px-2">{product.SupplierName}
       </td>
       <td className="flex space-x-4 py-2 px-2">
         <a className="btn btn-primary" href={`/productedit/${product._id}`}>
@@ -145,11 +143,7 @@ export default class Home extends Component {
 
 
 
-  <div className="flex justify-center items-center">
-        <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border-1 border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500">
-                 <a href="/productcreate">Add New Product</a>
-        </button>
-  </div>
+  
       </div>
 </main>
       </>

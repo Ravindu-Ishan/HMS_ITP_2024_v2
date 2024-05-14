@@ -72,15 +72,9 @@ export default class Home extends Component {
 
       
 
-<main>
-<div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2 inline-flex items-center">
-      <div className="container">
-        <div className="row">
-        <div >
-            <h4 className="font-bold">PRODUCT DETAILS</h4>
-        </div>
-
-        <div>
+      <main>
+        <div className="flex justify-between items-center sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow py-5 px-10">
+          <div className="flex items-center space-x-4">
             <input
               className="form-control"
               type="search"
@@ -88,10 +82,18 @@ export default class Home extends Component {
               name="searchQuery"
               onChange={this.handleSearchArea}
             />
+          </div>
+          <div className="absolute left-1/2 transform -translate-x-1/2">
+                <h3 className="font-bold text-xl">SUPPLIER DETAILS</h3>
+          </div>
+          <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500">
+            <a href="/suppliercreate" >Add New Supplier</a>
+          </button>
         </div>
-        </div>
-        </div>
-  </div>
+
+
+
+
   <div className="overflow-x-auto sm:rounded-lg tablestyle">
   <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
   <thead className="text-xs text-gray-700 uppercase bg-white">
@@ -132,15 +134,7 @@ export default class Home extends Component {
               </tr>
             ))}
           </tbody>
-        </table>
-
-
-
-    <div className="flex justify-center items-center ">
-        <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border-1 border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500">
-          <a href="/suppliercreate" >Add New Supplier</a>
-        </button>
-    </div>
+        </table>z
 </div>
 </main>
 </>

@@ -13,20 +13,20 @@ const ProductEditPost = () => {
   const [ManufactureDate, setManufactureDate] = useState("");
   const [Quantity, setQuantity] = useState("");
   const [ProductPrice, setProductPrice] = useState("");
-  const [SupplierID, setSupplierID] = useState("");
+  const [SupplierName, setSupplierName] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/product/${id}`);
         if (response.data.success) {
-          const { ProductName, ExpireDate, ManufactureDate, Quantity, ProductPrice, SupplierID } = response.data.product;
+          const { ProductName, ExpireDate, ManufactureDate, Quantity, ProductPrice, SupplierName } = response.data.product;
           setProductName(ProductName);
           setExpireDate(ExpireDate);
           setManufactureDate(ManufactureDate);
           setQuantity(Quantity);
           setProductPrice(ProductPrice);
-          setSupplierID(SupplierID);
+          setSupplierName(SupplierName);
         } else {
           console.error('Failed to fetch product data:', response.data.error);
         }
@@ -64,8 +64,8 @@ const ProductEditPost = () => {
       case "ProductPrice":
         setProductPrice(value);
         break;
-      case "SupplierID":
-        setSupplierID(value);
+      case "SupplierName":
+        setSupplierName(value);
         break;
       default:
         break;
@@ -82,7 +82,7 @@ const ProductEditPost = () => {
         ManufactureDate,
         Quantity,
         ProductPrice,
-        SupplierID,
+        SupplierName,
       };
       
       const response = await axios.put(`/product/update/${id}`, data);
@@ -93,7 +93,7 @@ const ProductEditPost = () => {
         setManufactureDate("");
         setQuantity("");
         setProductPrice("");
-        setSupplierID("");
+        setSupplierName("");
         navigate('/productmain');
       } else {
         console.error('Failed to update product:', response.data.error);
@@ -174,13 +174,13 @@ const ProductEditPost = () => {
         </div>
 
         <div  className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierID">Supplier ID</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierID">Supplier Name</label>
           <input
             type="text"
             className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            name="SupplierID"
-            placeholder="Enter Supplier ID"
-            value={SupplierID}
+            name="SupplierName"
+            placeholder="Enter Supplier Name"
+            value={SupplierName}
             onChange={handleInputChange}
           />
         </div>

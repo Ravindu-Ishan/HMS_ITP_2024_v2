@@ -12,7 +12,7 @@ export default class CreatePost extends Component {
             ManufactureDate: "",
             Quantity: "",
             ProductPrice: "",
-            SupplierID: "",
+            SupplierName: "",
             errorMessage: "",
         };
     }
@@ -26,22 +26,22 @@ export default class CreatePost extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { ProductName, ExpireDate, ManufactureDate, Quantity, ProductPrice, SupplierID } = this.state;
+        const { ProductName, ExpireDate, ManufactureDate, Quantity, ProductPrice, SupplierName } = this.state;
         const data = { 
             ProductName,
             ExpireDate,
             ManufactureDate,
             Quantity,
             ProductPrice,
-            SupplierID
+            SupplierName
         };
     
         
          // Validations
 
         //SupplierID should only contain letters, numbers, and spaces
-         if (!SupplierID.match(/^[a-zA-Z0-9\s]+$/)) {
-            this.setState({ errorMessage: "SupplierID should only contain letters, numbers, and spaces" });
+         if (!SupplierName.match(/^[a-zA-Z0-9\s]+$/)) {
+            this.setState({ errorMessage: "SupplierName should only contain letters, numbers, and spaces" });
             return;
         }
 
@@ -52,7 +52,7 @@ export default class CreatePost extends Component {
         }
 
         //All fields are required
-         if (!ProductName || !ExpireDate || !ManufactureDate || !Quantity || !ProductPrice || !SupplierID) {
+         if (!ProductName || !ExpireDate || !ManufactureDate || !Quantity || !ProductPrice || !SupplierName) {
             this.setState({ errorMessage: "All fields are required" });
             return;
         }
@@ -68,7 +68,7 @@ export default class CreatePost extends Component {
                     ManufactureDate: "",
                     Quantity: "",
                     ProductPrice: "",
-                    SupplierID: "",
+                    SupplierName: "",
                     errorMessage: "" 
                 });
 
@@ -84,7 +84,7 @@ export default class CreatePost extends Component {
     };
 
     render() {
-        const { ProductName, ExpireDate, ManufactureDate,Quantity,ProductPrice,SupplierID,errorMessage } = this.state;
+        const { ProductName, ExpireDate, ManufactureDate,Quantity,ProductPrice,SupplierName,errorMessage } = this.state;
         return (
             <>
 
@@ -162,15 +162,15 @@ export default class CreatePost extends Component {
                         />
                     </div>
                     <div className="mb-6">
-                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierID">SupplierID</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierName">SupplierName</label>
                         <input
                             type="text"
                             className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                            id="SupplierID"
-                            name="SupplierID"
-                            value={SupplierID}
+                            id="SupplierName"
+                            name="SupplierName"
+                            value={SupplierName}
                             onChange={this.handleInputChange}
-                            placeholder="Enter Supplier ID"
+                            placeholder="Enter Supplier Name"
                             required
                         />
                     </div>
