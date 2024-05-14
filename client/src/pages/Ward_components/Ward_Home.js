@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import TopNavWard from '../../components/TopNavWards';
+import { Link } from 'react-router-dom';
 
 export default class Ward_Home extends Component {
   constructor(props) {
@@ -103,7 +104,7 @@ export default class Ward_Home extends Component {
               </div>
               <div className="ml-2 mt-5 col-lg-3 d-flex align-items-center justify-content-end">
                 <button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
-                  <a href="/wardAdd">Create New Ward</a>
+                  <Link to="/wardAdd">Create New Ward</Link>
                 </button>
               </div>
             </div>
@@ -124,8 +125,8 @@ export default class Ward_Home extends Component {
                       <tr key={index} className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black">
                         <th scope="row" className="text-center py-2 px-4">{index + 1}</th>
                         <td className="text-center py-2 px-4">
-                          <a
-                            href={`/wardDetails/${wards._id}`}
+                          <Link
+                            to={`/wardDetails/${wards._id}`}
                             style={{
                               textDecoration: 'none',
                               color: '#000',
@@ -135,21 +136,21 @@ export default class Ward_Home extends Component {
                             onMouseLeave={(e) => { e.target.style.color = '#000'; }}
                           >
                             {wards.ward_type}
-                          </a>
+                          </Link>
                         </td>
                         <td className="text-center py-2 px-4">{wards.ward_ID}</td>
                         <td className="text-center py-2 px-4">{wards.bed_count}</td>
                         
                         <td className="text-center py-2 px-2">
-                          <a
+                          <Link
                             className="text-blue-700 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
-                            href={`/wardEdit/${wards._id}`}
+                            to={`/wardEdit/${wards._id}`}
                             style={{ transition: 'transform 0.2s', display: 'inline-block' }}
                             onMouseEnter={(e) => { e.target.style.transform = 'scale(1.1)'; }}
                             onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; }}
                           >
                             <i className="fas fa-edit"></i>&nbsp;Edit
-                          </a>
+                          </Link>
                           <button
                             className="text-red-700 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
                             href="#"
