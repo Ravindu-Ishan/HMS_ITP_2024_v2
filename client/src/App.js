@@ -204,8 +204,8 @@ function App() {
         {/*<Route path="/reportApp" element={<ReportApp />} />*/}
         <Route path="/prescriptionsHome" element={<PrescriptionsHome />} />
         <Route path="/createPrescriptions" element={<CreatePrescriptions />} />
-        <Route path="/editPrescriptions" element={<EditPrescriptions />} />
-        <Route path="/prescriptionsDetails" element={<PrescriptionsDetails />} />
+        <Route path="/editPrescriptions/:id" element={<EditPrescriptions />} />
+        <Route path="/prescription/:id" element={<PrescriptionsDetails />} />
         <Route path="/labsReports" element={<LabReports />} />
         {/*Iruni*/}
         <Route path="/shift/shiftsof/:smid" element={user ? <ShiftMain /> : <Navigate to="/" />} />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import PatientNavBar from './PatientNavBar';
+import TopNavPatientProfile from '../../components/TopNavPatientProfile';
 
 
 export default class PrescriptionsHome extends Component {
@@ -63,8 +63,15 @@ export default class PrescriptionsHome extends Component {
 
   render() {
     return (
+      <>
+
+      {/* top nav imported to this section */}
+      <div className="navarea">
+        <TopNavPatientProfile/>
+      </div>
+      <main>
       <div className="container">
-        <PatientNavBar />
+        
         <div className="row">
           <div className="col-lg-9 mt-2 mb-2">
             <h4>All Prescriptions</h4>
@@ -75,36 +82,61 @@ export default class PrescriptionsHome extends Component {
               type="search"
               placeholder="Search"
               name="searchQuery"
-              onChange={this.handleSearchArea}>
+              onChange={this.handleSearchArea}
 
-            </input>
-          </div>
-        </div>
-        <table className="table">
-          <thead>
+              />
+              </div>
+            </div>
+            </div>
+
+            <div className="overflow-x-auto sm:rounded-lg tablestyle">
+            <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
+            <thead className="text-xs text-gray-700 uppercase bg-white">
+
             <tr>
-              <th scope="col">No</th>
-              <th scope="col">Prescription ID</th>
-              <th scope="col">Diagnosis</th>
-              <th scope="col">Date</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
+              <th className="p-1">No</th>
+              <th className="p-1">Prescription ID</th>
+              <th className="p-1">Diagnosis</th>
+              <th className="p-1">Date</th>
+              <th className="p-1s">Actions</th>
+              
+      </tr>
+  </thead>
+
+          
           <tbody>
             {this.state.prescriptions.map((prescriptions, index) => (
-              <tr key={index}>
+              <tr className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black" key={index}>
                 <th scope="row">{index + 1}</th>
-                <td>
-                  <a href={`/prescription/${prescriptions._id}`} style={{ textDecoration: 'none' }}>
+                <td className="text-center py-2 px-2">
+                  <a href={`/prescription/${prescriptions._id}`}>
                     {prescriptions._id}
                   </a>
                 </td>
-                <td>{prescriptions.diagnosis}</td>
-                <td>{prescriptions.date}</td>
+                <td className="text-center py-2 px-2"> 
+                  {prescriptions.diagnosis}
+                </td>
+                <td className="text-center py-2 px-2"> 
+                  {prescriptions.date}
+                </td>
+      
+               
+
+                <td className="flex space-x-4 py-2 px-2">
+        <a className="btn btn-primary" href={`/editPrescriptions/${prescriptions._id}`}>
+          <i className="fas fa-edit"></i>&nbsp;Edit
+        </a>
+        <button className="btn btn-danger" onClick={() => this.onDelete(prescriptions._id)}>
+          <i className="fas fa-trash-alt"></i>&nbsp;Delete
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
                 
                 
                 
-                <td>
+                {/*<td>
                   <a className="btn btn-warning" href="/editPrescriptions">
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
@@ -115,12 +147,20 @@ export default class PrescriptionsHome extends Component {
                 </td>
               </tr>
             ))}
-          </tbody>
+          </tbody>*/}
         </table>
 
-        <button className="btn btn-success"><a href="/createPrescriptions" style={{ textDecoration: 'none', color: 'white' }}> + Create New Prescription</a></button>
+        <div className="flex justify-center items-center h-screen">
+              <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border-1 border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500">
+                      <a href="/createPrescriptions"> + Create New Prescription</a>
+              </button>
+        </div>
+
+        {/*<button className="btn btn-success"><a href="/createPrescriptions" style={{ textDecoration: 'none', color: 'white' }}> + Create New Prescription</a></button>*/}
 
       </div>
+      </main>
+      </>
     )
   }
 }
