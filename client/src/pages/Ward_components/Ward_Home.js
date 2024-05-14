@@ -139,9 +139,10 @@ export default class Ward_Home extends Component {
                         </td>
                         <td className="text-center py-2 px-4">{wards.ward_ID}</td>
                         <td className="text-center py-2 px-4">{wards.bed_count}</td>
-                        <td className="text-center py-2 px-4">
+                        
+                        <td className="text-center py-2 px-2">
                           <a
-                            className="btn btn-warning"
+                            className="text-blue-700 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
                             href={`/wardEdit/${wards._id}`}
                             style={{ transition: 'transform 0.2s', display: 'inline-block' }}
                             onMouseEnter={(e) => { e.target.style.transform = 'scale(1.1)'; }}
@@ -149,9 +150,8 @@ export default class Ward_Home extends Component {
                           >
                             <i className="fas fa-edit"></i>&nbsp;Edit
                           </a>
-                          &nbsp;
-                          <a
-                            className="btn btn-danger"
+                          <button
+                            className="text-red-700 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
                             href="#"
                             onClick={() => this.onDelete(wards._id)}
                             style={{ transition: 'transform 0.2s', display: 'inline-block' }}
@@ -159,7 +159,7 @@ export default class Ward_Home extends Component {
                             onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; }}
                           >
                             <i className="fas fa-trash"></i>&nbsp;Delete
-                          </a>
+                          </button>
                         </td>
                       </tr>
                     );
