@@ -83,10 +83,10 @@ export default class Bed_Home extends Component {
   render() {
     return (
       <>
+        <div className="navarea">
+          <TopNavWard />
+        </div>
         <main>
-          <div className="navarea">
-            <TopNavWard />
-          </div>
           <div className="container">
             <div className="row">
               <div className="col-lg-9 mt-2 mb-2 d-flex align-items-center">
