@@ -65,18 +65,6 @@ export default function AppForm(
               <article className="md:grid grid-cols-3 gap-10">
 
                 <div className="flex flex-col">
-                  <label htmlFor="category">Category</label>
-                    <input 
-                    type="text"
-                    name="text"
-                    id="category"
-                    placeholder="Select Category"
-                    autoComplete="off"
-                    value={catagory}
-                    onChange={(e) => setCatagory(e.target.value)}/>
-                </div>
-
-                <div className="flex flex-col">
                   <label htmlFor="invoiceNo">Report ID</label>
                     <input 
                     type="text"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import TopNavAppointment from "../../components/TopNavAppointment";
+import TopNavUser from "../../components/TopNavUser";
 
 const DoctorView = () => {
   const [appointments, setAppointments] = useState([]);
@@ -52,7 +52,7 @@ const DoctorView = () => {
   return (
     <>
       <div className="navarea">
-        <TopNavAppointment />
+        <TopNavUser />
       </div>
 
       <main>
@@ -117,7 +117,7 @@ const DoctorView = () => {
                     <td className="text-center py-2 px-4">{appointment.description}</td>
                     <td>
                       <a
-                        className="text-white bg-yellow-500 hover:bg-yellow-600  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        className="text-blue-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
                         href={`/doctorReschedule/${appointment._id}`}
                       >
                         <i className="fas fa-edit"></i>&nbsp;Reschedule
