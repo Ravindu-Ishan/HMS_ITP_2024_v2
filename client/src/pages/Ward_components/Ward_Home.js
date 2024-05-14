@@ -30,12 +30,18 @@ export default class Ward_Home extends Component {
       });
   }
 
+  //delete function
   onDelete = (id) => {
-
-    axios.delete(`/ward/delete/${id}`).then((res) => {
-      alert("Delete successfully");
-      this.retrieveWards();
-    })
+    if (window.confirm("Are you sure you want to delete this ward?")) {
+      axios.delete(`/ward/delete/${id}`)
+        .then((res) => {
+          alert("Delete successful");
+          this.retrieveWards();
+        })
+        .catch((error) => {
+          console.error('Error deleting ward:', error);
+        });
+    }
   }
 
   //search function
@@ -85,17 +91,20 @@ export default class Ward_Home extends Component {
         <main>
           <div className="container">
             <div className="row">
-              <div className="col-lg-9 mt-2 mb-2">
-                <h4>All Wards</h4>
-                <div className="col-lg-3 mt-2 mb-2">
-                  <input
-                    className="form-control"
-                    type="search"
-                    placeholder="search"
-                    name="searchQuery"
-                    onChange={this.handleSearchArea}>
-                  </input>
-                </div>
+              <div className="col-lg-9 mt-2 mb-2 d-flex align-items-center">
+                <h4 className="text-3xl font-bold text-gray-800 ml-2">Wards</h4>
+                <input
+                  className="appearance-none block w-300 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 ml-2"
+                  type="search"
+                  placeholder="Search"
+                  name="searchQuery"
+                  onChange={this.handleSearchArea}
+                />
+              </div>
+              <div className="ml-2 mt-5 col-lg-3 d-flex align-items-center justify-content-end">
+                <button className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                  <a href="/wardAdd">Create New Ward</a>
+                </button>
               </div>
             </div>
             <div className="overflow-x-auto sm:rounded-lg">
@@ -103,9 +112,9 @@ export default class Ward_Home extends Component {
                 <thead className="text-xs text-gray-700 uppercase bg-white">
                   <tr>
                     <th className="p-3" scope="col">#</th>
-                    <th className="p-3" scope="col">ward_type</th>
-                    <th className="p-3" scope="col">ward_ID</th>
-                    <th className="p-3" scope="col">bed_count</th>
+                    <th className="p-3" scope="col">Ward Type</th>
+                    <th className="p-3" scope="col">Ward ID</th>
+                    <th className="p-3" scope="col">Bed Count</th>
                     <th className="p-3" scope="col">Action</th>
                   </tr>
                 </thead>
@@ -115,18 +124,40 @@ export default class Ward_Home extends Component {
                       <tr key={index} className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black">
                         <th scope="row" className="text-center py-2 px-4">{index + 1}</th>
                         <td className="text-center py-2 px-4">
-                          <a href={`/wardDetails/${wards._id}`} style={{ textDecoration: 'none' }}>
+                          <a
+                            href={`/wardDetails/${wards._id}`}
+                            style={{
+                              textDecoration: 'none',
+                              color: '#000',
+                              transition: 'color 0.2s',
+                            }}
+                            onMouseEnter={(e) => { e.target.style.color = '#007bff'; }}
+                            onMouseLeave={(e) => { e.target.style.color = '#000'; }}
+                          >
                             {wards.ward_type}
                           </a>
                         </td>
                         <td className="text-center py-2 px-4">{wards.ward_ID}</td>
                         <td className="text-center py-2 px-4">{wards.bed_count}</td>
                         <td className="text-center py-2 px-4">
-                          <a className="btn btn-warning" href={`/wardEdit/${wards._id}`}>
+                          <a
+                            className="btn btn-warning"
+                            href={`/wardEdit/${wards._id}`}
+                            style={{ transition: 'transform 0.2s', display: 'inline-block' }}
+                            onMouseEnter={(e) => { e.target.style.transform = 'scale(1.1)'; }}
+                            onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; }}
+                          >
                             <i className="fas fa-edit"></i>&nbsp;Edit
                           </a>
                           &nbsp;
-                          <a className="btn btn-danger" href="#" onClick={() => this.onDelete(wards._id)}>
+                          <a
+                            className="btn btn-danger"
+                            href="#"
+                            onClick={() => this.onDelete(wards._id)}
+                            style={{ transition: 'transform 0.2s', display: 'inline-block' }}
+                            onMouseEnter={(e) => { e.target.style.transform = 'scale(1.1)'; }}
+                            onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; }}
+                          >
                             <i className="fas fa-trash"></i>&nbsp;Delete
                           </a>
                         </td>
@@ -136,12 +167,6 @@ export default class Ward_Home extends Component {
                 </tbody>
               </table>
             </div>
-
-            <button className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
-              <a href="/wardAdd">
-                Create New Ward
-              </a>
-            </button>
           </div>
         </main>
       </>
