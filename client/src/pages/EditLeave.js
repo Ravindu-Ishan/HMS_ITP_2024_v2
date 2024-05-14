@@ -27,10 +27,10 @@
             setleaveReason(leaveReason);
             setleaveDuration(leaveDuration);
           } else {
-            console.error('Failed to fetch post data:', response.data.error);
+            console.error('Failed to fetch leave data:', response.data.error);
           }
         } catch (error) {
-          console.error('Error fetching post:', error);
+          console.error('Error fetching leave:', error);
         }
       };
 
@@ -110,8 +110,8 @@
                                       <input
                                           type="date"
                                           className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                          id="Date"
-                                          name="Date"
+                                          id="leave-date"
+                                          name="LeaveDate"
                                           value={leaveDate}
                                           onChange={(e) => setleaveDate(e.target.value)}
                                           placeholder="Enter Date"
@@ -124,8 +124,8 @@
                                       <input
                                           type="text"
                                           className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                          id="text"
-                                          name="text"
+                                          id="leave-name"
+                                          name="leaveName"
                                           value={leaveName}
                                           onChange={(e) => setleaveName(e.target.value)}
                                           placeholder="Enter Name"
@@ -138,8 +138,8 @@
                                       <input
                                           type="text"
                                           className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                          id="text"
-                                          name="text"
+                                          id="leave-type"
+                                          name="leaveType"
                                           value={leaveType}
                                           onChange={(e) => setleaveType(e.target.value)}
                                           placeholder="Enter Leave Type"
@@ -152,8 +152,8 @@
                                       <input
                                           type="text"
                                           className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                          id="text"
-                                          name="text"
+                                          id="leave-reason"
+                                          name="leaveReason"
                                           value={leaveReason}
                                           onChange={(e) => setleaveReason(e.target.value)}
                                           placeholder="Enter Reason"
@@ -166,8 +166,8 @@
                                       <input
                                           type="text"
                                           className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                          id="text"
-                                          name="text"
+                                          id="leave-duration"
+                                          name="leaveDuration"
                                           value={leaveDuration}
                                           onChange={(e) => setleaveDuration(e.target.value)}
                                           placeholder="Enter Leave Duration"

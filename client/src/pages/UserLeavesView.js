@@ -102,6 +102,7 @@ const UserLeavesView = () => {
                                 <th className="p-3">Reason</th>
                                 <th className="p-3">Duration</th>
                                 <th className="p-3">Action</th>
+                                <th className="p-3">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -139,6 +140,7 @@ const UserLeavesView = () => {
                                             </button>  &nbsp;
                                         </div>
                                     </td>
+                                    
                                 </tr>
 
                             ))}
