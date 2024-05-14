@@ -80,7 +80,7 @@ const CreateLeave = () => {
         */
 
 
-        import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import EmptyNavArea from "../components/EmptyNavArea";
@@ -97,7 +97,7 @@ const CreateLeave = () => {
         smid = userInfo.smid;
     }
 
-
+    
     const navigate = useNavigate();
 
 
@@ -133,7 +133,7 @@ const CreateLeave = () => {
         };
 
         try {
-            const res = await axios.post("/userLeaves/save", data); // Adjust the URL
+            const res = await axios.post("/user/userLeaves/save", data); // Adjust the URL
             if (res.data.success) {
                 alert("leave created successfully!");
                 navigate(-1);
@@ -144,6 +144,7 @@ const CreateLeave = () => {
             console.error("Error creating leave:", error);
             setErrorMessage("Failed to create leave");
         }
+       
     };
 
     useEffect(() => {

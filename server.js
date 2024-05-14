@@ -25,6 +25,7 @@ const patientRoutes = require('./routes/patients');
 const prescriptionRoutes = require('./routes/prescriptions');
 
 const shiftRoute = require('./routes/ShiftRoute');
+const UserLeavesViewRoute = require('./routes/UserLeavesViewRoute');
 const qualificationRoute = require('./routes/qualificationsRoute');
 const wardRoutes = require('./routes/wards');
 const bedRoutes = require('./routes/beds');
@@ -46,6 +47,7 @@ app.use(restockRoutes);
 app.use(patientRoutes);
 
 app.use(prescriptionRoutes);
+app.use(UserLeavesViewRoute);
 app.use(shiftRoute);
 app.use(qualificationRoute);
 

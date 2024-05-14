@@ -26,7 +26,7 @@ const userLeavesViewSchema = new mongoose.Schema({
     leaveDuration: {
         type: String,
         required: true
-    },
+    }
     
 
 

@@ -70,10 +70,14 @@ const UserLeavesView = () => {
             </div>
 
             <main>
-
-                <div className="main-container">
-                       {/*----------------------------search bar----------------------------------- */}
+                
+                {/*----------------------------search bar----------------------------------- */}
                     <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
+                    <button type="button"
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        onClick={() => navigate(`/user/userLeaves/create/${smid}`)}>
+                        Create New
+                    </button>  
                         <input
                             className="form-control"
                             type="search"
@@ -82,7 +86,6 @@ const UserLeavesView = () => {
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
-                </div>
 
                
 
@@ -141,12 +144,6 @@ const UserLeavesView = () => {
                             ))}
                         </tbody>
                     </table>
-                    
-                    <button type="button"
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
-                        onClick={() => navigate(`/user/userLeaves/create/${smid}`)}>
-                        Create New
-                    </button>  
                     
                 </div>
             </main >
