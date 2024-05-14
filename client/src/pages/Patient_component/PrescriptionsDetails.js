@@ -41,6 +41,7 @@ const PrescriptionsDetails = () => {
       <main>
       <div className="bg-white border border-gray-200 rounded-[50px] shadow-lg p-10 m-5">
       <header className="flex flex-col items-center justify-center mb-5 xl:flex-row xl:justify-center">
+        
     <div className="text-center"> 
         <h1 className="font-bold uppercase tracking-wide text-4xl mb-3">Prescription Form</h1>
         <h1 className="font-bold text-lg">MedFlow Hospital</h1>
