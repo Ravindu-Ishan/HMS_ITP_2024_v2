@@ -28,6 +28,8 @@ import Leaves from './pages/Leaves';
 import UserShiftView from './pages/UserShiftView';
 import UserLeavesView from './pages/UserLeavesView';
 import AttendanceReport from './pages/AttendanceReport';
+import CreateLeave from './pages/CreateLeave';
+import EditLeave from './pages/EditLeave';
 
 import StaffQualifications from "./pages/StaffQualifications"
 import UserQualifications from './pages/UserQualifications';
@@ -105,6 +107,8 @@ function App() {
       case 'ward manager':
         designatedRoute = "/wardHome";
         break;
+      case 'front deskOfficer':
+        designatedRoute = "/appointmentHome"
       case 'lab technician':
         designatedRoute = "/lab";
         break;
@@ -159,6 +163,8 @@ function App() {
         <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
         <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
 
+        <Route path="/user/myAppointments" element={user ? <DoctorView /> : <Navigate to="/" />} />
+
 
         {/*Lithara*/}
         <Route path="/appointmentHome" element={<AppointmentHome />} />
@@ -176,6 +182,7 @@ function App() {
         <Route path="/labAppointHome/labAppointCreate" element={<LabAppointCreate />} />
         <Route path="/labAppointHome/labAppointEdit/:id" element={<LabAppointEdit />} />
         <Route path="/labApp/:id" element={<LabAppointDetails />} />
+        
 
         {/*Praveen*/}
         <Route path="/wardHome" element={<Ward_Home />} />
@@ -209,6 +216,9 @@ function App() {
         <Route path='/user/userShifts' element={user ? <UserShiftView /> : <Navigate to="/" />} />
         <Route path='/user/userLeaves' element={user ? <UserLeavesView /> : <Navigate to="/" />} />
         <Route path='/attendence/attendanceReport' element={user ? <AttendanceReport /> : <Navigate to="/" />} />
+
+        <Route path='/user/userLeaves/create/:smid' element={user ? <CreateLeave /> : <Navigate to="/" />} />
+        <Route path='/user/userLeaves/edit/:id' element={user ? <EditLeave /> : <Navigate to="/" />} />
 
       </Route>
     </Routes>

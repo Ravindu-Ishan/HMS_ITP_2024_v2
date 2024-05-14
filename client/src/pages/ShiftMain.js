@@ -100,7 +100,7 @@ const ShiftMain = () => {
 
                                 <tr 
                                 className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black"
-                                key={shift._id}>
+                                 key={shift._id}>
 
                                     <td className="text-center py-2 px-4">
                                         <Link to={`/shift/${shift._id}`}> {index + 1}</Link>
@@ -124,13 +124,13 @@ const ShiftMain = () => {
                             ))}
                         </tbody>
                     </table>
-
+                    
                     <button type="button"
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
                         onClick={() => navigate(`/shift/create/${smid}`)}>
                         Create New
                     </button>  
-
+                    
                 </div>
             </main >
         </>

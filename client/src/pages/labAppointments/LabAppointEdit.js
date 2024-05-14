@@ -12,6 +12,7 @@ const EditAppointment = () => {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
+  const [labAppId, setLabAppId] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +28,7 @@ const EditAppointment = () => {
           setDateOfBirth(dateOfBirth);
           setAge(age);
           setPhone(phone);
+          setLabAppId(labAppId);
         } else {
           console.error('Failed to fetch post data:', response.data.error);
         }
@@ -73,6 +75,9 @@ const EditAppointment = () => {
       case "phone":
         setPhone(value);
         break;
+      case "labAppId":
+        setLabAppId(value);
+        break;
       default:
         break;
     }
@@ -90,7 +95,8 @@ const EditAppointment = () => {
         status,
         dateOfBirth,
         age,
-        phone
+        phone,
+        labAppId
       };
 
       const response = await axios.put(`/labApp/update/${id}`, data);
@@ -104,6 +110,7 @@ const EditAppointment = () => {
         setDateOfBirth("");
         setAge("");
         setPhone("");
+        setLabAppId("");
 
       } else {
         console.error('Failed to update post:', response.data.error);
@@ -117,6 +124,18 @@ const EditAppointment = () => {
     <div className="col-md-8 mt-4 mx-auto">
       <h1 className="h3 mb-3 font-weight-normal">Edit Appointment</h1>
       <form className="needs-validation" noValidate>
+
+        <div className="form-group" style={{ marginBottom: '15px' }}>
+          <label style={{ marginBottom: '5px' }}>Appointment ID</label>
+          <input
+            type="text"
+            className="form-control"
+            name="labAppId"
+            placeholder="Enter Appointment ID"
+            value={labAppId}
+            onChange={handleInputChange}
+          />
+        </div>
 
         <div className="form-group" style={{ marginBottom: '15px' }}>
           <label style={{ marginBottom: '5px' }}>Name</label>
@@ -249,7 +268,7 @@ const EditAppointment = () => {
           </div>
 
         <button
-          className="btn btn-success"
+          className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
           type="submit"
           style={{ marginTop: '15px' }}
           onClick={onSubmit}

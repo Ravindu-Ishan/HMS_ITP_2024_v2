@@ -5,61 +5,67 @@ const appointmentSchema = new mongoose.Schema({
     //Name
     topic:{
         type: String,
-        required: true
+        required: false
     },
 
     //NIC
     description:{
         type: String,
-        required: true
+        required: false
     },
 
     //Category
     postCategory:{
         type: String,
-        required: true
+        required: false
     },
 
     //Doctor/Specialist
     doctor:{
         type: String,
-        required: true
+        required: false
     },   
     
     //Status
     status:{
         type: String,
-        required: true
+        required: false
     },
 
     //ScheduleDate
     dateSchedule:{
         type: String,
-        required: true
+        required: false
     },
 
     //ScheduleTime
     timeSchedule:{
         type: String,
-        required: true
+        required: false
     },
 
     //Age
     age:{
         type: String,
-        required: true
+        required: false
     },
 
     //BirthDate
     dateOfBirth:{
         type: String,
-        required: true
+        required: false
     },
 
     //Phone
     phone:{
         type: String,
-        required: true
+        required: false
+    },
+
+    //Appointment ID
+    appointId:{
+        type: String,
+        required: false
     }
 });
 

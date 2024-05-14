@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Component } from 'react';
 //import React, {useState, useEffect} from 'react';
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 export default class CreateAppointment extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ export default class CreateAppointment extends Component {
       age: "",
       timeSchedule: "",
       dateSchedule: "",
-      phone: ""
+      phone: "",
+      appointId: ""
     };
   }
 
@@ -33,7 +35,7 @@ export default class CreateAppointment extends Component {
     e.preventDefault();
     alert("Appointment Successfully Created");
 
-    const { topic, description, postCategory, doctor, status, dateOfBirth, age, timeSchedule, dateSchedule, phone } = this.state;
+    const { topic, description, postCategory, doctor, status, dateOfBirth, age, timeSchedule, dateSchedule, phone, appointId } = this.state;
 
     const data = {
       topic: topic,
@@ -45,7 +47,8 @@ export default class CreateAppointment extends Component {
       age: age,
       timeSchedule: timeSchedule,
       dateSchedule: dateSchedule,
-      phone: phone
+      phone: phone,
+      appointId: appointId
     };
 
     console.log(data);
@@ -63,7 +66,8 @@ export default class CreateAppointment extends Component {
             age: "",
             timeSchedule: "",
             dateSchedule: "",
-            phone: ""
+            phone: "",
+            appointId: ""
           }
         )
       }
@@ -73,14 +77,31 @@ export default class CreateAppointment extends Component {
   render() {
 
     return (
-      <div className="col-md-8 mt-4 mx-auto">
-        <h1 className="h3 mb-3 font-weight-normal">Create new appointment</h1>
+      <>
+
+        <div className='navarea'>
+          <TopNavAppointmet/>
+        </div>
+
+      <main>
+      <div className='max-w-3xl mx-auto'>
+        <h1 className='text-2xl font-bold mb-4'>Create New Appointment</h1>
         <form className="needs-validation" noValidate>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label style={{ marginBottom: '5px' }}>Name</label>
+            <label style={{ marginBottom: '5px', marginRight: '6px' }}>Appointment ID</label>
             <input type="text"
-              className="form-control"
+              className="form-control rounded-full p-2"
+              name="appointId"
+              placeholder="Enter Appointment ID"
+              value={this.state.appointId}
+              onChange={this.handleInputChange} />
+          </div>
+
+          <div className="form-group" style={{ marginBottom: '15px' }}>
+            <label style={{ marginBottom: '5px' , marginRight: '6px' }}>Name</label>
+            <input type="text"
+              className="form-control rounded-full p-2"
               name="topic"
               placeholder="Enter Patient's Name"
               value={this.state.topic}
@@ -88,19 +109,20 @@ export default class CreateAppointment extends Component {
           </div>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label style={{ marginBottom: '5px' }}>NIC</label>
+            <label style={{ marginBottom: '5px' , marginRight: '6px' }}>NIC</label>
             <input type="text"
-              className="form-control"
+              className="form-control rounded-full p-2"
               name="description"
+              maxLength={12}
               placeholder="Enter Patient's NIC"
               value={this.state.description}
               onChange={this.handleInputChange} />
           </div>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label style={{ marginBottom: '5px' }}>Contact No</label>
+            <label style={{ marginBottom: '5px' , marginRight: '6px' }}>Contact No</label>
             <input type="text"
-              className="form-control"
+              className="form-control rounded-full p-2"
               name="phone"
               placeholder="Enter Contact No"
               maxLength={10}
@@ -109,19 +131,22 @@ export default class CreateAppointment extends Component {
           </div>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label style={{ marginBottom: '5px' }}>Birth Date</label>
+            <label style={{ marginBottom: '5px' , marginRight: '6px' }}>Birth Date</label>
             <input type="date"
-              className="form-control"
+              className="form-control rounded-full p-2"
               name="dateOfBirth"
               placeholder="Enter birth date"
+              max={
+                new Date().toISOString().split('T')[0]
+               }
               value={this.state.dateOfBirth}
               onChange={this.handleInputChange} />
           </div>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label style={{ marginBottom: '5px' }}>Age</label>
+            <label style={{ marginBottom: '5px' , marginRight: '6px' }}>Age</label>
             <input type="number"
-              className="form-control"
+              className="form-control rounded-full p-2"
               name="age"
               placeholder="Enter Age"
               maxLength={3}
@@ -131,9 +156,9 @@ export default class CreateAppointment extends Component {
           </div>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label htmlFor="specialization" style={{ marginBottom: '5px' }}>Specailization</label>
+            <label htmlFor="specialization" style={{ marginBottom: '5px' , marginRight: '6px' }}>Specailization</label>
             <select
-              className="form-control"
+              className="form-control rounded-full p-2"
               id="specialization"
               name="postCategory"
               value={this.state.postCategory}
@@ -161,9 +186,9 @@ export default class CreateAppointment extends Component {
 
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label htmlFor="doctor" style={{ marginBottom: '5px' }}>Doctor/Specialist</label>
+            <label htmlFor="doctor" style={{ marginBottom: '5px' , marginRight: '6px' }}>Doctor/Specialist</label>
             <select
-              className="form-control"
+              className="form-control rounded-full p-2"
               id="doctor"
               name="doctor"
               value={this.state.doctor}
@@ -198,19 +223,22 @@ export default class CreateAppointment extends Component {
           {/* <div class="md:col-span-2 xl:col-span-3 2xl:col-span-2"><div class=" text-sm mb-2">Doctor name</div><div class="relative"><input autocomplete="off" class="w-full rounded-xl py-3 px-4 text-sm focus:outline-none border-primaryDarkBlue border bg-white text-left pr-9" placeholder="Search Doctor Name" id="headlessui-combobox-input-:r7iv:" role="combobox" aria-expanded="true" aria-autocomplete="list" data-headlessui-state="open" type="text" value="" aria-controls="headlessui-combobox-options-:rb42:"/><button class="absolute inset-y-0 right-0 flex items-center pr-4" id="headlessui-combobox-button-:r7j0:" type="button" tabindex="-1" aria-haspopup="listbox" aria-expanded="true" data-headlessui-state="open" aria-controls="headlessui-combobox-options-:rb42:"></button><ul class="w-full rounded-xl text-sm overflow-y-scroll max-h-72 focus:outline-none absolute z-20 mt-2 shadow-md bg-white text-left py-3 scrollbar-hide" aria-labelledby="headlessui-combobox-button-:r7j0:" role="listbox" id="headlessui-combobox-options-:rb42:" data-headlessui-state="open"><li class="cursor-not-allowed py-2 px-4" id="headlessui-combobox-option-:rb43:" role="option" aria-disabled="true" aria-selected="false" data-headlessui-state="disabled">No results</li></ul></div></div> */}
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label style={{ marginBottom: '5px' }}>Schedule Date</label>
+            <label style={{ marginBottom: '5px' , marginRight: '6px' }}>Schedule Date</label>
             <input type="date"
-              className="form-control"
+              className="form-control rounded-full p-2"
               name="dateSchedule"
               placeholder="Select date"
+              min={
+                new Date().toISOString().split('T')[0]
+               }
               value={this.state.dateSchedule}
               onChange={this.handleInputChange} />
           </div>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label style={{ marginBottom: '5px' }}>Schedule Time</label>
+            <label style={{ marginBottom: '5px' , marginRight: '6px' }}>Schedule Time</label>
             <input type="time"
-              className="form-control"
+              className="form-control rounded-full p-2"
               name="timeSchedule"
               placeholder="Select time"
               value={this.state.timeSchedule}
@@ -219,7 +247,7 @@ export default class CreateAppointment extends Component {
 
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label htmlFor="status" style={{ marginBottom: '5px' }}>Status</label>
+            <label htmlFor="status" style={{ marginBottom: '5px' , marginRight: '6px' }}>Status</label>
             <select
               className="form-control"
               id="status"
@@ -239,13 +267,20 @@ export default class CreateAppointment extends Component {
           </div>
 
 
-          <button className="btn btn-success" type="submit" style={{ marginTop: '15px' }} onClick={this.onSubmit}>
+          <button className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" type="submit" style={{ marginTop: '15px' }} onClick={this.onSubmit}>
             <i className="far fa-check-square"></i>
             &nbsp; Save
           </button>
 
+          <button className="text-white bg-green-700 hover:bg-green-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" type="submit" style={{ marginTop: '15px' }}>
+            <i className="far fa-check-square"></i>
+            &nbsp; Proceed Payment
+          </button>
+
         </form>
       </div>
+      </main>
+      </>
     );
   }
 }

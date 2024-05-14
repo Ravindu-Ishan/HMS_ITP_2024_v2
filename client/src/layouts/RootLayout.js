@@ -79,7 +79,7 @@ const RootLayout = () => {
                 </li>
               </Link>
               <Link to="/appointmentHome">
-                <li className={isSelected("/appointment") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+                <li className={isSelected("/appointmentHome") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaClipboardList className="inline-flex mr-5" />
                   <div className="inline-flex">
                     Manage Appointments
@@ -121,7 +121,7 @@ const RootLayout = () => {
 
               <li>
                 <details className="group [&_summary::-webkit-details-marker]:hidden">
-                  <summary className={isSelected(" /inventory") ? "flex p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "flex sidebar-list-item"}>
+                  <summary className={isSelected("productmain") ? "flex p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "flex sidebar-list-item"}>
                     <MdInventory className=" inline-flex mr-5" />
                     <div className=" inline-flex">
                       Inventory Management

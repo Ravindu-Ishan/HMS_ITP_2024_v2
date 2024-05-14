@@ -22,11 +22,19 @@ const CreateShift = () => {
     const onSubmit = async (e) => {
         
         e.preventDefault();
+
+        //validations
         if (!Location || !ScheduleTime || !ScheduleDate) {
             setErrorMessage("Please fill out all fields.");
             return;
-        }
+        };
+
         
+        if (!/^\d+$/.test(Location)) {
+            setErrorMessage("Please fill out the Location field with only numbers.");
+            return;
+        };
+     
         const data = {
 
             smid: smid,
@@ -51,7 +59,7 @@ const CreateShift = () => {
     };
 
     
-       
+    
 
         useEffect(() => {
             
@@ -62,7 +70,7 @@ const CreateShift = () => {
 
                 <EmptyNavArea />
 
-                <main>
+                <main >
                     <div className="max-w-md mx-auto">
                         
                             <h1 className="text-lg font-bold mb-3">Create new shift</h1>
@@ -110,7 +118,7 @@ const CreateShift = () => {
                                         placeholder="Enter Location"
                                     />
                                 </div>
-
+                                <div className="mb-6 text-center">
                                 <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" 
                                 type="submit" 
                                 onClick={onSubmit}
@@ -118,6 +126,7 @@ const CreateShift = () => {
                                     <i className="far fa-check-square"></i>
                                     <span className="ml-2">Save</span>
                                 </button>
+                            </div>
                                 {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
                             </form>
                         
