@@ -10,7 +10,7 @@ const app = express();
 
 const productsRoutes = require('./routes/products');
 const SupplierRoutes = require('./routes/Supplier');
-const restockRoutes = require('./routes/restock')
+const restockRoutes = require('./routes/restock');
 
 const staffRoute = require('./routes/staffRoute');
 const accountRoute = require('./routes/accountRoute');
