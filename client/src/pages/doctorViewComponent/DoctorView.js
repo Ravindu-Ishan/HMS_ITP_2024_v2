@@ -99,7 +99,9 @@ const DoctorView = () => {
                 </tr>
               </thead>
               <tbody>
-                {filterAppointments().map((appointment, index) => (
+                {filterAppointments()
+                .filter(appointment => appointment.doctor == 'Sunimala Sooriya Kasthuriarachchi')
+                .map((appointment, index) => (
                   <tr
                     className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black"
                     key={index}

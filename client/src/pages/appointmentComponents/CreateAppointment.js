@@ -21,15 +21,41 @@ export default class CreateAppointment extends Component {
     };
   }
 
-
+  //validations
   handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    this.setState({
-      ...this.state,
-      [name]: value
-    });
+  
+    // Exclude specific fields from being modified
+    if (name === "phone" || name === "age" || name === "description") {
+      // Regular expression to allow only numbers for phone and age fields
+      const numericPattern = /^[0-9]*$/;
+      // Check if the input value matches the numeric pattern
+      if (numericPattern.test(value) || value === "") {
+        // Update the state
+        this.setState({
+          [name]: value
+        });
+      }
+    } else if (name === "appointId") {
+      // Regular expression to allow only alphanumeric characters for appointId field
+      const alphanumericPattern = /^[a-zA-Z0-9]*$/;
+      // Check if the input value matches the alphanumeric pattern
+      if (alphanumericPattern.test(value) || value === "") {
+        // Update the state
+        this.setState({
+          [name]: value
+        });
+      }
+    } else {
+      // For other fields, no need for regex validation
+      this.setState({
+        [name]: value
+      });
+    }
   }
+  
+  
+
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -86,7 +112,7 @@ export default class CreateAppointment extends Component {
       <main>
       <div className='max-w-3xl mx-auto'>
         <h1 className='text-2xl font-bold mb-4  text-green-700'>Create New Appointment</h1>
-        <form className="needs-validation bg-white sm:rounded-lg p-10" noValidate>
+        <form className="needs-validation bg-white sm:rounded-lg p-10" autoComplete='off' noValidate>
 
           <div className="form-group" style={{ marginBottom: '15px' }}>
             <label style={{ marginBottom: '5px', marginRight: '12px' , fontWeight: '600'}}>Appointment ID</label>
@@ -167,20 +193,9 @@ export default class CreateAppointment extends Component {
             >
               {/* List of options for ward types */}
               <option value="">Select Category</option>
-              <option value="Ayurveda Consultant">Ayurveda Consultant</option>
-              <option value="Cardiologist">Cardio</option>
-              <option value="Gastroenterologst">Gastroenterologst</option>
-              <option value="Physician">Physician</option>
+              <option value="Cardiologist">Cardiologist</option>
               <option value="Dentist">Dentist</option>
-              <option value="Dermatologist">Dermatologist</option>
-              <option value="Eye Surgeon">Eye Surgeon</option>
-              <option value="Facial Surgeon">Facial Surgeon</option>
-              <option value="Dietician">Dietician</option>
-              <option value="Nutritionist">Nutritionist</option>
-              <option value="Physician">Physician</option>
-              <option value="Psychiatrist">Psychiatrist</option>
-              <option value="Fertility Consultant">Fertility Consultant</option>
-              <option value="Special Education Need Consultant">Special Education Need Consultant</option>
+              <option value="General Physician">General Physician</option>
             </select>
           </div>
 
@@ -197,25 +212,12 @@ export default class CreateAppointment extends Component {
             >
               {/* List of options for ward types */}
               <option value="">Select Doctor/Specialist</option>
-              <option value="Sunimala Sooriya Kasthuriarachchi">Sunimala Sooriya Kasthuriarachchi</option>
-              <option value="DR AJANTHA TIKIRI RAJAPAKSHA">DR AJANTHA TIKIRI RAJAPAKSHA</option>
-              <option value="DR ANIDU PATHIRANA">DR ANIDU PATHIRANA</option>
-              <option value="DR CHAMARA RATHNAYAKE">DR CHAMARA RATHNAYAKE</option>
-              <option value="DR HEMAL FERNANDO">DR HEMAL FERNANDO</option>
-              <option value="DR MOHAN JAYATHILAKE">DR MOHAN JAYATHILAKE</option>
-              <option value="DR M.RAYNO NAVINAN">DR M.RAYNO NAVINAN</option>
-              <option value="DR R.A.U HASANTHA RANAWAKA">DR R.A.U HASANTHA RANAWAKA</option>
-              <option value="DR SEPALIKA MENDIS">DR SEPALIKA MENDIS</option>
-              <option value="DR STANLEY AMARASEKARA">DR STANLEY AMARASEKARA</option>
-              <option value="DR W.S SANTHARAJ">DR W.S SANTHARAJ</option>
-              <option value="DR WASANTHA KAPUWATTA">DR WASANTHA KAPUWATTA</option>
-              <option value="DR NIMALI FERNANDO">DR NIMALI FERNANDO</option>
-              <option value="PROF GODWIN .R. CONSTANTINE">PROF GODWIN .R. CONSTANTINE</option>
-              <option value="DR R.A.U HASANTHA RANAWAKA">DR R.A.U HASANTHA RANAWAKA</option>
-              <option value="DR MAHEN KOTHALAWALA">DR MAHEN KOTHALAWALA</option>
-              <option value="DR HASANTHI NIROSHALA">DR HASANTHI NIROSHALA</option>
-              <option value="DR CHANDRIKA J.SUBASINGHE">DR CHANDRIKA J.SUBASINGHE</option>
-              <option value="DR DILUKA PINTO">DR DILUKA PINTO</option>
+              <option value="Sunimala Sooriya Kasthuriarachchi">Dr Sunimala Sooriya Kasthuriarachchi</option>
+              <option value="Rasuwan Kalhara Muraligoda">Dr Rasuwan Kalhara Muraligoda</option>
+              <option value="Ruvindu Kurugoda Karunarathne">Dr Ruvindu Kurugoda Karunarathne</option>
+              <option value="James Blunt">Dr James Blunt</option>
+              <option value="Radrigara Hilmard Perera">Dr Radrigara Hilmard Perera</option>
+              <option value="Sooriya Aachchige Nimeshini Dinethra">Dr Sooriya Aachchige Nimeshini Dinethra</option>
               
             </select>
           </div>
