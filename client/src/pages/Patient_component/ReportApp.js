@@ -1,19 +1,20 @@
 import React, { useState, useRef } from "react";
-import ClientDetails from "./ClientDetails";
+//import ClientDetails from "../reportcomponents/ClientDetails";
 //import Dates from "./Dates";
-import Footer from "./Footer";
+//import Footer from "../reportcomponents/Footer";
 import Header from "./Header";
 import MainDetails from "./MainDetails";
-import Notes from "./Notes";
+//import Notes from "../reportcomponents/Notes";
 import Table from "./Table";
-import TableForm from "./TableForm";
-import ReportAppForm from "./ReportAppForm";
+// import TableForm from "../reportcomponents/TableForm";
+// import ReportAppForm from "../reportcomponents/ReportAppForm";
 import ReactToPrint from "react-to-print";
-import NavBar from "../components/NavBar";
+//import NavBar from "../components/NavBar";
+import TopNavPatient from '../../components/TopNavPatient';
 
 
 function ReportApp() {
-  const [showInvoice, setShowInvoice] = useState(false)
+  const [showInvoice, setShowInvoice] = useState(true)
   const [doctorname, setDoctorname] = useState("")
   const [roomNo, setRoomNo] = useState("")
   //const[phone, setPhone] = useState("")
@@ -47,7 +48,11 @@ function ReportApp() {
   return (
 
     <>
-      <NavBar />
+    {/* Top navigation bar */}
+    <div className="navarea">
+                <TopNavPatient/>
+            </div>
+      <main>
       <main className="m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl xl:max-w-4xl bg-white rounded shadow">
 
         {showInvoice ? (
@@ -64,12 +69,13 @@ function ReportApp() {
               <MainDetails
                 doctorname={doctorname}
                 roomNo={roomNo} />
+                
 
-              <ClientDetails
+              {/* <ClientDetails
                 reportDate={reportDate}
                 startTime={startTime}
                 endTime={endTime}
-                reportNo={reportNo} />
+                reportNo={reportNo} /> */}
 
               {/*<Dates
             invoiceDate={invoiceDate}
@@ -88,117 +94,34 @@ function ReportApp() {
               //setTotal={setTotal}
               />
 
-              <Notes
-                notes={notes} />
-
-              <Footer
-                doctorname={doctorname}
-                roomNo={roomNo}
-                reportNo={reportNo}
-                reportDate={reportDate}
-                startTime={startTime}
-                endTime={endTime} />
-
+              
             </div>
-            <button onClick={() => setShowInvoice(false)}
-              className="bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300">
-              Edit Report Details</button>
+            
           </>
 
         ) : (
           <>
-            {/* name, address, email, phone, bank name, bank acc no., 
-            website, client name, client adress, invoice no., 
-            invoice date, due date, notes */}
-
-            {/* md:mt-20 --> for the gap between 2 sections*/}
+            
 
             <div className="flex flex-col justify-center">
 
 
-              <ReportAppForm
-                doctorname={doctorname}
-                setDoctorname={setDoctorname}
-
-                roomNo={roomNo}
-                setRoomNo={setRoomNo}
-
-                //email={email}
-                //setEmail={setEmail}
-
-                //phone={phone}
-                //setPhone={setPhone}
-
-                //website={website}
-                //setWebsite={setWebsite}
-
-                //bankName={bankName}
-                //setBankName={setBankName}
-
-                //bankAcc={bankAcc}
-                //setBankAcc={setBankAcc}
-
-                //clientName={clientName}
-                //setClientName={setClientName}
-
-                //clientAddress={clientAddress}
-                //setClientAddress={setClientAddress}
-
-                reportNo={reportNo}
-                setReportNo={setReportNo}
-
-                reportDate={reportDate}
-                setReportDate={setReportDate}
-
-                startTime={startTime}
-                setStartTime={setStartTime}
-
-                endTime={endTime}
-                setEndTime={setEndTime}
-
-
-              />
-
-              {/* this is table form */}
+             
               <article>
 
-                <TableForm
-                  //reportdescription={reportdescription}
-                  //setReportdescription={setReportdescription}
-
-                  noofappoinments={noofappoinments}
-                  setNoofappoinments={setNoofappoinments}
-
-                  checkedpatients={checkedpatients}
-                  setCheckedpatients={setCheckedpatients}
-
-                  minorpatients={minorpatients}
-                  setMinorpatients={setMinorpatients}
-
-                  canceledappoinments={canceledappoinments}
-                  setCanceledappoinments={setCanceledappoinments}
-
-                  hospitalizationpatients={hospitalizationpatients}
-                  setHospitalizationpatients={setHospitalizationpatients}
-
-                  list={list}
-                  setList={setList}
-
-                //total={total}
-                //setTotal={setTotal}
-                />
+                
 
               </article>
 
               <label htmlFor="notes">Additional Notes</label>
-              <textarea
+              {/* <textarea
                 type="text"
                 name="text"
                 id="notes"
                 placeholder="Enter your notes here"
                 autoComplete="off"
                 value={notes}
-                onChange={(e) => setNotes(e.target.value)} />
+                onChange={(e) => setNotes(e.target.value)} /> */}
 
 
               <button onClick={() => setShowInvoice(true)}
@@ -207,6 +130,7 @@ function ReportApp() {
             </div>
           </>
         )}
+      </main>
       </main>
     </>
   );

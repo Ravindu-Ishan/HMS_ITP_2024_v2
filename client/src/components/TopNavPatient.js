@@ -16,8 +16,8 @@ function TopNavPatient({ smid }) {
         <div className={isSelected("/patienthome") ? " rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
           <Link className="" to={`/patienthome`}>Patients</Link>
         </div>
-        <div className={isSelected("/reportHistory") ? " rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
-          <Link to={"/reportHistory"}>Generated Reports</Link>
+        <div className={isSelected("/patientreportApp") ? " rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
+          <Link to={"/patientreportApp"}>Generated Reports</Link>
         </div>
       </nav>
     </div>
