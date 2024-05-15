@@ -63,6 +63,8 @@ import Bed_Home from './pages/Bed_componenets/Bed_Home';
 import Bed_Details from './pages/Bed_componenets/Bed_Details';
 import Bed_Create from './pages/Bed_componenets/Bed_Create';
 import Bed_Edit from './pages/Bed_componenets/Bed_Edit';
+//ward_reports component
+import Ward_ReportApp from './pages/Ward_components/Ward_ReportApp';
 
 //import patient
 import CreatePatient from './pages/Patient_component/CreatePatient';
@@ -196,6 +198,7 @@ function App() {
         <Route path="/addBed" element={user ? <Bed_Create /> : <Navigate to="/" />} />
         <Route path="/editBed/:id" element={user ? <Bed_Edit /> : <Navigate to="/" />} />
         <Route path="/bedDetails/:id" element={user ? <Bed_Details /> : <Navigate to="/" />} />
+        <Route path="/wardReports" element={user ? <Ward_ReportApp /> : <Navigate to="/" />} />
 
         {/*Gihani*/}
         <Route path="/patienthome" element={<PatientHome />} />

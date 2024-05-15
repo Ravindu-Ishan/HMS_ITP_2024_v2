@@ -11,23 +11,32 @@ export default class Bed_Create extends Component {
       ward_ID: "",
       bed_ID: "",
       bed_location: "",
-      availableWardIDs: [] // State to hold the list of available ward IDs
+      availableWardIDs: [], // State to hold the list of available ward IDs
+      availablePatientNames: []
     };
   }
 
-  // Fetch available ward IDs from the API when the component mounts
+  // Fetch available ward IDs and patient names from the API when the component mounts
   async componentDidMount() {
     try {
-      const response = await axios.get('/ward-ids'); // Adjust the API endpoint as needed
-      if (response.data.success) {
-        this.setState({ availableWardIDs: response.data.wardIDs });
+      const wardResponse = await axios.get('/ward-ids'); // Adjust the API endpoint as needed
+      if (wardResponse.data.success) {
+        this.setState({ availableWardIDs: wardResponse.data.wardIDs });
       } else {
-        console.error('Failed to fetch ward IDs:', response.data.error);
+        console.error('Failed to fetch ward IDs:', wardResponse.data.error);
+      }
+
+      const patientResponse = await axios.get('/patient-names'); // Adjust the API endpoint as needed
+      if (patientResponse.data.success) {
+        this.setState({ availablePatientNames: patientResponse.data.patientNames });
+      } else {
+        console.error('Failed to fetch patient names:', patientResponse.data.error);
       }
     } catch (error) {
-      console.error('Error fetching ward IDs:', error);
+      console.error('Error fetching data:', error);
     }
   }
+
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -125,16 +134,19 @@ export default class Bed_Create extends Component {
 
                 <div className="form-group mb-5">
                   <label htmlFor="patientName" className="mb-1 block text-gray-600 font-medium">Patient Name</label>
-                  <input
-                    type="text"
+                  <select
                     className="form-control rounded-full border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 pl-4 pr-12 py-2 w-full"
                     id="patientName"
                     name="patient_name"
-                    placeholder="Enter patient name"
                     value={this.state.patient_name}
                     onChange={this.handleInputChange}
                     required
-                  />
+                  >
+                    <option value="" disabled>Select Patient Name</option>
+                    {this.state.availablePatientNames.map((patient) => (
+                      <option key={patient._id} value={patient.description}>{patient.description}</option>
+                    ))}
+                  </select>
                 </div>
 
                 {/* Dropdown for selecting Ward ID */}
