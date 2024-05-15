@@ -78,4 +78,23 @@ router.delete('/prescription/delete/:id', async (req, res) => {
     }
 });
 
+
+router.get('/prescription/ofPatient/:patientId', async (request, res) => {
+    try {
+        const { patientId } = request.params;
+        const prescriptionsof = await Prescriptions.find({ patientId: patientId });
+        return res.status(200).json(
+            {
+                count: prescriptionsof.length,
+                data: prescriptionsof
+            }
+        );
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).send({ message: error.message });
+    }
+});
+
 module.exports = router;
+

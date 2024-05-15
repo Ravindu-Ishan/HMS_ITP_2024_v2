@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-import TopNavPatientProfile from '../../components/TopNavPatientProfile';
 
 const PrescriptionsDetails = () => {
   const { id } = useParams();
@@ -25,6 +24,10 @@ const PrescriptionsDetails = () => {
     }
   }, [id]);
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   if (!prescription) {
     return <div>Loading...</div>;
   }
@@ -32,87 +35,51 @@ const PrescriptionsDetails = () => {
   const { date, diagnosis, medications } = prescription;
 
   return (
-    <>
-
-      {/* top nav imported to this section */}
-      <div className="navarea">
-        <TopNavPatientProfile/>
-      </div>
-      <main>
-      <div className="bg-white border border-gray-200 rounded-[50px] shadow-lg p-10 m-5">
-      <header className="flex flex-col items-center justify-center mb-5 xl:flex-row xl:justify-center">
-        
-    <div className="text-center"> 
-        <h1 className="font-bold uppercase tracking-wide text-4xl mb-3">Prescription Form</h1>
-        <h1 className="font-bold text-lg">MedFlow Hospital</h1>
-        
-    </div>
-    
+    <main>
+      <div id="print-content" style={{ maxWidth: '21cm', margin: 'auto', padding: '20px' }}>
+        <header style={{ textAlign: 'center', marginBottom: '20px' }}>
+  <h1 style={{ fontSize: '35px', fontWeight: 'bold', marginBottom: '10px' }}>Prescription Form</h1>
+  <h2 style={{ fontSize: '18px' }}>
+    <span style={{ fontWeight: 'bold' }}>MedFlow  Hospital</span>
+  </h2>
 </header>
 <hr />
 
-
-
-      <dl className="row">
-        {/*<dt className="col-sm-3">Patient's Name</dt>
-        <dd className="col-sm-9">{post.description}</dd>
-
-        <dt className="col-sm-3">Age</dt>
-  <dd className="col-sm-9">{post.age}</dd>*/}
-  
-
-        <dt className=" font-bold col-sm-3">Date  :</dt>
-        <dd className="col-sm-9">{prescription.date}</dd>
-      </dl>
-
-      <div>
-      
-      <h4 style={{ marginTop: '80px', backgroundColor: '#f0f0f0', color: '#333', padding: '10px', borderRadius: '5px' }}>Prescriptions Info</h4>
-
-        
-        <div style={{ marginBottom: '20px' }}></div> {/* Add empty div to create space */}
-
-
-        
-                
-                <div>
-                        
-                      
-                        <dl className="row">
-    <div className="row">
-        <dt className="font-bold col-sm-3">Diagnosis  :</dt>
-        <dd className="col-sm-9">
-            {diagnosis.split('\n').map((line, index) => (
-                <div key={index}>{line}</div>
-            ))}
-        </dd>
-    </div>
-  
-</dl>
-</div>
-
-<div style={{ marginBottom: '20px' }}></div> {/* Add empty div to create space */}
-
-<dl className="row">
-    <div className="row">
-        <dt className="font-bold col-sm-3">Medications  :</dt>
-        <dd className="col-sm-9">
-            {medications.split('\n').map((line, index) => (
-                <div key={index}>{line}</div>
-            ))}
-        </dd>
-    </div>
-</dl>
-
+        <dl style={{ marginBottom: '20px' }}>
+          <dt style={{ fontWeight: 'bold', width: '30%', display: 'inline-block' }}>Date:</dt>
+          <dd style={{ marginLeft: '30%', display: 'inline-block' }}>{prescription.date}</dd>
+        </dl>
+        <div>
+          <h4 style={{ marginTop: '20px', backgroundColor: '#f0f0f0', color: '#333', padding: '10px', borderRadius: '5px' }}>Prescriptions Info</h4>
+          <div style={{ marginBottom: '20px' }}></div>
+          <div>
+            <dl>
+              <div style={{ display: 'flex', marginBottom: '10px' }}>
+                <dt style={{ fontWeight: 'bold', width: '30%', marginRight: '10px' }}>Diagnosis:</dt>
+                <dd style={{ width: '70%' }}>
+                  {diagnosis.split('\n').map((line, index) => (
+                    <div key={index}>{line}</div>
+                  ))}
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div style={{ marginBottom: '20px' }}></div>
+          <dl>
+            <div style={{ display: 'flex' }}>
+              <dt style={{ fontWeight: 'bold', width: '30%', marginRight: '10px' }}>Medications:</dt>
+              <dd style={{ width: '70%' }}>
+                {medications.split('\n').map((line, index) => (
+                  <div key={index}>{line}</div>
+                ))}
+              </dd>
+            </div>
+          </dl>
+        </div>
+        <button onClick={handlePrint} style={{ display: 'block', margin: '20px auto', padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Print</button>
       </div>
-      </div>
-    
     </main>
-    </>
   );
 };
 
 export default PrescriptionsDetails;
-
-
-
