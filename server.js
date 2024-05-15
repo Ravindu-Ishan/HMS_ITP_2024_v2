@@ -32,6 +32,8 @@ const wardRoutes = require('./routes/wards');
 const bedRoutes = require('./routes/beds');
 const attendanceRoutes = require('./routes/AttendanceRoute');
 
+const laboratoryRoutes = require('./routes/laboratoryRoutes');
+
 //app middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -59,7 +61,11 @@ app.use(labAppRoutes);
 
 app.use(wardRoutes);
 app.use(bedRoutes);
+
+
+app.use(laboratoryRoutes);
 app.use(attendanceRoutes);
+
 
 
 const PORT = 8000;
