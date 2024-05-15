@@ -163,7 +163,7 @@ const EditPatient = () => {
       id="topic"
       name="topic"
       placeholder="Enter NIC No"
-      maxLength={50}
+      maxLength={12}
       value={topic}
       onChange={handleInputChange}
       style={{ width: '500px' }} // Adjust the width as needed
@@ -183,7 +183,7 @@ const EditPatient = () => {
         id="age"
         name="age"
         placeholder="Enter Patient's Age"
-        maxLength={50}
+        maxLength={3}
         value={age}
         onChange={handleInputChange}
         style={{ width: '500px' }} // Adjust the width as needed
@@ -204,7 +204,7 @@ const EditPatient = () => {
         id="postCategory"
         name="postCategory"
         placeholder="Enter Contact No"
-        maxLength={50}
+        maxLength={10}
         value={postCategory}
         onChange={handleInputChange}
         style={{ width: '500px' }} // Adjust the width as needed

@@ -76,7 +76,7 @@ export default class PrescriptionsHome extends Component {
           <div className="col-lg-9 mt-2 mb-2">
             <h4>All Prescriptions</h4>
           </div>
-          <div className="col-lg-3 mt-2 mb-2">
+          {/* <div className="col-lg-3 mt-2 mb-2">
             <input
               className="form-control"
               type="search"
@@ -85,7 +85,7 @@ export default class PrescriptionsHome extends Component {
               onChange={this.handleSearchArea}
 
               />
-              </div>
+              </div> */}
             </div>
             </div>
 
@@ -95,7 +95,6 @@ export default class PrescriptionsHome extends Component {
 
             <tr>
               <th className="p-1">No</th>
-              <th className="p-1">Prescription ID</th>
               <th className="p-1">Diagnosis</th>
               <th className="p-1">Date</th>
               <th className="p-1s">Actions</th>
@@ -110,15 +109,14 @@ export default class PrescriptionsHome extends Component {
                 <th scope="row">{index + 1}</th>
                 <td className="text-center py-2 px-2">
                   <a href={`/prescription/${prescriptions._id}`}>
-                    {prescriptions._id}
+                    {prescriptions.diagnosis}
                   </a>
                 </td>
+                
                 <td className="text-center py-2 px-2"> 
-                  {prescriptions.diagnosis}
-                </td>
-                <td className="text-center py-2 px-2"> 
-                  {prescriptions.date}
-                </td>
+                {new Date(prescriptions.date).toLocaleDateString()}
+              </td>
+
       
                
 
@@ -135,19 +133,6 @@ export default class PrescriptionsHome extends Component {
 </tbody>
                 
                 
-                
-                {/*<td>
-                  <a className="btn btn-warning" href="/editPrescriptions">
-                    <i className="fas fa-edit"></i>&nbsp;Edit
-                  </a>
-                  &nbsp;
-                  <a className="btn btn-danger" href="#" onClick={() => this.onDelete(prescriptions._id)}>
-                    <i className="far fa-trash-alt"></i>&nbsp;Delete
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>*/}
         </table>
 
         <div className="flex justify-center items-center h-screen">
@@ -156,7 +141,7 @@ export default class PrescriptionsHome extends Component {
               </button>
         </div>
 
-        {/*<button className="btn btn-success"><a href="/createPrescriptions" style={{ textDecoration: 'none', color: 'white' }}> + Create New Prescription</a></button>*/}
+        
 
       </div>
       </main>
@@ -165,23 +150,5 @@ export default class PrescriptionsHome extends Component {
   }
 }
 
-{/*import React, { Component } from 'react';
-import PatientNavBar from './PatientNavBar';
-
-// Define the PrescriptionsHome component
-class PrescriptionsHome extends Component {
-  render() {
-    return (
-      <div>
-        <PatientNavBar />
-        <h1>Prescriptions Home</h1>
-        <p>This is the Prescriptions Home page.</p>
-      </div>
-    );
-  }
-}
-
-// Export the LabReports component
-export default PrescriptionsHome;*/}
 
 

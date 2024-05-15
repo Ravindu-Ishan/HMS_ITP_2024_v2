@@ -1,7 +1,12 @@
+//import images
+import brandLogo from "../../images/brandLogo.png"
+
 export default function Header({handlePrint}){
     return(
         <>
         <header className="flex flex-col items-center justify-center mb-5 xl:flex-row xl:justify-between">
+            
+            <div className="sidebar-brand inline-flex"><img src={brandLogo} alt="brand logo" width={60} className="mr-2" /><div className="mt-2">MedFlow</div></div>
             <div>
               <h1 className="font-bold uppercase tracking-wide text-4xl mb-3">Patients Daily Report</h1>
             </div>

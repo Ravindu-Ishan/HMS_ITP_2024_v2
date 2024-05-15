@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import ReactToPrint from "react-to-print";
 import TopNavPatientProfile from '../../components/TopNavPatientProfile';
+//import images
+import brandLogo from "../../images/brandLogo.png"
+
+
 
 const PrescriptionsDetails = () => {
   const { id } = useParams();
   const [prescription, setPrescription] = useState(null);
+  const [showInvoice, setShowInvoice] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +30,13 @@ const PrescriptionsDetails = () => {
     }
   }, [id]);
 
+
+  const componentRef = useRef()
+
+  const handlePrint = () => {
+    window.print()
+  }
+
   if (!prescription) {
     return <div>Loading...</div>;
   }
@@ -32,86 +44,103 @@ const PrescriptionsDetails = () => {
   const { date, diagnosis, medications } = prescription;
 
   return (
-    <>
 
-      {/* top nav imported to this section */}
+    <>
+      {/* Top navigation bar */}
       <div className="navarea">
-        <TopNavPatientProfile/>
+        <TopNavPatientProfile />
       </div>
       <main>
-      <div className="bg-white border border-gray-200 rounded-[50px] shadow-lg p-10 m-5">
-      <header className="flex flex-col items-center justify-center mb-5 xl:flex-row xl:justify-center">
-    <div className="text-center"> 
-        <h1 className="font-bold uppercase tracking-wide text-4xl mb-3">Prescription Form</h1>
-        <h1 className="font-bold text-lg">MedFlow Hospital</h1>
-        
-    </div>
-    
-</header>
-<hr />
+        <main className="m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl xl:max-w-4xl bg-white rounded shadow">
+
+          {showInvoice ? (
+            <>
+
+              <ReactToPrint trigger={() => <button className="bg-blue-500 ml-5 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300">
+                Print / Download</button>}
+
+                content={() => componentRef.current} />
+
+              <div ref={componentRef} className="p-7">
+              <header>
+                <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  
+                  <div>
+                    <h1 style={{ fontSize: '35px', fontWeight: 'bold', marginBottom: '10px' }}>Prescription Form</h1>
+                    <></><div className="sidebar-brand inline-flex">
+                    <img src={brandLogo} alt="brand logo" width={60} className="mr-2" />
+                    <div className="mt-2">MedFlow</div>
+                  </div>
+                  </div>
+                </div>
+              </header>
+              <hr />
 
 
+                {/* <header style={{ textAlign: 'center', marginBottom: '20px' }}>
+                  <h1 style={{ fontSize: '35px', fontWeight: 'bold', marginBottom: '10px' }}>Prescription Form</h1>
+                 
+                  <h2 style={{ fontSize: '18px' }}>
+                    <span style={{ fontWeight: 'bold' }}>MedFlow  Hospital</span>
+                  </h2>
+                </header>
+                <hr /> */}
 
-      <dl className="row">
-        {/*<dt className="col-sm-3">Patient's Name</dt>
-        <dd className="col-sm-9">{post.description}</dd>
-
-        <dt className="col-sm-3">Age</dt>
-  <dd className="col-sm-9">{post.age}</dd>*/}
-  
-
-        <dt className=" font-bold col-sm-3">Date  :</dt>
-        <dd className="col-sm-9">{prescription.date}</dd>
-      </dl>
-
-      <div>
-      
-      <h4 style={{ marginTop: '80px', backgroundColor: '#f0f0f0', color: '#333', padding: '10px', borderRadius: '5px' }}>Prescriptions Info</h4>
-
-        
-        <div style={{ marginBottom: '20px' }}></div> {/* Add empty div to create space */}
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+                  <dt style={{ fontWeight: 'bold' }}>Date:</dt>
+                  <dd style={{ marginLeft: '10px' }}>{new Date(prescription.date).toLocaleDateString()}</dd>
+                </div>
 
 
-        
-                
                 <div>
-                        
-                      
-                        <dl className="row">
-    <div className="row">
-        <dt className="font-bold col-sm-3">Diagnosis  :</dt>
-        <dd className="col-sm-9">
-            {diagnosis.split('\n').map((line, index) => (
-                <div key={index}>{line}</div>
-            ))}
-        </dd>
-    </div>
+                  <h4 style={{ marginTop: '20px', backgroundColor: '#ADD8E6', color: '#333', padding: '10px', borderRadius: '5px' }}>Prescriptions Info</h4>
+
+                  <div style={{ marginBottom: '20px' }}></div>
+                  <div>
+                    <dl>
+                      <div style={{ display: 'flex', marginBottom: '10px' }}>
+                        <dt style={{ fontWeight: 'bold', width: '30%', marginRight: '10px' }}>Diagnosis    :</dt>
+                        <dd style={{ width: '70%' }}>
+                          {diagnosis.split('\n').map((line, index) => (
+                            <div key={index}>{line}</div>
+                          ))}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <div style={{ marginBottom: '20px' }}></div>
+                  <dl>
+                    <div style={{ display: 'flex' }}>
+                      <dt style={{ fontWeight: 'bold', width: '30%', marginRight: '10px' }}>Medications    :</dt>
+                      <dd style={{ width: '70%' }}>
+                        {medications.split('\n').map((line, index) => (
+                          <div key={index}>{line}</div>
+                        ))}
+                      </dd>
+                    </div>
+                  </dl>
+
+                </div>
+
+              </div>
+            </>
+          ) : (
+            <>
+             <div className="flex flex-col justify-center">
+             <button onClick={() => setShowInvoice(true)}
+                className="bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300">Preview Invoice</button>
+
+            </div>
+            </>
+          )}
+
   
-</dl>
-</div>
-
-<div style={{ marginBottom: '20px' }}></div> {/* Add empty div to create space */}
-
-<dl className="row">
-    <div className="row">
-        <dt className="font-bold col-sm-3">Medications  :</dt>
-        <dd className="col-sm-9">
-            {medications.split('\n').map((line, index) => (
-                <div key={index}>{line}</div>
-            ))}
-        </dd>
-    </div>
-</dl>
-
-      </div>
-      </div>
-    
-    </main>
+          
+        </main>
+      </main>
     </>
   );
-};
+}
 
 export default PrescriptionsDetails;
-
-
-
