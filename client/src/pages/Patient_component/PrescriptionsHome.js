@@ -76,7 +76,7 @@ export default class PrescriptionsHome extends Component {
           <div className="col-lg-9 mt-2 mb-2">
             <h4>All Prescriptions</h4>
           </div>
-          <div className="col-lg-3 mt-2 mb-2">
+          {/* <div className="col-lg-3 mt-2 mb-2">
             <input
               className="form-control"
               type="search"
@@ -85,7 +85,7 @@ export default class PrescriptionsHome extends Component {
               onChange={this.handleSearchArea}
 
               />
-              </div>
+              </div> */}
             </div>
             </div>
 
