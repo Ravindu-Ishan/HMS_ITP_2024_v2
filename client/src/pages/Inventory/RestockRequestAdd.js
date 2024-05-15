@@ -10,7 +10,7 @@ export default class CreateRestock extends Component {
         this.state = {
             ProductName: "",
             restockDate: "",
-            restockStatus: "",
+            restockStatus: "Pending",
             restockQuantity: "",
             restockSupplierID: "",
             restockNotes: "",
@@ -72,10 +72,10 @@ export default class CreateRestock extends Component {
             <main className="flex items-center justify-center">
             <div className="max-w-md mx-auto">
 
-            <h1 className="text-lg font-bold mb-3">Restock Accepted Requests</h1>
+            <h1 className="text-lg font-bold mb-3 text-center">Restock Accepted Requests</h1>
                 <form className="needs-validation">
 
-                <div className="mb-6">
+                <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Product Name</label>
                         <input
                             type="text"
@@ -88,7 +88,7 @@ export default class CreateRestock extends Component {
                             required
                         />
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="restockDate">Restock Date</label>
                         <input
                             type="date"
@@ -101,7 +101,7 @@ export default class CreateRestock extends Component {
                             required
                         />
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="restockStatus">Restock Status</label>
                         <input
                             type="text"
@@ -109,12 +109,13 @@ export default class CreateRestock extends Component {
                             id="restockStatus"
                             name="restockStatus"
                             value={restockStatus}
+                            disabled={true}
                             onChange={this.handleInputChange}
                             placeholder="Enter Restock Status"
                             required
                         />
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="restockQuantity">Restock Quantity</label>
                         <input
                             type="text"
@@ -127,7 +128,7 @@ export default class CreateRestock extends Component {
                             required
                         />
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="restockSupplierName">Supplier Name</label>
                         <input
                             type="text"
@@ -140,7 +141,7 @@ export default class CreateRestock extends Component {
                             required
                         />
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
                     <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="restockNotes">Restock Notes</label>
                         <input
                             type="text"
@@ -153,7 +154,7 @@ export default class CreateRestock extends Component {
                             required
                         />
                     </div>
-                    <div className="mb-6 text-center">
+                    <div className="mb-6 text-center transition ease-in-out duration-300 transform hover:scale-105  ">
                     <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
                        type="submit" onClick={this.onSubmit}>
                         <i className="far fa-check-square"></i>

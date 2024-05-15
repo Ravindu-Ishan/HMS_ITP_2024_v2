@@ -111,9 +111,9 @@ const ProductEditPost = () => {
             <main className="flex items-center justify-center">
             <div className="max-w-md mx-auto">
 
-            <h1 className="text-lg font-bold mb-3">Edit Product</h1>
+            <h1 className="text-xl font-bold mb-3 text-center">Edit Product</h1>
 
-        <div className="mb-6">
+        <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
           <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Product Name</label>
           <input
             type="text"
@@ -125,7 +125,7 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div  className="mb-6">
+        <div  className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
           <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductExpire">Product Expire Date</label>
           <input
             type="date"
@@ -137,7 +137,7 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div  className="mb-6">
+        <div  className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
           <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ManufactureDate">Product Manufacture Date</label>
           <input
             type="date"
@@ -149,7 +149,7 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div  className="mb-6">
+        <div  className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
           <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="Quantity">Product Quantity</label>
           <input
             type="number"
@@ -161,7 +161,7 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div  className="mb-6">
+        <div  className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
           <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductPrice">Product Price</label>
           <input
             type="number"
@@ -173,7 +173,7 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div  className="mb-6">
+        <div  className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
           <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierID">Supplier Name</label>
           <input
             type="text"
@@ -185,7 +185,7 @@ const ProductEditPost = () => {
           />
         </div>
 
-        <div className="mb-6 text-center">
+        <div className="mb-6 text-center transition ease-in-out duration-300 transform hover:scale-105">
         <button
           className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
           type="submit"

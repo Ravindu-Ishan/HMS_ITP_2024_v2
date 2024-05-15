@@ -7,13 +7,10 @@ export default class CreatePost extends Component {
     constructor(props){
         super(props);
         this.state = {
-            ProductName: "",
-            ExpireDate: "",
-            ManufactureDate: "",
-            Quantity: "",
-            ProductPrice: "",
             SupplierName: "",
-            errorMessage: "",
+            SupplierBrand: "",
+            SupplierLocation: ""
+            
         };
     }
 
@@ -26,82 +23,41 @@ export default class CreatePost extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { ProductName, ExpireDate, ManufactureDate, Quantity, ProductPrice, SupplierName } = this.state;
+        const { SupplierName, SupplierBrand, SupplierLocation} = this.state;
         const data = { 
-            ProductName,
-            ExpireDate,
-            ManufactureDate,
-            Quantity,
-            ProductPrice,
-            SupplierName
+            SupplierName,
+            SupplierBrand,
+            SupplierLocation
         };
     
 
 
         //VALIDATIONS
-         
-        // Manufacture Date validation
-            const expireDateObj = new Date(ExpireDate);
-             const manufactureDateObj = new Date(ManufactureDate);
-             const currentDate = new Date();
-             const oneMonthAgo = new Date();
-             oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-
-           if (manufactureDateObj > currentDate || manufactureDateObj < oneMonthAgo) {
-               this.setState({ errorMessage: "Manufacture Date should be within 1 month old and older than 1 month compared to the present day" });
-          
-              return;
-              
-         }
-
-         // Check if Expire Date is before Manufacture Date
-        if (expireDateObj < manufactureDateObj) 
-            {
-                 this.setState({ errorMessage: "Expire Date cannot be before Manufacture Date" });
-                     return;
-             }
-
-         // Expire Date cannot be same with Manufacture Date
-            if (expireDateObj <= manufactureDateObj) 
-         {
-                this.setState({ errorMessage: "Expire Date should not be same as Manufacture Date" });
-                return;
-         }
-
-        //SupplierID should only contain letters, numbers, and spaces
-         if (!SupplierName.match(/^[a-zA-Z0-9\s]+$/)) {
-            this.setState({ errorMessage: "SupplierName should only contain letters, numbers, and spaces" });
-            return;
-        }
-
-        //Product name should only contain letters and spaces
-         if (!ProductName.match(/^[a-zA-Z\s]+$/)) {
-            this.setState({ errorMessage: "Product name should only contain letters and spaces" });
-            return;
-        }
-
-        //All fields are required
-         if (!ProductName || !ExpireDate || !ManufactureDate || !Quantity || !ProductPrice || !SupplierName) {
+        //all fields are required
+        if (!SupplierName || !SupplierBrand || !SupplierLocation) {
             this.setState({ errorMessage: "All fields are required" });
             return;
         }
 
+        //supplier name should contain letters
+        if (!SupplierName.match(/^[a-zA-Z\s]+$/)) {
+            this.setState({ errorMessage: "Supplier name should only contain letters" });
+            return;
+        }
+         
+        
         try {
-            const res = await axios.post("/product/save", data); 
+            const res = await axios.post("/Supplier/save", data); 
             if (res.data.success) {
                 alert("Product created successfully!");
                 this.setState({ 
-                    ProductName: "",
-                    ExpireDate: "",
-                    ManufactureDate: "",
-                    Quantity: "",
-                    ProductPrice: "",
                     SupplierName: "",
-                    errorMessage: "" 
+                    SupplierBrand: "",
+                    SupplierLocation: ""
                 });
 
                 // Navigate to home page Product Home Page
-                window.location = "/productmain";
+                window.location = "/suppliermain";
             } else {
                 throw new Error(res.data.error || "Failed to create product");
             }
@@ -112,7 +68,7 @@ export default class CreatePost extends Component {
     };
 
     render() {
-        const { ProductName, ExpireDate, ManufactureDate,Quantity,ProductPrice,SupplierName,errorMessage } = this.state;
+        const { SupplierName, SupplierBrand, SupplierLocation} = this.state;
         return (
             <>
 
@@ -121,76 +77,11 @@ export default class CreatePost extends Component {
             <main className="flex items-center justify-center">
             <div className="max-w-md mx-auto">
 
-            <h1 className="text-xl font-bold mb-3 text-center">Add New Product</h1>
+            <h1 className="text-xl font-bold mb-3 text-center">Add New Supplier</h1>
                 <form className="needs-validation">
 
                     <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
-                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Product Name</label>
-                        <input
-                            type="text"
-                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                            id="ProductName"
-                            name="ProductName"
-                            value={ProductName}
-                            onChange={this.handleInputChange}
-                            placeholder="Enter Product Name"
-                            required
-                        />
-                    </div>
-                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
-                        <label className="block text-sm font-medium text-gray-700 mb-1"htmlFor="ExpireDate">Expire Date</label>
-                        <input
-                            type="date"
-                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                            id="ExpireDate"
-                            name="ExpireDate"
-                            value={ExpireDate}
-                            onChange={this.handleInputChange}
-                            placeholder="Enter Expire Date"
-                            required
-                        />
-                    </div>
-                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
-                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ManufactureDate">Manufacture Date</label>
-                        <input
-                            type="date"
-                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                            id="ManufactureDate"
-                            name="ManufactureDate"
-                            value={ManufactureDate}
-                            onChange={this.handleInputChange}
-                            placeholder="Enter Manufacture Date"
-                            required
-                        />
-                    </div>
-                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
-                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="Quantity">Quantity</label>
-                        <input
-                            type="number"
-                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                            id="Quantity"
-                            name="Quantity"
-                            value={Quantity}
-                            onChange={this.handleInputChange}
-                            placeholder="Enter Quantity"
-                            required
-                        />
-                    </div>
-                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
-                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductPrice">Product Price</label>
-                        <input
-                            type="number"
-                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                            id="ProductPrice"
-                            name="ProductPrice"
-                            value={ProductPrice}
-                            onChange={this.handleInputChange}
-                            placeholder="Enter Price"
-                            required
-                        />
-                    </div>
-                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
-                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierName">SupplierName</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1 transition ease-in-out duration-300 transform hover:scale-95" htmlFor="SupplierName">Supplier Name</label>
                         <input
                             type="text"
                             className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
@@ -202,6 +93,33 @@ export default class CreatePost extends Component {
                             required
                         />
                     </div>
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
+                        <label className="block text-sm font-medium text-gray-700 mb-1 transition ease-in-out duration-300 transform hover:scale-95"htmlFor="SupplierBrand">Supplier Brand</label>
+                        <input
+                            type="text"
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            id="SupplierBrand"
+                            name="SupplierBrand"
+                            value={SupplierBrand}
+                            onChange={this.handleInputChange}
+                            placeholder="Enter Supplier Brand"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
+                        <label className="block text-sm font-medium text-gray-700 mb-1 transition ease-in-out duration-300 transform hover:scale-95" htmlFor="SupplierLocation">Supplier Location</label>
+                        <input
+                            type="text"
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            id="SupplierLocation"
+                            name="SupplierLocation"
+                            value={SupplierLocation}
+                            onChange={this.handleInputChange}
+                            placeholder="Enter Supplier Location"
+                            required
+                        />
+                    </div>
+                    
 
 
                 <div className="mb-6 text-center">
@@ -211,7 +129,6 @@ export default class CreatePost extends Component {
                         <span className="ml-2">Save</span> 
                     </button>
                 </div>
-                    {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
                 </form>
             </div>
             </main>

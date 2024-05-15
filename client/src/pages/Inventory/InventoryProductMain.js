@@ -114,7 +114,7 @@ const Home = () => {
                   <td className="text-center py-2 px-2 w-[6ch]">{product._id.slice(0, 6)}</td>
                   <td className="text-center py-2 px-2 ">{product.ProductName}</td>
                   <td className="text-center py-2 px-18">{product.ExpireDate}</td>
-                  <td className="text-center py-2 px-2">{product.ManufactureDate}</td>
+                  <td className="text-center py-2 px-2">{product.ManufactureDate.split("T")[0]}</td>
                   <td className="text-center py-2 px-1">{product.Quantity}</td>
                   <td className="text-center py-2 px-2">{product.ProductPrice}</td>
                   <td className="text-center py-2 px-2">{product.SupplierName}</td>

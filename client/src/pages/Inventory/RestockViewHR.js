@@ -68,12 +68,16 @@ export default class Home extends Component {
       restockStatus: status
     }
 
-    axios.put(`/user/userLeaves/update/${id}`, data).then(res => {
-        this.retrieveRestocks()
-    }).catch((error) => {
-        console.log("Error fetching staff details:", error);
-    });
-  }
+    axios.put(`/restock/update/${id}`, data)
+      .then(res => {
+        // Filter out the accepted restock from the state
+        const updatedRestocks = this.state.restocks.filter(restock => restock._id !== id);
+        this.setState({ restocks: updatedRestocks });
+      })
+      .catch((error) => {
+        console.log("Error updating restock:", error);
+      });
+}
 
   declineBtnHandler = (id) => {
     const status = 'Declined'
@@ -81,12 +85,16 @@ export default class Home extends Component {
       restockStatus: status
     }
 
-    axios.put(`/restock/update/${id}`, data).then(res => {
-        this.retrieveRestocks()
-    }).catch((error) => {
-        console.log("Error fetching staff details:", error);
-    });
-  }
+    axios.put(`/restock/update/${id}`, data)
+      .then(res => {
+        // Filter out the declined restock from the state
+        const updatedRestocks = this.state.restocks.filter(restock => restock._id !== id);
+        this.setState({ restocks: updatedRestocks });
+      })
+      .catch((error) => {
+        console.log("Error updating restock:", error);
+      });
+}
 
   render() {
     return (
