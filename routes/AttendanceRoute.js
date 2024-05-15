@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const AttendanceRecord = require('../models/AttendanceRecord');
+const AttendanceRecord = require('../models/AttendanceModel');
 
 // Route to insert attendance records
 router.post('/main/batchInsert', async (req, res) => {
