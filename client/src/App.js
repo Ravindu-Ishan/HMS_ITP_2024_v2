@@ -77,6 +77,14 @@ import CreatePrescriptions from './pages/Patient_component/CreatePrescriptions';
 import EditPrescriptions from './pages/Patient_component/EditPrescriptions';
 import PrescriptionsDetails from './pages/Patient_component/PrescriptionsDetails';
 
+//import laboratory
+import CreateLabAppointment from './pages/Laboratory/CreateLabAppointment';
+import EditLabAppointment from './pages/Laboratory/EditLabAppointment';
+import LaboratoryDetails from './pages/Laboratory/LaboratoryDetails';
+import LaboratoryMain from './pages/Laboratory/LaboratoryMain';
+import LabAppointmentAvailability from './pages/Laboratory/LabAppointmentAvailability';
+import GenerateReport from './pages/Laboratory/GenerateReport';
+
 function App() {
 
   const { user } = useStaffAuthContext();
@@ -111,7 +119,7 @@ function App() {
       case 'front deskOfficer':
         designatedRoute = "/appointmentHome"
       case 'lab technician':
-        designatedRoute = "/lab";
+        designatedRoute = "/laboratory";
         break;
       case 'doctor':
         designatedRoute = "/user/profile";
@@ -222,6 +230,14 @@ function App() {
 
         <Route path='/user/userLeaves/create/:smid' element={user ? <CreateLeave /> : <Navigate to="/" />} />
         <Route path='/user/userLeaves/edit/:id' element={user ? <EditLeave /> : <Navigate to="/" />} />
+
+        {/* Lashan */}
+        <Route path="/laboratory" element={<LaboratoryMain />} />
+        <Route path="/addnewappointment" element={<CreateLabAppointment />} />
+        <Route path="/edittestappointment/:id" element={<EditLabAppointment />} />
+        <Route path="/laboratorytestappointment/:id" element={<LaboratoryDetails />} />
+        <Route path="/labAppointmentAvailability" element = {<LabAppointmentAvailability/>}/>
+        <Route path="/GenerateReport" element={<GenerateReport/>}/>
 
       </Route>
     </Routes>
