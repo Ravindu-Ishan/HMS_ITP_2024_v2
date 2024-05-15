@@ -24,8 +24,11 @@ const PatientDetails = () => {
             }
         };
 
+        
+
         if (id) {
-            fetchData();
+             fetchData();
+            
         }
     }, [id]);
 
@@ -121,7 +124,7 @@ const PatientDetails = () => {
                         </div>
                       </fieldset>
                       
-
+                      
                       </form>
                       </div>
                     </div>
