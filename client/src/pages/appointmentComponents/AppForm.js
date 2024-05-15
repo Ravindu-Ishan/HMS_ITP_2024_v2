@@ -31,7 +31,7 @@ export default function AppForm(
     
       return(
           <>
-          <h4 className="font-bold">Front Desk Officer Details:</h4>
+          <h4 className="font-bold">Report Details:</h4>
           <article className="md:grid grid-cols-2 gap-10">
                
                 <div className="flex flex-col">
@@ -62,52 +62,7 @@ export default function AppForm(
                 
               </article>
               
-              <article className="md:grid grid-cols-3 gap-10 mb-10">
-              
-                <div className="flex flex-col">
-                  <label htmlFor="email">Your Gender</label>
-                    <input 
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Select your gender"
-                    autoComplete="off"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}/>
-
-                </div>
-              
-                <div className="flex flex-col">
-                  <label htmlFor="phone">Your Contact No.</label>
-                    <input 
-                    type="text"
-                    name="text"
-                    id="phone"
-                    placeholder="Enter your Contact No."
-                    autoComplete="off"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}/>
-
-                </div>
-
-              </article> 
-              
-              
-
-              <h4 className="font-bold">Appointments Report Details:</h4>
               <article className="md:grid grid-cols-3 gap-10">
-
-                <div className="flex flex-col">
-                  <label htmlFor="category">Category</label>
-                    <input 
-                    type="text"
-                    name="text"
-                    id="category"
-                    placeholder="Select Category"
-                    autoComplete="off"
-                    value={catagory}
-                    onChange={(e) => setCatagory(e.target.value)}/>
-                </div>
 
                 <div className="flex flex-col">
                   <label htmlFor="invoiceNo">Report ID</label>

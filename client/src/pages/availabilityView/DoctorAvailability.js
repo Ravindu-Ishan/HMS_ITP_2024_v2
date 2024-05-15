@@ -1,200 +1,139 @@
-
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import TopNavAppointmet from '../../components/TopNavAppointment';
+import TopNavAppointment from '../../components/TopNavAppointment';
 
+const DoctorAvailability = () => {
+  const [shifts, setShifts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
-export default class DoctorAvailability extends Component {
-  constructor(props) {
-    super(props);
+  useEffect(() => {
+    retrieveShifts();
+  }, []);
 
-    this.state = {
-      appointments:[],
-      //selectedDoctor: null // Add selected doctor state
-    };
-  }
-
-  componentDidMount(){
-    this.retrievePosts();
-  }
-
-
-  //get request
-  retrievePosts(){
-    axios.get("/appointments").then(res =>{
-      if(res.data.success){
-        this.setState({
-          appointments:res.data.existingAppointments
+  const retrieveShifts = async () => {
+    try {
+      const response = await axios.get("/shift");
+      if (response.data.success) {
+        // Fetch staff data to map staff IDs to staff names
+        const staffResponse = await axios.get("/get");
+        const staffMap = {};
+        staffResponse.data.data.forEach(staff => {
+          staffMap[staff._id] = staff.staffName;
         });
-
-        console.log(this.state.appointments);
+  
+        // Fetch doctor data to map smids to specialisations
+        const doctorResponse = await Promise.all(
+          response.data.existingPosts.map(async shift => {
+            try {
+              const doctorResponse = await axios.get(`/getDocDetails/${shift.smid}`);
+              return { smid: shift.smid, specialisation: doctorResponse.data.specialisation };
+            } catch (error) {
+              console.error("Error fetching doctor details for shift:", shift.smid, error);
+              return null; // Return null for shifts with missing doctor details
+            }
+          })
+        );
+        console.log("Doctor response:", doctorResponse);
+  
+        const doctorMap = {};
+        doctorResponse.forEach(doctor => {
+          if (doctor) {
+            doctorMap[doctor.smid] = doctor.specialisation;
+          }
+        });
+  
+        // Map staff IDs to staff names and doctor specialisations in shift data
+        const modifiedShifts = response.data.existingPosts.map(shift => ({
+          ...shift,
+          staffName: staffMap[shift.smid], // Replace smid with staffName
+          specialisation: doctorMap[shift.smid] || "Not Available" // Add doctor's specialisation or a default value if not available
+        }));
+        setShifts(modifiedShifts);
       }
-    });
-  }
+    } catch (error) {
+      console.error("Error fetching shifts:", error);
+    }
+  };
+  
+  
+  const handleSearchArea = (e) => {
+    setSearchQuery(e.currentTarget.value.toLowerCase());
+  };
 
+  const filteredShifts = shifts.filter(shift =>
+    shift.ScheduleDate.toLowerCase().includes(searchQuery) ||
+    shift.specialisation.toLowerCase().includes(searchQuery) ||
+    shift.staffName.toLowerCase().includes(searchQuery)
+  );
 
-  // // Function to filter appointments by selected doctor
-  // filterAppointmentsByDoctor(doctor) {
-  //   return this.state.posts.filter(post => post.doctor === doctor);
-  // }
-
-  // // Handler for selecting a doctor
-  // handleDoctorSelect = (doctor) => {
-  //   this.setState({ selectedDoctor: doctor });
-  // }
-
-
-
-  onDelete = (id) =>{
-
-    axios.delete(`/appointments/delete/${id}`).then((res) =>{
-      alert("Delete successfully");
-      this.retrievePosts();
-    })
-  }
-
-
-  filterData(appointments,searchKey){
-
-    const result = appointments.filter((appointment) =>
-      appointment.doctor.toLowerCase().includes(searchKey) ||
-      appointment.specialization.toLowerCase().includes(searchKey) ||
-      appointment.date.toLowerCase().includes(searchKey) 
-    )
-
-    this.setState({appointments:result})
-
-  }
-
-
-  handleSearchArea = (e) =>{
-
-    const searchKey = e.currentTarget.value;
-
-    axios.get("/appointments").then(res =>{
-      if(res.data.success){
-        this.filterData(res.data.existingAppointments, searchKey)
-      }
-    });
-
-  }
-
-  render() {
-    //const { selectedDoctor } = this.state;
-    return (
-      <>
-
+  return (
+    <>
       <div className='navarea'>
-          <TopNavAppointmet/>
-        </div>
-
-      <main>
-       
-
-      <div className="container">
-
-        <div className="col-lg-3 mt-2 mb-2 font-bold">
-        <h4>Doctors/Specialists</h4>
-        </div>
-
-        <div className="row">
-          
-          <div className="col-lg-3 mt-2 mb-2">
-            <input
-            className="form-control"
-            type="search"
-            placeholder="Doctor/Specialist"
-            name="searchQuery"
-            onChange={this.handleSearchArea}>
-            </input>
-          </div>
-
-          <div className="col-lg-3 mt-2 mb-2">
-            <input
-            className="form-control"
-            type="search"
-            placeholder="Select Specialization"
-            name="searchQuery"
-            onChange={this.handleSearchArea}>
-            </input>
-          </div>
-
-          <div className="col-lg-3 mt-2 mb-2">
-            <input
-            className="form-control"
-            type="date"
-            placeholder="Select Date"
-            name="searchQuery"
-            onChange={this.handleSearchArea}>
-            </input>
-          </div>
-
-        </div>
-        
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Doctor/Specialist</th>
-              <th scope="col">Specialization</th>
-              <th scope="col">Available Date</th>
-              <th scope="col">Available Time</th>
-              <th scope="col"></th>
-
-            </tr>
-          </thead>
-          <tbody>
-          {this.state.appointments.map((appointments, index) => (
-            <tr key={index}>
-              <th scope="row">{index+1}</th>
-
-              <td>
-                 {appointments.doctor}
-              </td>
-
-              <td>
-                {appointments._id}
-              </td>
-
-              {/* <td>
-                <a href={`/doctorPatientView/${appointments._id}`} style={{textDecoration:'none'}}>
-                {appointments._id}
-                </a>
-                
-              </td> */}
-
-              <td>{appointments.topic}</td>
-              <td>{appointments.description}</td>
-             
-              <td>
-                {/* add a slot decrement method */}
-
-                {/* <a className="btn btn-warning" href={`/doctorReschedule/${posts._id}`}>
-                  <i className="fas fa-edit"></i>&nbsp;Reschedule
-                </a> */}
-                {/* &nbsp;
-                <a className="btn btn-danger" href="#" onClick={() => this.onDelete(posts._id)}>
-                  <i className="fas fa-trash"></i>&nbsp;Delete
-                </a> */}
-              </td>
-            </tr>
-          ))}
-          </tbody>
-
-        </table>
-
-            {/* <button className="btn btn-success"><a href="/add" style={{textDecoration:'none', color:'white'}}> + New Appointment</a></button>
-             */}
-            {/* Render DoctorView for the selected doctor
-          {selectedDoctor && (
-          <DoctorView doctor={selectedDoctor} />
-        )} */}
-
+        <TopNavAppointment />
       </div>
 
-      </main></>
-    );
-  }
-}
+      <main>
+        <div className="container">
+          <h3 className="p-3 text-2xl font-bold text-gray-800 ml-2">Doctors/Specialists</h3>
+          <div className="row" style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <div className="col-lg-3 mt-2 mb-2">
+              <input
+                className="appearance-none block w-300 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                type="search"
+                placeholder="Doctor/Specialist"
+                name="doctorSearchQuery"
+                onChange={handleSearchArea} />
+            </div>
 
-//export default MyComponent;
+            <div className="col-lg-3 mt-2 mb-2">
+              <input
+                className="appearance-none block w-300 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                type="search"
+                placeholder="Specialisation"
+                name="specialisationSearchQuery"
+                onChange={handleSearchArea} />
+            </div>
+
+            <div className="col-lg-3 mt-2 mb-2">
+              <input
+                className="appearance-none block w-300 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                type="search"
+                placeholder="Date"
+                name="dateSearchQuery"
+                onChange={handleSearchArea} />
+            </div>
+          </div>
+
+          <div className="table-responsive overflow-x-auto sm:rounded-lg tablestyle">
+            <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 table table-striped table-bordered">
+              <thead className="text-xs text-gray-700 uppercase bg-white thead-dark">
+                <tr>
+                  <th className="p-3" scope="col">#</th>
+                  <th className="p-3" scope="col">Doctor/Specialist</th>
+                  <th className="p-3" scope="col">Specialization</th>
+                  <th className="p-3" scope="col">Available Date</th>
+                  <th className="p-3" scope="col">Available Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredShifts
+                .filter(shift => shift.specialisation !== 'Not Available') // Filter out rows with null specialisation
+                .map((shift, index) => (
+                  <tr className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black" key={index}>
+                    <td className="text-center py-2 px-4">{index + 1}</td>
+                    <td className="text-center py-2 px-4">{shift.staffName}</td> {/* Display staffName instead of smid */}
+                    <td className="text-center py-2 px-4">{shift.specialisation}</td>
+                    <td className="text-center py-2 px-4">{shift.ScheduleDate}</td>
+                    <td className="text-center py-2 px-4">{shift.ScheduleTime}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </>
+  );
+};
+
+export default DoctorAvailability;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 const AppointmentDetails = () => {
   const { id } = useParams();
@@ -23,27 +24,48 @@ const AppointmentDetails = () => {
   const { topic, description, dateOfBirth, age } = appointment;
 
   return (
+    <>
+      <div className='navarea'>
+        <TopNavAppointmet />
+      </div>
 
-    <div style={{marginTop: '20px'}}>
+      <main>
+        <div className='max-w-3xl mx-auto'>
 
-    <button className="btn btn-success"><a href="#" style={{textDecoration:'none', color:'white'}}>Patient History</a></button>
+          {/* <button className="btn btn-success"><a href="#" style={{ textDecoration: 'none', color: 'white' }}>Patient History</a></button> */}
+
+          <h2 className='text-2xl font-bold mb-4'>{topic}</h2>
+
+          <dl className='gap-y-4 gap-x-8 bg-white sm:rounded-lg p-5'>
             
-    <h1>Doctor</h1>
-      <h2>{topic}</h2>
+            <div className='mb-4 ml-5'>
+              <dt className='text-sm font-medium text-gray-500'>Patients' Name</dt>
+              <dd className='mt-1 text-lg font-semibold'>{topic}</dd>
+            </div>
 
-      <dl className="row">
-        <dt className="col-sm-3">Patients' Name</dt>
-        <dd className="col-sm-9">{topic}</dd>
-        <dt className="col-sm-3">NIC</dt>
-        <dd className="col-sm-9">{description}</dd>
-        <dt className="col-sm-3">Birth Date</dt>
-        <dd className="col-sm-9">{dateOfBirth}</dd>
-        <dt className="col-sm-3">Age</dt>
-        <dd className="col-sm-9">{age}</dd>
-      </dl>
-   
-    </div>
+            <div className='mb-4 ml-5'>
+              <dt className='text-sm font-medium text-gray-500'>NIC</dt>
+              <dd className='mt-1 text-lg font-semibold'>{description}</dd>
+            </div>
+
+            <div className='mb-4 ml-5'>
+              <dt className='text-sm font-medium text-gray-500'>Birth Date</dt>
+              <dd className='mt-1 text-lg font-semibold'>{dateOfBirth}</dd>
+            </div>
+
+            <div className='mb-4 ml-5'>
+              <dt className='text-sm font-medium text-gray-500'>Age</dt>
+              <dd className='mt-1 text-lg font-semibold'>{age}</dd>
+            </div>
+
+          </dl>
+
+        </div>
+      </main>
+    </>
   );
+
 };
+
 
 export default AppointmentDetails;

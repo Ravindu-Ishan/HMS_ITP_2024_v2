@@ -10,6 +10,15 @@ import StaffProfile from "./pages/StaffProfile";
 import BranchesMain from "./pages/BranchesMain";
 import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
+import StaffReport from './pages/StaffReport';
+import InventoryProductCreate from './pages/Inventory/InventoryProductCreate';
+import InventoryProductEdit from './pages/Inventory/InventoryProductEdit';
+import InventoryProductMain from './pages/Inventory/InventoryProductMain';
+import InventorySupplierCreate from './pages/Inventory/InventorySupplierCreate';
+import InventorySupplierEdit from './pages/Inventory/InventorySupplierEdit';
+import InventorySupplierMain from './pages/Inventory/InventorySupplierMain';
+import RestockRequestView from './pages/Inventory/RestockRequestView';
+import RestockRequestAdd from './pages/Inventory/RestockRequestAdd';
 
 import ShiftMain from "./pages/ShiftMain";
 import CreateShift from "./pages/CreateShift";
@@ -59,6 +68,8 @@ function App() {
       case 'ward manager':
         designatedRoute = "/ward";
         break;
+      case 'front deskOfficer':
+        designatedRoute = "/appointmentHome"
       case 'lab technician':
         designatedRoute = "/lab";
         break;
@@ -94,13 +105,70 @@ function App() {
     <Routes>
       <Route path="/" element={!user ? <Login /> : <Navigate to={gotoRoute} />} />
       <Route element={<RootLayout />}>
+
         {/*B K R I SASMIN*/}
         <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
         <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
         <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
+        <Route path="/staff/report" element={user ? <StaffReport /> : <Navigate to="/" />} />
+
+        {/*S.H.K Bulathgama*/}
+        <Route path="/productmain" exact element={<InventoryProductMain />} />
+        <Route path="/productcreate" element={<InventoryProductCreate />} />
+        <Route path="/productedit/:id" element={<InventoryProductEdit />} />
+        <Route path="/suppliercreate" element={<InventorySupplierCreate />} />
+        <Route path="/supplieredit/:id" element={<InventorySupplierEdit />} />
+        <Route path="/suppliermain" exact element={<InventorySupplierMain />} />
+        <Route path="/RestockView" exact element={<RestockRequestView />} />
+        <Route path="/RestockAdd" exact element={<RestockRequestAdd />} />
+
         <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
         <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
+
+        <Route path="/user/myAppointments" element={user ? <DoctorView /> : <Navigate to="/" />} />
+
+
+        {/*Lithara*/}
+        <Route path="/appointmentHome" element={<AppointmentHome />} />
+        <Route path="/createAppointment" element={<CreateAppointment />} />
+        <Route path="/editAppointment/:id" element={<EditAppointment />} />
+        <Route path="/appointment/:id" element={<AppointmentDetails />} />
+        <Route path="/report" element={<ReportGen />}></Route>
+        <Route path="/reportApp" element={<ReportApp />}></Route>
+        <Route path="/doctorView" element={<DoctorView />}></Route>
+        <Route path="/doctorPatientView/:id" element={<DoctorPatientView />}></Route>
+        <Route path="/doctorReschedule/:id" element={<DoctorEdit />}></Route>
+        <Route path="/doctorAvailability" element={<DoctorAvailability />}></Route>
+        <Route path="/serviceAvailability" element={<ServiceAvailability />}></Route>
+        <Route path="/labAppointHome" element={<LabAppointHome />} />
+        <Route path="/labAppointHome/labAppointCreate" element={<LabAppointCreate />} />
+        <Route path="/labAppointHome/labAppointEdit/:id" element={<LabAppointEdit />} />
+        <Route path="/labApp/:id" element={<LabAppointDetails />} />
+
+
+        {/*Praveen*/}
+        <Route path="/wardHome" element={user ? <Ward_Home /> : <Navigate to="/" />} />
+        <Route path="/wardAdd" element={user ? <Ward_Create /> : <Navigate to="/" />} />
+        <Route path="/wardEdit/:id" element={user ? <Ward_Edit /> : <Navigate to="/" />} />
+        <Route path="/wardDetails/:id" element={user ? <Ward_Details /> : <Navigate to="/" />} />
+        <Route path="/beds" element={user ? <Bed_Home /> : <Navigate to="/" />} />
+        <Route path="/addBed" element={user ? <Bed_Create /> : <Navigate to="/" />} />
+        <Route path="/editBed/:id" element={user ? <Bed_Edit /> : <Navigate to="/" />} />
+        <Route path="/bedDetails/:id" element={user ? <Bed_Details /> : <Navigate to="/" />} />
+
+        {/*Gihani*/}
+        <Route path="/patienthome" element={<PatientHome />} />
+        <Route path="/addpatient" element={<CreatePatient />} />
+        <Route path="/editpatient/:id" element={<EditPatient />} />
+        <Route path="/patient/:id" element={<PatientDetails />} />
+        <Route path="/reportHistory" element={<Summary />} />
+        {/*<Route path="/reportApp" element={<ReportApp />} />*/}
+        <Route path="/prescriptionsHome" element={<PrescriptionsHome />} />
+        <Route path="/createPrescriptions" element={<CreatePrescriptions />} />
+        <Route path="/editPrescriptions/:id" element={<EditPrescriptions />} />
+        <Route path="/prescription/:id" element={<PrescriptionsDetails />} />
+        <Route path="/labsReports" element={<LabReports />} />
         {/*Iruni*/}
         <Route path="/shift/shiftsof/:smid" element={user ? <ShiftMain /> : <Navigate to="/" />} />
         <Route path="/shift/create/:smid" element={user ? <CreateShift /> : <Navigate to="/" />} />
@@ -114,7 +182,7 @@ function App() {
         <Route path='/user/userLeaves/create/:smid' element={user ? <CreateLeave /> : <Navigate to="/" />} />
         <Route path='/user/userLeaves/edit/:id' element={user ? <EditLeave /> : <Navigate to="/" />} />
         <Route path='/user/attendencemark' element={user ? <AttendanceMarkingPage /> : <Navigate to="/" />} />
-       
+
       </Route>
     </Routes>
   );

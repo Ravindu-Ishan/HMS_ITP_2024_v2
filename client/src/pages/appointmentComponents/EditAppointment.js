@@ -15,13 +15,14 @@ const EditAppointment = () => {
   const [dateSchedule, setDateSchedule] = useState("");
   const [timeSchedule, setTimeSchedule] = useState("");
   const [phone, setPhone] = useState("");
+  const [appointId, setAppointId] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/appointment/${id}`);
         if (response.data.success) {
-          const { topic, description, postCategory, status, doctor, dateOfBirth, age, dateSchedule, timeSchedule, phone } = response.data.appointment;
+          const { topic, description, postCategory, status, doctor, dateOfBirth, age, dateSchedule, timeSchedule, phone, appointId } = response.data.appointment;
           setTopic(topic);
           setDescription(description);
           setPostCategory(postCategory);
@@ -32,6 +33,7 @@ const EditAppointment = () => {
           setDateSchedule(dateSchedule);
           setTimeSchedule(timeSchedule);
           setPhone(phone);
+          setAppointId(appointId);
         } else {
           console.error('Failed to fetch post data:', response.data.error);
         }
@@ -84,6 +86,9 @@ const EditAppointment = () => {
       case "phone":
         setPhone(value);
         break;
+      case "appointId":
+        setAppointId(value);
+        break;
       default:
         break;
     }
@@ -103,7 +108,8 @@ const EditAppointment = () => {
         age,
         dateSchedule,
         timeSchedule,
-        phone
+        phone,
+        appointId
       };
 
       const response = await axios.put(`/appointment/update/${id}`, data);
@@ -119,6 +125,7 @@ const EditAppointment = () => {
         setDateSchedule("");
         setTimeSchedule("");
         setPhone("");
+        setAppointId("");
 
       } else {
         console.error('Failed to update post:', response.data.error);
@@ -140,6 +147,11 @@ const EditAppointment = () => {
     <div className='max-w-3xl mx-auto'>
       <h1 className='text-2xl font-bold mb-4'>Edit Appointment</h1>
       <form className="needs-validation" noValidate>
+
+        <div className='mb-4'>
+            <dt className='text-sm font-medium text-gray-500'>Appointment ID</dt>
+            <dd className='mt-1 text-lg font-semibold'>{appointId}</dd>
+        </div>
 
         <div className="form-group" style={{ marginBottom: '15px' }}>
           <label style={{ marginBottom: '5px' }}>Name</label>

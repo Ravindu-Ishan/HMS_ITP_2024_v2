@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import { Modal } from "react-responsive-modal";
+import validator from "validator";
+import { isOnlySpaces, isOnlyAlphabet, isAlphanumeric } from "../hooks/validations";
 
 import { useStaffAuthContext } from '../hooks/useStaffAuthContext'; //context hook
 import { jwtDecode } from "jwt-decode";
@@ -25,7 +27,6 @@ function UserActionsTab() {
     const { user } = useStaffAuthContext();
     const [isDisabled, setIsDisabled] = useState(true); //form activation state
 
-
     //get user id from token
     let id;
     if (user) {
@@ -34,13 +35,12 @@ function UserActionsTab() {
     }
 
     //passwordState
-    const [previousPassword, setPreviousPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [ppreviousPassword, setPreviousPassword] = useState('');
+    const [pnewPassword, setNewPassword] = useState('');
+    const [pconfirmPassword, setConfirmPassword] = useState('');
 
     //password message state
     const [message, setMessage] = useState("");
-
 
     //password show icon1
     const [type1, setType1] = useState('password');
@@ -100,43 +100,72 @@ function UserActionsTab() {
     //reset password confirm handler
     const onPasswordChangeConfirm = (e) => {
         e.preventDefault();
-        setLoading(true);
+        //------front-end validations----------
+        let valid = true
+        let errormsg = ''
 
+        //sanitizations
+        const previousPassword = validator.trim(ppreviousPassword)
+        const newPassword = validator.trim(pnewPassword)
+        const confirmPassword = validator.trim(pconfirmPassword)
 
-        if (newPassword != confirmPassword) {
-            setMessage("Passwords do not match");
-            setLoading(false)
+        //validation checks
+        if (validator.isEmpty(previousPassword) || validator.isEmpty(newPassword) || validator.isEmpty(confirmPassword)) {
+            errormsg = 'Please fill out all fields'
+            valid = false
         }
-        if (newPassword == confirmPassword) {
-            const data1 = {
-                previousPassword,
-            }
-            axios.post(`/account/password/compare/${id}`, data1).then((response) => {
-                if (response.data) {
-                    const data2 = {
-                        newPassword,
-                    }
-                    axios.put(`/account/updatepassword/${id}`, data2).then((response) => {
-                        alert(response.data.message);
-                        setLoading(false);
-                        closeModal1();
-                    }).catch((error) => {
-                        alert("Something went wrong, please check console")
-                        setLoading(false)
-                        console.log(error)
-                    });
-                }
-                if (!response.data) {
-                    setMessage("Previous Password is incorrect");
-                    setLoading(false)
-                }
-            }).catch((error) => {
-                alert("Something went wrong, please check console")
+        else if (isOnlySpaces(previousPassword) || isOnlySpaces(newPassword) || isOnlySpaces(confirmPassword)) {
+            errormsg = 'Error , please remove any unnecessary whitespaces'
+        }
+        else if (!validator.isStrongPassword(newPassword)) {
+            errormsg = 'Password not strong enough, password must be longer than 8 characters, must have atleast one uppercase letter, must contain at least one special character, must contain at least one number'
+            valid = false
+        }
+
+        //if not valid
+        if (!valid) {
+            setMessage(errormsg);
+        }
+
+        //if valid only
+        if (valid == true) {
+            setLoading(true);
+
+            if (newPassword != confirmPassword) {
+                setMessage("Passwords do not match");
                 setLoading(false)
-                console.log(error)
-            });
+            }
+            if (newPassword == confirmPassword) {
+                const data1 = {
+                    previousPassword,
+                }
+                axios.post(`/account/password/compare/${id}`, data1).then((response) => {
+                    if (response.data) {
+                        const data2 = {
+                            newPassword,
+                        }
+                        axios.put(`/account/updatepassword/${id}`, data2).then((response) => {
+                            alert(response.data.message);
+                            setLoading(false);
+                            closeModal1();
+                        }).catch((error) => {
+                            alert("Something went wrong, please check console")
+                            setLoading(false)
+                            console.log(error)
+                        });
+                    }
+                    if (!response.data) {
+                        setMessage("Previous Password is incorrect");
+                        setLoading(false)
+                    }
+                }).catch((error) => {
+                    alert("Something went wrong, please check console")
+                    setLoading(false)
+                    console.log(error)
+                });
 
 
+            }
         }
 
     }
@@ -193,7 +222,7 @@ function UserActionsTab() {
                                                     <input
                                                         className=" w-full px-5 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
                                                         type={type1}
-                                                        value={previousPassword}
+                                                        value={ppreviousPassword}
                                                         onChange={(e) => setPreviousPassword(e.target.value)}
                                                         required={true}
                                                     />
@@ -215,7 +244,7 @@ function UserActionsTab() {
                                                     <input
                                                         className=" w-full px-5 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
                                                         type={type2}
-                                                        value={newPassword}
+                                                        value={pnewPassword}
                                                         onChange={(e) => setNewPassword(e.target.value)}
                                                         required={true}
                                                     />
@@ -237,7 +266,7 @@ function UserActionsTab() {
                                                     <input
                                                         className=" w-full px-5 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
                                                         type={type3}
-                                                        value={confirmPassword}
+                                                        value={pconfirmPassword}
                                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                                         required={true}
                                                     />
