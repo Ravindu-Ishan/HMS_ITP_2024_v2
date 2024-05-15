@@ -93,6 +93,17 @@ router.delete('/patient/delete/:id', async (req, res) => {
     }
 });
 
+// Route to get all patient names
+router.get('/patient-names', async (req, res) => {
+    try {
+      const patients = await Patients.find({}, 'description').exec(); // Only fetch the 'description' field
+      res.json({ success: true, patientNames: patients });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, error: 'Failed to fetch patient names' });
+    }
+  });
+
 module.exports = router;
 
 

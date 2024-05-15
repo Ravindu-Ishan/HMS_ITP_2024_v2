@@ -49,73 +49,73 @@ function ReportApp() {
   return (
 
     <>
-    {/* Top navigation bar */}
-    <div className="navarea">
-                <TopNavPatient/>
-            </div>
+      {/* Top navigation bar */}
+      <div className="navarea">
+        <TopNavPatient />
+      </div>
       <main>
-      <main className="m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl xl:max-w-4xl bg-white rounded shadow">
+        <main className="m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl xl:max-w-4xl bg-white rounded shadow">
 
-        {showInvoice ? (
-          <>
+          {showInvoice ? (
+            <>
 
-            <ReactToPrint trigger={() => <button className="bg-blue-500 ml-5 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300">
-              Print / Download</button>}
+              <ReactToPrint trigger={() => <button className="bg-blue-500 ml-5 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300">
+                Print / Download</button>}
 
-              content={() => componentRef.current} />
+                content={() => componentRef.current} />
 
-            <div ref={componentRef} className="p-7">
-              <Header handlePrint={handlePrint} />
+              <div ref={componentRef} className="p-7">
+                <Header handlePrint={handlePrint} />
 
-              <MainDetails
-                doctorname={doctorname}
-                roomNo={roomNo} />
-                
+                <MainDetails
+                  doctorname={doctorname}
+                  roomNo={roomNo} />
 
-              {/* <ClientDetails
+
+                {/* <ClientDetails
                 reportDate={reportDate}
                 startTime={startTime}
                 endTime={endTime}
                 reportNo={reportNo} /> */}
 
-              {/*<Dates
+                {/*<Dates
             invoiceDate={invoiceDate}
             dueDate={dueDate}
             invoiceNo={invoiceNo}/>*/}
 
-              <Table
-                //reportdescription={reportdescription}
-                noofappoinments={noofappoinments}
-                checkedpatients={checkedpatients}
-                minorpatients={minorpatients}
-                canceledappoinments={canceledappoinments}
-                hospitalizationpatients={hospitalizationpatients}
-                list={list}
-              //total={total}
-              //setTotal={setTotal}
-              />
-
-              
-            </div>
-            
-          </>
-
-        ) : (
-          <>
-            
-
-            <div className="flex flex-col justify-center">
+                <Table
+                  //reportdescription={reportdescription}
+                  noofappoinments={noofappoinments}
+                  checkedpatients={checkedpatients}
+                  minorpatients={minorpatients}
+                  canceledappoinments={canceledappoinments}
+                  hospitalizationpatients={hospitalizationpatients}
+                  list={list}
+                //total={total}
+                //setTotal={setTotal}
+                />
 
 
-             
-              <article>
+              </div>
 
-                
+            </>
 
-              </article>
+          ) : (
+            <>
 
-              <label htmlFor="notes">Additional Notes</label>
-              {/* <textarea
+
+              <div className="flex flex-col justify-center">
+
+
+
+                <article>
+
+
+
+                </article>
+
+                <label htmlFor="notes">Additional Notes</label>
+                {/* <textarea
                 type="text"
                 name="text"
                 id="notes"
@@ -125,13 +125,13 @@ function ReportApp() {
                 onChange={(e) => setNotes(e.target.value)} /> */}
 
 
-              <button onClick={() => setShowInvoice(true)}
-                className="bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300">Preview Invoice</button>
+                <button onClick={() => setShowInvoice(true)}
+                  className="bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300">Preview Invoice</button>
 
-            </div>
-          </>
-        )}
-      </main>
+              </div>
+            </>
+          )}
+        </main>
       </main>
     </>
   );

@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 const EditAppointment = () => {
   const { id } = useParams();
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
-  
+
   const [doctor, setDoctor] = useState("");
-  
+
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [age, setAge] = useState("");
   const [dateSchedule, setDateSchedule] = useState("");
   const [timeSchedule, setTimeSchedule] = useState("");
-  
+  const [appointId, setAppointId] = useState("");
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/appointment/${id}`);
         if (response.data.success) {
-          const { topic, description, doctor, dateOfBirth, age, dateSchedule, timeSchedule } = response.data.appointment;
+          const { topic, description, doctor, dateOfBirth, age, dateSchedule, timeSchedule, appointId } = response.data.appointment;
           setTopic(topic);
           setDescription(description);
           setDoctor(doctor);
@@ -28,7 +30,8 @@ const EditAppointment = () => {
           setAge(age);
           setDateSchedule(dateSchedule);
           setTimeSchedule(timeSchedule);
-          
+          setAppointId(appointId);
+
         } else {
           console.error('Failed to fetch post data:', response.data.error);
         }
@@ -72,6 +75,9 @@ const EditAppointment = () => {
       case "timeSchedule":
         setTimeSchedule(value);
         break;
+      case "appointId":
+        setAppointId(value);
+        break;
       default:
         break;
     }
@@ -84,14 +90,15 @@ const EditAppointment = () => {
       const data = {
         topic,
         description,
-        
+
         doctor,
-       
+
         dateOfBirth,
         age,
         dateSchedule,
-        timeSchedule
-       
+        timeSchedule,
+        appointId
+
       };
 
       const response = await axios.put(`/appointment/update/${id}`, data);
@@ -99,14 +106,15 @@ const EditAppointment = () => {
         alert("Appointment Updated Successfully");
         setTopic("");
         setDescription("");
-       
-       
+
+
         setDoctor("");
         setDateOfBirth("");
         setAge("");
         setDateSchedule("");
         setTimeSchedule("");
-      
+        setAppointId("");
+
 
       } else {
         console.error('Failed to update post:', response.data.error);
@@ -117,71 +125,108 @@ const EditAppointment = () => {
   };
 
   return (
-    <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit post</h1>
-      <form className="needs-validation" noValidate>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label className="font-bold" style={{ marginBottom: '5px' }}>Name</label>
-          <p>{topic}</p>
+    <>
+
+      <div className='navarea'>
+        <TopNavAppointmet />
+      </div>
+
+      <main>
+        <div className='max-w-3xl mx-auto'>
+          <h1 className="text-2xl mb-4">Reschedule Appointment</h1>
+          <form className="needs-validation" noValidate>
+
+            <h2 className='text-2xl font-bold mb-4'>{topic}</h2>
+
+            <dl className='grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 bg-white sm:rounded-lg p-7'>
+              <div>
+                <dt className='text-sm font-medium text-gray-500'>Appointment ID</dt>
+                <dd className='mt-1 text-lg font-semibold'>{appointId}</dd>
+              </div>
+              <div>
+                <dt className='text-m font-medium text-gray-600'>Reschedule Details</dt>
+                <dd className='mt-1 text-lg font-semibold'>
+                  <div className="form-group">
+
+                    <label className="font-bold" style={{marginRight: '12px', fontWeight: '600' }}>Schedule Date</label>
+                    <input
+                      type="date"
+                      className="form-control rounded-full p-2 text-gray-700"
+                      name="dateSchedule"
+                      placeholder="Select schedule date"
+                      value={dateSchedule}
+                      min={
+                        new Date().toISOString().split('T')[0]
+                       }
+                      onChange={handleInputChange}
+                    />
+
+                  </div>
+                </dd>
+              </div>
+              <div>
+                <dt className='text-sm font-medium text-gray-500'>Patients' Name</dt>
+                <dd className='mt-1 text-lg font-semibold'>{topic}</dd>
+              </div>
+              <div>
+                <dd className='mt-1 text-lg font-semibold'>
+                  <div className="form-group">
+
+                    <label className="font-bold" style={{marginRight: '12px', fontWeight: '600' }}>Schedule Time</label>
+                    <input
+                      type="time"
+                      className="form-control rounded-full p-2 text-gray-700"
+                      name="timeSchedule"
+                      placeholder="Select schedule time"
+                      value={timeSchedule}
+                      onChange={handleInputChange}
+                    />
+
+                  </div>
+                </dd>
+              </div>
+              <div>
+                <dt className='text-sm font-medium text-gray-500'>NIC</dt>
+                <dd className='mt-1 text-lg font-semibold'>{description}</dd>
+              </div>
+              <button
+                className="text-white bg-green-700 hover:bg-green-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+                type="submit"
+                style={{ marginTop: '15px' }}
+                onClick={onSubmit}
+              >
+                <i className="far fa-check-square"></i>
+                &nbsp; Update
+              </button>
+              <div>
+                <dt className='text-sm font-medium text-gray-500'>Birth Date</dt>
+                <dd className='mt-1 text-lg font-semibold'>{dateOfBirth}</dd>
+              </div>
+              <div>
+                <dt className='text-sm font-medium text-gray-500'></dt>
+                <dd className='mt-1 text-lg font-semibold'></dd>
+              </div>
+              <div>
+                <dt className='text-sm font-medium text-gray-500'>Age</dt>
+                <dd className='mt-1 text-lg font-semibold'>{age}</dd>
+              </div>
+              {/* <div className='mb-4'>
+              <dt className='text-sm font-medium text-gray-500'>Doctor/Specialist</dt>
+              <dd className='mt-1 text-lg font-semibold'>{doctor}</dd>
+              </div> */}
+
+              
+
+              {/* <div className="form-group" style={{ marginBottom: '15px' }}>
+              
+              </div> */}
+
+            </dl>
+          </form>
         </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label className="font-bold" style={{ marginBottom: '5px' }}>NIC</label>
-          <p>{description}</p>
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label className="font-bold" style={{ marginBottom: '5px' }}>Age</label>
-          <p>{age}</p>
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label className="font-bold" style={{ marginBottom: '5px' }}>Birth Date</label>
-          <p>{dateOfBirth}</p>
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label className="font-bold" style={{ marginBottom: '5px' }}>Doctor/Specialist</label>
-          <p>{doctor}</p>
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label className="font-bold" style={{ marginBottom: '5px' }}>Schedule Date</label>
-          <input
-            type="date"
-            className="form-control"
-            name="dateSchedule"
-            placeholder="Select schedule date"
-            value={dateSchedule}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label className="font-bold" style={{ marginBottom: '5px' }}>Schedule Time</label>
-          <input
-            type="time"
-            className="form-control"
-            name="timeSchedule"
-            placeholder="Select schedule time"
-            value={timeSchedule}
-            onChange={handleInputChange}
-          />
-        </div>
-
-
-        <button
-          className="btn btn-success"
-          type="submit"
-          style={{ marginTop: '15px' }}
-          onClick={onSubmit}
-        >
-          <i className="far fa-check-square"></i>
-          &nbsp; Update
-        </button>
-      </form>
-    </div>
+      </main>
+    </>
   );
 };
 

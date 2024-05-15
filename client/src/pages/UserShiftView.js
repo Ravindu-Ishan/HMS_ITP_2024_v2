@@ -63,8 +63,12 @@ const UserShiftView = () => {
 
             <main>
                 <div className="main-container">
-                    <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
+                    {/*-----------------search bar-------------------*/}
+                    <div className="flex justify-between sticky top-0 max-w-sm bg-white border border-gray-200 rounded-xl shadow pt-2 px-2 ml-auto">
 
+
+
+                    <div className="ml-auto">
                         <input
                             className="form-control"
                             type="search"
@@ -72,9 +76,11 @@ const UserShiftView = () => {
                             name="searchQuery"
                             onChange={(e) => setSearch(e.target.value)}
                         />
+                        </div>
                     </div>
 
                     <div>
+
                      {/*------------data display table--------------- */}
                      <div className="overflow-x-auto sm:rounded-lg tablestyle">
                     <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
@@ -96,13 +102,15 @@ const UserShiftView = () => {
                                             shift.ScheduleTime.includes(search) ||
                                             shift.ScheduleDate.includes(search)
                                     }).map((shift, index) => (
-                                        <tr key={shift._id}>
-                                            <td>
+
+                                        <tr className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black"
+                                         key={shift._id}>
+                                            <td className="text-center py-2 px-4">
                                                 <Link to={`/shift/${shift._id}`}> {index + 1}</Link>
                                             </td>
-                                            <td>{shift.ScheduleTime}</td>
-                                            <td>{shift.ScheduleDate}</td>
-                                            <td>{shift.Location}</td>
+                                            <td className="text-center py-2 px-4">{shift.ScheduleTime}</td>
+                                            <td className="text-center py-2 px-4">{shift.ScheduleDate}</td>
+                                            <td className="text-center py-2 px-4">{shift.Location}</td>
 
 
                                         </tr>

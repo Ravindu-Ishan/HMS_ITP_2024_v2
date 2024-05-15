@@ -1,18 +1,22 @@
 import React, { useState,useRef } from "react";
-import ClientDetails from "./ClientDetails";
-import Dates from "./Dates";
+//import ClientDetails from "./ClientDetails";
+//import Dates from "./Dates";
 //import Footer from "./Footer";
 import Header from "./Header";
 import MainDetails from "./MainDetails";
 import Notes from "./Notes";
 import Table from "./Table";
-import TableForm from "./TableForm";
+// import TableForm from "./TableForm";
 import ReactToPrint from "react-to-print";
 import AppForm from "./AppForm";
+import TopNavAppointment from "../../components/TopNavAppointment";
+//import images
+import brandLogo from "../../images/brandLogo.png"
+
 
 
 function ReportApp() {
-  const[showInvoice, setShowInvoice] = useState(false)
+  const[showInvoice, setShowInvoice] = useState(true)
   const[name, setName] = useState("")
   const[email, setEmail] = useState("")
   const[phone, setPhone] = useState("")
@@ -20,20 +24,19 @@ function ReportApp() {
   const[bankAcc, setBankAcc] = useState("")
   const[address, setAddress] = useState("")
   const[website, setWebsite] = useState("")
-  const[clientName, setClientName] = useState("")
-  const[clientAddress, setClientAddress] = useState("")
   const[invoiceNo, setInvoiceNo] = useState("")
   const[invoiceDate, setInvoiceDate] = useState("")
   const[dueDate, setDueDate] = useState("")
   const[notes, setNotes] = useState("")
-  const[description, setDescription] = useState("")
-  const[totApp, setTotApp] = useState("")
-  const[proceed, setproceed] = useState("")
-  const[amount, setAmount] = useState("")
-  const[pending, setPending] = useState("")
   const[catagory, setCatagory] = useState("")
-  const[list, setList] = useState([])
-  const[total, setTotal] = useState(0)
+  // const[description, setDescription] = useState("")
+  // const[totApp, setTotApp] = useState("")
+  // const[proceed, setproceed] = useState("")
+  // const[amount, setAmount] = useState("")
+  // const[pending, setPending] = useState("")
+  
+  // const[list, setList] = useState([])
+  // const[total, setTotal] = useState(0)
 
   const componentRef = useRef()
 
@@ -44,6 +47,11 @@ function ReportApp() {
 
   return (
     <>
+    <div className='navarea'>
+      <TopNavAppointment/>
+    </div>
+
+    <main>
       <main className="m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl xl:max-w-4xl bg-white rounded shadow">
     
         {showInvoice ? ( 
@@ -54,7 +62,8 @@ function ReportApp() {
 
           content={() => componentRef.current}/>
 
-          <div ref={componentRef} className="p-7">
+          <div ref={componentRef} className="p-10">
+          <div className="sidebar-brand inline-flex"><img src={brandLogo} alt="brand logo" width={60} className="mr-2" /><div className="mt-2 text-blue-900">MedFlow</div></div>
             <Header handlePrint={handlePrint}/>
             
             <MainDetails 
@@ -62,28 +71,23 @@ function ReportApp() {
             address={address} 
             email={email} 
             phone={phone}
-            bankName={bankName}/>
-            
-            <ClientDetails
-            clientName={clientName}
-            clientAddress={clientAddress}/>
-          
-            <Dates
+            bankName={bankName}
             invoiceDate={invoiceDate}
             dueDate={dueDate}
             invoiceNo={invoiceNo}
             catagory={catagory}/>
+            
+            {/* <ClientDetails
+            clientName={clientName}
+            clientAddress={clientAddress}/> */}
+          
+            {/* <Dates
+            invoiceDate={invoiceDate}
+            dueDate={dueDate}
+            invoiceNo={invoiceNo}
+            catagory={catagory}/> */}
     
-            <Table
-            description={description}
-            totApp={totApp}
-            proceed={proceed}
-            amount={amount}
-            list={list}
-            total={total}
-            setTotal={setTotal}
-            pending={pending}
-            setPending={setPending}/>
+            <Table/>
           
             <Notes
             notes={notes}/>
@@ -97,9 +101,9 @@ function ReportApp() {
             bankAcc={bankAcc}/> */}
 
           </div>
-            <button onClick={() => setShowInvoice(false)}
+            {/* <button onClick={() => setShowInvoice(false)}
             className="bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:text-blue-500 transition-all duration-300">
-              Edit Report Details</button>
+              Edit Report Details</button> */}
           </>
 
            ) : (
@@ -127,10 +131,6 @@ function ReportApp() {
                 setBankName={setBankName}
                 bankAcc={bankAcc}
                 setBankAcc={setBankAcc}
-                clientName={clientName}
-                setClientName={setClientName}
-                clientAddress={clientAddress}
-                setClientAddress={setClientAddress}
                 invoiceNo={invoiceNo}
                 setInvoiceNo={setInvoiceNo}
                 invoiceDate={invoiceDate}
@@ -142,7 +142,7 @@ function ReportApp() {
 
                 />
 
-              {/* this is table form */}
+              {/* this is table form
               <article>
 
                 <TableForm 
@@ -168,7 +168,7 @@ function ReportApp() {
                 setPending={setPending}
                 />
 
-              </article>
+              </article> */}
   
                 <label htmlFor="notes">Additional Notes</label>
                   <textarea 
@@ -187,6 +187,7 @@ function ReportApp() {
             </div>
             </>
           )}
+      </main>
       </main>
     </>
   );

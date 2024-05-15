@@ -124,7 +124,7 @@ const StaffMain = () => {
           ) : (
             <div>
               {/*------------------------------------Create new entry button, pop up model and search bar card---------------------------------*/}
-              <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
+              <div className="flex sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
                 <ModelTemplate
                   btntitle={"Create New"}
                   modaltitle={"New Staff Member"}
@@ -212,11 +212,19 @@ const StaffMain = () => {
                   }
                 />
 
+                {/*------------------------------------Generate report button---------------------------------*/}
+
+                <div className="">
+                  <Link to="/staff/report"><button className="text-white bg-green-600 hover:bg-green-700  font-medium rounded-full text-sm px-5 py-2.5 text-center">Generate Report</button></Link>
+                </div>
+
+
+
                 {/*------------------------------------Search bar---------------------------------*/}
-                <div className="mt-2">
+                <div className=" mt-2">
                   <div>
                     <form className=' border-b-2 border-b-gray-300'>
-                      <input type='text' placeholder='Search' onChange={(e) => setSearch(e.target.value)} className=" focus:outline-none" />
+                      <input type='text' placeholder='Search' onChange={(e) => setSearch(e.target.value)} className=" absolute inset-y-0 end-0 focus:outline-none" />
                       <span className="absolute inset-y-0 end-0 grid place-content-center px-4 text-gray-500">
                         <FaSearch />
                       </span>

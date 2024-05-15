@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import validator from "validator";
+import { isOnlySpaces, isOnlyAlphabet, isAlphanumeric } from "../hooks/validations";
 
 //import components here
 import LoadingComponent from "../components/LoadingComponent";
@@ -22,9 +24,9 @@ function StaffAccountTab2({ smid }) {
 
 
     //account details states
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+    const [pusername, setUsername] = useState('');
+    const [ppassword, setPassword] = useState('');
+    const [pemail, setEmail] = useState('');
 
     //form hidden state
     const [isHidden, setHidden] = useState(true); //ini state = true
@@ -73,47 +75,82 @@ function StaffAccountTab2({ smid }) {
 
     //save button - update staff details
     const handleSaveClick = () => {
-        setLoading(true);
-        if (!hasAccount) {
-            const data = {
-                smid,
-                username,
-                password,
-                email
-            };
-            axios
-                .post(`/account/create`, data)
-                .then(() => {
-                    setLoading(false);
-                    // Reload the page after successful save
-                    fetchDetails();
-                })
-                .catch((error) => {
-                    setLoading(false);
-                    fetchDetails(); //reset page if save unsuccessful
-                    alert("An error happened. Please check console");
-                    console.log("Error saving staff details:", error);
-                });
-        }
-        if (hasAccount) {
-            const data = {
-                username,
-                email
-            };
 
-            axios
-                .put(`/account/update/${smid}`, data)
-                .then(() => {
-                    setLoading(false);
-                    // Reload the page after successful save
-                    window.location.reload();
-                })
-                .catch((error) => {
-                    setLoading(false);
-                    window.location.reload(); //reset page if save unsuccessful
-                    alert("An error happened. Please check console");
-                    console.log("Error saving staff details:", error);
-                });
+        //------front-end validations----------
+        let valid = true
+        let errormsg = ''
+
+        //sanitizations
+        const username = validator.trim(pusername)
+        const email = validator.trim(pemail)
+
+
+        //validation checks
+        if (validator.isEmpty(username) || validator.isEmpty(email)) {
+            errormsg = 'Please fill out all fields'
+            valid = false
+        }
+        else if (!isAlphanumeric(username)) {
+            errormsg = 'Username cannot have special characters'
+            valid = false
+        }
+        else if (isOnlySpaces(username) || isOnlySpaces(email)) {
+            errormsg = 'Error , please remove any unnecessary whitespaces'
+        }
+        else if (!validator.isEmail(email)) {
+            errormsg = 'Please enter a valid email'
+            valid = false
+        }
+
+        //if not valid
+        if (!valid) {
+            alert(errormsg)
+        }
+        //if valid
+        if (valid == true) {
+
+            setLoading(true);
+            if (!hasAccount) {
+                const data = {
+                    smid,
+                    username,
+                    password,
+                    email
+                };
+                axios
+                    .post(`/account/create`, data)
+                    .then(() => {
+                        setLoading(false);
+                        // Reload the page after successful save
+                        fetchDetails();
+                    })
+                    .catch((error) => {
+                        setLoading(false);
+                        fetchDetails(); //reset page if save unsuccessful
+                        alert("An error happened. Please check console");
+                        console.log("Error saving staff details:", error);
+                    });
+            }
+            if (hasAccount) {
+                const data = {
+                    username,
+                    email
+                };
+
+                axios
+                    .put(`/account/update/${smid}`, data)
+                    .then(() => {
+                        setLoading(false);
+                        // Reload the page after successful save
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        setLoading(false);
+                        window.location.reload(); //reset page if save unsuccessful
+                        alert("An error happened. Please check console");
+                        console.log("Error saving staff details:", error);
+                    });
+            }
         }
 
     }
@@ -184,7 +221,7 @@ function StaffAccountTab2({ smid }) {
                                     <input
                                         className=" w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
                                         type="email"
-                                        value={email}
+                                        value={pemail}
                                         onChange={(e) => setEmail(e.target.value)}
 
                                     />
@@ -201,7 +238,7 @@ function StaffAccountTab2({ smid }) {
                                     <input
                                         className=" w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
                                         type="text"
-                                        value={username}
+                                        value={pusername}
                                         onChange={(e) => setUsername(e.target.value)}
 
                                     />

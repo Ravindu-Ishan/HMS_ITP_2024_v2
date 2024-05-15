@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import validator from "validator";
+import { isOnlySpaces, isOnlyAlphabet, isAlphanumeric } from "../hooks/validations";
 
 import { useParams } from "react-router-dom";
 
@@ -21,14 +23,19 @@ import { PiUserCircleFill } from "react-icons/pi";
 
 //main function
 const StaffProfile = () => {
+
+  //form message and valid state
+  //const [errorMsg, setErrorMsg] = useState('');
+  //const [valid, setValid] = useState(null);
+
   const [isDisabled, setIsDisabled] = useState(true); //form activation state
   const { id } = useParams(); //get url parameters
 
   //create new staff record
-  const [staff_NIC, setNIC] = useState("");
-  const [staffName, setstaffName] = useState("");
-  const [dateOfBirth, setdob] = useState("");
-  const [role, setrole] = useState("");
+  const [pstaff_NIC, setNIC] = useState("");
+  const [pstaffName, setstaffName] = useState("");
+  const [pdateOfBirth, setdob] = useState("");
+  const [prole, setrole] = useState("");
 
   //loading state
   const [loading, setLoading] = useState(false);
@@ -51,30 +58,62 @@ const StaffProfile = () => {
   //save button - update staff details
   const handleSaveClick = () => {
 
-    const data = {
-      staff_NIC,
-      staffName,
-      dateOfBirth,
-      role,
-    };
-    setLoading(true);
-    axios
-      .put(`/update/${id}`, data)
-      .then(() => {
-        setLoading(false);
-        // Reload the page after successful save
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        window.location.reload(); //reset page if save unsuccessful
-        alert("An error happened. Please check console");
-        console.log("Error saving staff details:", error);
-      });
+    //------front-end validations----------
+    //initialize form valid state
 
+    let valid = true
+    let errormsg = ''
 
+    //sanitizations
+    const staff_NIC = validator.trim(pstaff_NIC);
+    const staffName = validator.trim(pstaffName);
+    const dateOfBirth = pdateOfBirth;
+    const role = validator.trim(prole);
 
+    //validation checks
+    if (validator.isEmpty(staff_NIC) || validator.isEmpty(staffName) || validator.isEmpty(dateOfBirth) || validator.isEmpty(role)) {
+      errormsg = 'Please fill out all fields'
+      valid = false
+    }
+    if (isOnlyAlphabet(role) == false || isOnlyAlphabet(staffName) == false) {
+      errormsg = 'Full Name and Role cannot have numeric or special characters'
+      valid = false
+    }
+    if (!isAlphanumeric(staff_NIC)) {
+      errormsg = 'NIC cannot have special characters'
+      valid = false
+    }
+    if (isOnlySpaces(staff_NIC) || isOnlySpaces(staffName) || isOnlySpaces(dateOfBirth) || isOnlySpaces(role)) {
+      errormsg = 'Error, unnecessary whitespaces detected in form fields'
+      valid = false
+    }
+    if (!valid) {
+      alert(errormsg)
+    }
+    if (valid == true) {
+      const data = {
+        staff_NIC,
+        staffName,
+        dateOfBirth,
+        role,
+      }
+      setLoading(true);
+      axios
+        .put(`/update/${id}`, data)
+        .then(() => {
+          setLoading(false);
+          // Reload the page after successful save
+          window.location.reload();
+        })
+        .catch((error) => {
+          setLoading(false);
+          window.location.reload(); //reset page if save unsuccessful
+          alert(error);
+          console.log("Error saving staff details:", error);
+        });
+    }
   };
+
   //get staff member details
   const fetchStaffDetails = () => {
     setLoading(true);
@@ -108,7 +147,7 @@ const StaffProfile = () => {
         (
 
           <div>
-            <StaffMoreDetailsTab1 role={role} smid={id} />
+            <StaffMoreDetailsTab1 role={prole} smid={id} />
           </div>
 
         ),
@@ -162,7 +201,7 @@ const StaffProfile = () => {
                             <input
                               className=" w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
                               type="text"
-                              value={staff_NIC}
+                              value={pstaff_NIC}
                               onChange={(e) => setNIC(e.target.value)}
                             />
                           </div>
@@ -178,7 +217,7 @@ const StaffProfile = () => {
                             <input
                               className=" w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
                               type="text"
-                              value={staffName}
+                              value={pstaffName}
                               onChange={(e) => setstaffName(e.target.value)}
                             />
                           </div>
@@ -194,7 +233,7 @@ const StaffProfile = () => {
                             <input
                               className="w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
                               type="date"
-                              value={dateOfBirth}
+                              value={pdateOfBirth}
                               onChange={(e) => setdob(e.target.value)}
                             />
                           </div>
@@ -210,7 +249,7 @@ const StaffProfile = () => {
                             <input
                               className="w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none disabled:border-0 border-b-2 border-gray-200"
                               type="text"
-                              value={role}
+                              value={prole}
                               onChange={(e) => setrole(e.target.value)}
                             />
                           </div>

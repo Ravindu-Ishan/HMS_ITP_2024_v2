@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import TopNavWard from '../../components/TopNavWards';
 
 const Bed_Details = () => {
     const { id } = useParams();
@@ -49,33 +50,51 @@ const Bed_Details = () => {
 
     // Destructure bed properties
     const {
-      patient_ID,
-      patient_name,
-      ward_ID,
-      bed_ID,
-      bed_location,
+        patient_ID,
+        patient_name,
+        ward_ID,
+        bed_ID,
+        bed_location,
     } = bed;
 
     // Render the ward details
     return (
-        <div style={{ marginTop: '20px' }}>
-            <h2>Patient ID: {patient_ID}</h2>
-            <dl className="row">
-                <dt className="col-sm-3">Patient Name</dt>
-                <dd className="col-sm-9">{patient_name}</dd>
+        <>
+            <div className="navarea">
+                <TopNavWard />
+            </div>
 
-                <dt className="col-sm-3">ward ID</dt>
-                <dd className="col-sm-9">{ward_ID}</dd>
+            <main>
+                    <div className="mt-6 bg-green-100 rounded-lg p-6">
+                        <h2 className="text-2xl font-bold mb-4">Patient ID : {patient_ID}</h2>
+                        <dl>
+                            <div className="grid grid-cols-1 gap-6">
+                                <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                    <dt className="font-semibold text-gray-700">Patient Name</dt>
+                                    <dd className="mt-1">{patient_name}</dd>
+                                </div>
 
-                <dt className="col-sm-3">Bed ID</dt>
-                <dd className="col-sm-9">{bed_ID}</dd>
+                                <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                    <dt className="font-semibold text-gray-700">Ward ID</dt>
+                                    <dd className="mt-1">{ward_ID}</dd>
+                                </div>
 
-                <dt className="col-sm-3">Bed Location</dt>
-                <dd className="col-sm-9">{bed_location}</dd>
-                
-            </dl>
-        </div>
+                                <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                    <dt className="font-semibold text-gray-700">Bed ID</dt>
+                                    <dd className="mt-1">{bed_ID}</dd>
+                                </div>
+
+                                <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                    <dt className="font-semibold text-gray-700">Bed Location</dt>
+                                    <dd className="mt-1">{bed_location}</dd>
+                                </div>
+                            </div>
+                        </dl>
+                    </div>
+            </main>
+        </>
     );
+
 };
 
 export default Bed_Details;

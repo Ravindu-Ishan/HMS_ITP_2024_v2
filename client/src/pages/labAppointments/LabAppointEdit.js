@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import TopNavAppointmet from '../../components/TopNavAppointment';
 
 const EditAppointment = () => {
   const { id } = useParams();
@@ -12,13 +13,14 @@ const EditAppointment = () => {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
+  const [labAppId, setLabAppId] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/labApp/${id}`);
         if (response.data.success) {
-          const { pname, nic, service, status, doctor, dateOfBirth, age, phone } = response.data.labApp;
+          const { pname, nic, service, status, doctor, dateOfBirth, age, phone, labAppId } = response.data.labApp;
           setPname(pname);
           setNic(nic);
           setService(service);
@@ -27,6 +29,7 @@ const EditAppointment = () => {
           setDateOfBirth(dateOfBirth);
           setAge(age);
           setPhone(phone);
+          setLabAppId(labAppId);
         } else {
           console.error('Failed to fetch post data:', response.data.error);
         }
@@ -73,6 +76,9 @@ const EditAppointment = () => {
       case "phone":
         setPhone(value);
         break;
+      case "labAppId":
+        setLabAppId(value);
+        break;
       default:
         break;
     }
@@ -90,7 +96,8 @@ const EditAppointment = () => {
         status,
         dateOfBirth,
         age,
-        phone
+        phone,
+        labAppId
       };
 
       const response = await axios.put(`/labApp/update/${id}`, data);
@@ -104,6 +111,7 @@ const EditAppointment = () => {
         setDateOfBirth("");
         setAge("");
         setPhone("");
+        setLabAppId("");
 
       } else {
         console.error('Failed to update post:', response.data.error);
@@ -114,151 +122,152 @@ const EditAppointment = () => {
   };
 
   return (
-    <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit Appointment</h1>
-      <form className="needs-validation" noValidate>
+    <>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Name</label>
-          <input
-            type="text"
-            className="form-control"
-            name="pname"
-            placeholder="Enter name"
-            value={pname}
-            onChange={handleInputChange}
-          />
-        </div>
+      <div className='navarea'>
+        <TopNavAppointmet />
+      </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>NIC</label>
-          <input
-            type="text"
-            className="form-control"
-            name="nic"
-            placeholder="Enter NIC"
-            maxLength={12}
-            value={nic}
-            onChange={handleInputChange}
-          />
-        </div>
+      <main>
+        <div className='max-w-3xl mx-auto'>
+          <h1 className='text-2xl font-bold mb-4  text-green-700'>Update Appointment</h1>
+          <form className="needs-validation  bg-white sm:rounded-lg p-10" autoComplete='off' noValidate>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Service</label>
-          <input
-            type="text"
-            className="form-control"
-            name="service"
-            placeholder="Enter lab test type"
-            value={service}
-            onChange={handleInputChange}
-          />
-        </div>
+            <div className='mb-4'>
+              <label ></label>
+              <p className='text-m font-semibold text-black'>Appointment ID<span className='ml-6 mt-1 text-lg font-semibold'>{labAppId}</span></p>
+            </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Contact No</label>
-          <input
-            type="text"
-            className="form-control"
-            name="phone"
-            placeholder="Enter Contact No"
-            maxLength={10}
-            value={phone}
-            onChange={handleInputChange}
-          />
-        </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label style={{ marginBottom: '5px', marginRight: '12px', fontWeight: '600' }}>Patients' Name</label>
+              <input
+                type="text"
+                className="form-control  rounded-full p-2 text-gray-700"
+                name="pname"
+                placeholder="Enter name"
+                value={pname}
+                onChange={handleInputChange}
+              />
+            </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Birth Date</label>
-          <input
-            type="date"
-            className="form-control"
-            name="dateOfBirth"
-            placeholder="Enter birth date"
-            value={dateOfBirth}
-            onChange={handleInputChange}
-          />
-        </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label style={{ marginBottom: '5px', marginRight: '12px', fontWeight: '600' }}>Patients' NIC</label>
+              <input
+                type="text"
+                className="form-control rounded-full p-2 text-gray-700"
+                name="nic"
+                placeholder="Enter NIC"
+                maxLength={12}
+                value={nic}
+                onChange={handleInputChange}
+              />
+            </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Age</label>
-          <input
-            type="text"
-            className="form-control"
-            name="age"
-            placeholder="Enter age"
-            maxLength={3}
-            value={age}
-            onChange={handleInputChange}
-          />
-        </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label style={{ marginBottom: '5px', marginRight: '12px', fontWeight: '600' }}>Service</label>
+              <input
+                type="text"
+                className="form-control rounded-full p-2 text-gray-700"
+                name="service"
+                placeholder="Enter lab test type"
+                value={service}
+                onChange={handleInputChange}
+              />
+            </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-        <label htmlFor="doctor" style={{ marginBottom: '5px' }}>Doctor/Specialist</label>
-        <select
-            className="form-control"
-            id="doctor"
-            name="doctor"
-            value={doctor}
-            onChange={handleInputChange}
-            
-        >
-            {/* List of options for ward types */}
-            <option value="">Select Doctor/Specialist</option>
-            <option value="No Doctor/Specialist">No Doctor/Specialist</option>
-            <option value="DR AJANTHA TIKIRI RAJAPAKSHA">DR AJANTHA TIKIRI RAJAPAKSHA</option>
-            <option value="DR ANIDU PATHIRANA">DR ANIDU PATHIRANA</option>
-            <option value="DR CHAMARA RATHNAYAKE">DR CHAMARA RATHNAYAKE</option>
-            <option value="DR HEMAL FERNANDO">DR HEMAL FERNANDO</option>
-            <option value="DR MOHAN JAYATHILAKE">DR MOHAN JAYATHILAKE</option>
-            <option value="DR M.RAYNO NAVINAN">DR M.RAYNO NAVINAN</option>
-            <option value="DR R.A.U HASANTHA RANAWAKA">DR R.A.U HASANTHA RANAWAKA</option>
-            <option value="DR SEPALIKA MENDIS">DR SEPALIKA MENDIS</option>
-            <option value="DR STANLEY AMARASEKARA">DR STANLEY AMARASEKARA</option>
-            <option value="DR W.S SANTHARAJ">DR W.S SANTHARAJ</option>
-            <option value="DR WASANTHA KAPUWATTA">DR WASANTHA KAPUWATTA</option>
-            <option value="DR NIMALI FERNANDO">DR NIMALI FERNANDO</option>
-            <option value="PROF GODWIN .R. CONSTANTINE">PROF GODWIN .R. CONSTANTINE</option>
-            <option value="DR R.A.U HASANTHA RANAWAKA">DR R.A.U HASANTHA RANAWAKA</option>
-            <option value="DR MAHEN KOTHALAWALA">DR MAHEN KOTHALAWALA</option>
-            <option value="DR HASANTHI NIROSHALA">DR HASANTHI NIROSHALA</option>
-            <option value="DR CHANDRIKA J.SUBASINGHE">DR CHANDRIKA J.SUBASINGHE</option>
-            <option value="DR DILUKA PINTO">DR DILUKA PINTO</option>
-            
-        </select>
-        </div>
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label style={{ marginBottom: '5px', marginRight: '12px', fontWeight: '600' }}>Contact No</label>
+              <input
+                type="text"
+                className="form-control rounded-full p-2 text-gray-700"
+                name="phone"
+                placeholder="Enter Contact No"
+                maxLength={10}
+                value={phone}
+                onChange={handleInputChange}
+              />
+            </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label htmlFor="status" style={{ marginBottom: '5px' }}>Status</label>
-            <select
-              className="form-control"
-              id="status"
-              name="status"
-              value={status}
-              onChange={handleInputChange}
-              
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label style={{ marginBottom: '5px', marginRight: '12px', fontWeight: '600' }}>Birth Date</label>
+              <input
+                type="date"
+                className="form-control rounded-full p-2 text-gray-700"
+                name="dateOfBirth"
+                placeholder="Enter birth date"
+                value={dateOfBirth}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label style={{ marginBottom: '5px', marginRight: '12px', fontWeight: '600' }}>Patients' Age</label>
+              <input
+                type="text"
+                className="form-control rounded-full p-2 text-gray-700"
+                name="age"
+                placeholder="Enter age"
+                maxLength={3}
+                value={age}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="doctor" style={{ marginBottom: '5px', marginRight: '12px', fontWeight: '600' }}>Doctor/Specialist</label>
+              <select
+                className="form-control rounded-full p-2 text-gray-700"
+                id="doctor"
+                name="doctor"
+                value={doctor}
+                onChange={handleInputChange}
+
+              >
+                {/* List of options for ward types */}
+                <option value="">Select Doctor/Specialist</option>
+                <option value="No Doctor/Specialist">No Doctor/Specialist</option>
+                <option value="James Blunt">Dr James Blunt</option>
+                <option value="Radrigara Hilmard Perera">Dr Radrigara Hilmard Perera</option>
+                <option value="Sooriya Aachchige Nimeshini Dinethra">Dr Sooriya Aachchige Nimeshini Dinethra</option>
+                <option value="Sunimala Sooriya Kasthuriarachchi">Dr Sunimala Sooriya Kasthuriarachchi</option>
+                <option value="Rasuwan Kalhara Muraligoda">Dr Rasuwan Kalhara Muraligoda</option>
+                <option value="Ruvindu Kurugoda Karunarathne">Dr Ruvindu Kurugoda Karunarathne</option>
+              </select>
+            </div>
+
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+              <label htmlFor="status" style={{ marginBottom: '5px', marginRight: '12px', fontWeight: '600' }}>Status</label>
+              <select
+                className="form-control rounded-full p-2 text-gray-700"
+                id="status"
+                name="status"
+                value={status}
+                onChange={handleInputChange}
+
+              >
+                {/* List of options for ward types */}
+                <option value="">Select Status</option>
+
+                <option value="Paid">Paid</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancle">Cancle</option>
+
+              </select>
+            </div>
+
+            <button
+              className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+              type="submit"
+              style={{ marginTop: '15px' }}
+              onClick={onSubmit}
             >
-              {/* List of options for ward types */}
-              <option value="">Select Status</option>
-              
-              <option value="Paid">Paid</option>
-              <option value="Pending">Pending</option>
-              <option value="Cancle">Cancle</option>
-              
-            </select>
-          </div>
-
-        <button
-          className="btn btn-success"
-          type="submit"
-          style={{ marginTop: '15px' }}
-          onClick={onSubmit}
-        >
-          <i className="far fa-check-square"></i>
-          &nbsp; Update
-        </button>
-      </form>
-    </div>
+              <i className="far fa-check-square"></i>
+              &nbsp; Update
+            </button>
+          </form>
+        </div>
+      </main>
+    </>
   );
 };
 

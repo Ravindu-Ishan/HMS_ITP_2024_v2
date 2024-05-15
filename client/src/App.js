@@ -10,6 +10,7 @@ import StaffProfile from "./pages/StaffProfile";
 import BranchesMain from "./pages/BranchesMain";
 import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
+import StaffReport from './pages/StaffReport';
 import InventoryProductCreate from './pages/Inventory/InventoryProductCreate';
 import InventoryProductEdit from './pages/Inventory/InventoryProductEdit';
 import InventoryProductMain from './pages/Inventory/InventoryProductMain';
@@ -28,6 +29,9 @@ import Leaves from './pages/Leaves';
 import UserShiftView from './pages/UserShiftView';
 import UserLeavesView from './pages/UserLeavesView';
 import AttendanceReport from './pages/AttendanceReport';
+import CreateLeave from './pages/CreateLeave';
+import EditLeave from './pages/EditLeave';
+import AttendanceMarkingPage from './pages/AttendanceMarking'
 
 import StaffQualifications from "./pages/StaffQualifications"
 import UserQualifications from './pages/UserQualifications';
@@ -60,6 +64,8 @@ import Bed_Home from './pages/Bed_componenets/Bed_Home';
 import Bed_Details from './pages/Bed_componenets/Bed_Details';
 import Bed_Create from './pages/Bed_componenets/Bed_Create';
 import Bed_Edit from './pages/Bed_componenets/Bed_Edit';
+//ward_reports component
+import Ward_ReportApp from './pages/Ward_components/Ward_ReportApp';
 
 //import patient
 import CreatePatient from './pages/Patient_component/CreatePatient';
@@ -73,6 +79,15 @@ import PrescriptionsHome from './pages/Patient_component/PrescriptionsHome';
 import CreatePrescriptions from './pages/Patient_component/CreatePrescriptions';
 import EditPrescriptions from './pages/Patient_component/EditPrescriptions';
 import PrescriptionsDetails from './pages/Patient_component/PrescriptionsDetails';
+
+
+//import laboratory
+import CreateLabAppointment from './pages/Laboratory/CreateLabAppointment';
+import EditLabAppointment from './pages/Laboratory/EditLabAppointment';
+import LaboratoryDetails from './pages/Laboratory/LaboratoryDetails';
+import LaboratoryMain from './pages/Laboratory/LaboratoryMain';
+import LabAppointmentAvailability from './pages/Laboratory/LabAppointmentAvailability';
+import GenerateReport from './pages/Laboratory/GenerateReport';
 
 function App() {
 
@@ -103,10 +118,12 @@ function App() {
         designatedRoute = "/staff";
         break;
       case 'ward manager':
-        designatedRoute = "/ward";
+        designatedRoute = "/wardHome";
         break;
+      case 'front deskOfficer':
+        designatedRoute = "/appointmentHome"
       case 'lab technician':
-        designatedRoute = "/lab";
+        designatedRoute = "/laboratory";
         break;
       case 'doctor':
         designatedRoute = "/user/profile";
@@ -140,24 +157,28 @@ function App() {
     <Routes>
       <Route path="/" element={!user ? <Login /> : <Navigate to={gotoRoute} />} />
       <Route element={<RootLayout />}>
+
         {/*B K R I SASMIN*/}
         <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
         <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
         <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
+        <Route path="/staff/report" element={user ? <StaffReport /> : <Navigate to="/" />} />
 
-   
-            <Route path="/productmain" exact element={<InventoryProductMain />} />
-            <Route path="/productcreate" element={<InventoryProductCreate />} />
-            <Route path="/productedit/:id" element={<InventoryProductEdit />} />
-            <Route path="/suppliercreate" element={<InventorySupplierCreate />} />
-            <Route path="/supplieredit/:id" element={<InventorySupplierEdit />} />
-            <Route path="/suppliermain" exact element={<InventorySupplierMain />} />
-            <Route path="/RestockView" exact element={<RestockRequestView />} />
-            <Route path="/RestockAdd" exact element={<RestockRequestAdd />} />
+        {/*S.H.K Bulathgama*/}
+        <Route path="/productmain" exact element={<InventoryProductMain />} />
+        <Route path="/productcreate" element={<InventoryProductCreate />} />
+        <Route path="/productedit/:id" element={<InventoryProductEdit />} />
+        <Route path="/suppliercreate" element={<InventorySupplierCreate />} />
+        <Route path="/supplieredit/:id" element={<InventorySupplierEdit />} />
+        <Route path="/suppliermain" exact element={<InventorySupplierMain />} />
+        <Route path="/RestockView" exact element={<RestockRequestView />} />
+        <Route path="/RestockAdd" exact element={<RestockRequestAdd />} />
 
         <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
         <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
+
+        <Route path="/user/myAppointments" element={user ? <DoctorView /> : <Navigate to="/" />} />
 
 
         {/*Lithara*/}
@@ -177,15 +198,17 @@ function App() {
         <Route path="/labAppointHome/labAppointEdit/:id" element={<LabAppointEdit />} />
         <Route path="/labApp/:id" element={<LabAppointDetails />} />
 
+
         {/*Praveen*/}
-        <Route path="/wardHome" element={<Ward_Home />} />
-        <Route path="/wardAdd" element={<Ward_Create />} />
-        <Route path="/wardEdit/:id" element={<Ward_Edit />} />
-        <Route path="/wardDetails/:id" element={<Ward_Details />} />
-        <Route path="/beds" element={<Bed_Home />} />
-        <Route path="/addBed" element={<Bed_Create />} />
-        <Route path="/editBed/:id" element={<Bed_Edit />} />
-        <Route path="/bedDetails/:id" element={<Bed_Details />} />
+        <Route path="/wardHome" element={user ? <Ward_Home /> : <Navigate to="/" />} />
+        <Route path="/wardAdd" element={user ? <Ward_Create /> : <Navigate to="/" />} />
+        <Route path="/wardEdit/:id" element={user ? <Ward_Edit /> : <Navigate to="/" />} />
+        <Route path="/wardDetails/:id" element={user ? <Ward_Details /> : <Navigate to="/" />} />
+        <Route path="/beds" element={user ? <Bed_Home /> : <Navigate to="/" />} />
+        <Route path="/addBed" element={user ? <Bed_Create /> : <Navigate to="/" />} />
+        <Route path="/editBed/:id" element={user ? <Bed_Edit /> : <Navigate to="/" />} />
+        <Route path="/bedDetails/:id" element={user ? <Bed_Details /> : <Navigate to="/" />} />
+        <Route path="/wardReports" element={user ? <Ward_ReportApp /> : <Navigate to="/" />} />
 
         {/*Gihani*/}
         <Route path="/patienthome" element={<PatientHome />} />
@@ -199,6 +222,7 @@ function App() {
         <Route path="/editPrescriptions/:id" element={<EditPrescriptions />} />
         <Route path="/prescription/:id" element={<PrescriptionsDetails />} />
         <Route path="/labsReports" element={<LabReports />} />
+
         {/*Iruni*/}
         <Route path="/shift/shiftsof/:smid" element={user ? <ShiftMain /> : <Navigate to="/" />} />
         <Route path="/shift/create/:smid" element={user ? <CreateShift /> : <Navigate to="/" />} />
@@ -209,6 +233,17 @@ function App() {
         <Route path='/user/userShifts' element={user ? <UserShiftView /> : <Navigate to="/" />} />
         <Route path='/user/userLeaves' element={user ? <UserLeavesView /> : <Navigate to="/" />} />
         <Route path='/attendence/attendanceReport' element={user ? <AttendanceReport /> : <Navigate to="/" />} />
+        <Route path='/user/userLeaves/create/:smid' element={user ? <CreateLeave /> : <Navigate to="/" />} />
+        <Route path='/user/userLeaves/edit/:id' element={user ? <EditLeave /> : <Navigate to="/" />} />
+        <Route path='/user/attendencemark' element={user ? <AttendanceMarkingPage /> : <Navigate to="/" />} />
+
+        {/* Lashan */}
+        <Route path="/laboratory" element={<LaboratoryMain />} />
+        <Route path="/addnewappointment" element={<CreateLabAppointment />} />
+        <Route path="/edittestappointment/:id" element={<EditLabAppointment />} />
+        <Route path="/laboratorytestappointment/:id" element={<LaboratoryDetails />} />
+        <Route path="/labAppointmentAvailability" element={<LabAppointmentAvailability />} />
+        <Route path="/GenerateReport" element={<GenerateReport />} />
 
       </Route>
     </Routes>
