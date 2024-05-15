@@ -24,8 +24,11 @@ const PatientDetails = () => {
             }
         };
 
+        
+
         if (id) {
-            fetchData();
+             fetchData();
+            
         }
     }, [id]);
 
@@ -121,7 +124,7 @@ const PatientDetails = () => {
                         </div>
                       </fieldset>
                       
-
+                      
                       </form>
                       </div>
                     </div>
@@ -157,44 +160,4 @@ export default PatientDetails;
 
             
             
-            {/*<div className="row">
-                <div className="col-sm-3" style={{textAlign: 'left'}}>
-                    <img src={imageUrl} alt="Patient" style={{ width: '100%', maxHeight: '400px' }} />
-                </div>
-                <div className="col-sm-9">
-                    <h4>Basic Patient Info</h4>
-                    <hr/>
-                    <dl className="row">
-                        <dt className="col-sm-3">Patient's Name</dt>
-                        <dd className="col-sm-9">{description}</dd>
-
-                        <dt className="col-sm-3">NIC</dt>
-                        <dd className="col-sm-9">{topic}</dd>
-
-                        <dt className="col-sm-3">Age</dt>
-                        <dd className="col-sm-9">{age}</dd>
-
-                        <dt className="col-sm-3">Contact No</dt>
-                        <dd className="col-sm-9">{postCategory}</dd>
-                    </dl>
-
-                    <div>
-                        <h4 style={{ marginTop: '80px' }}>Past Medical Info</h4>
-                        <hr />
-                        <dl className="row">
-                            <div className="row">
-                                <dt className="col-sm-3">Medical History</dt>
-                                <dd className="col-sm-9">
-                                    {medicalhistory.split('\n').map((line, index) => (
-                                        <div key={index}>{line}</div>
-                                    ))}
-                                </dd>
-                            </div>
-                        </dl>
-                    </div>
-                </div>
-                                </div>*/}
-        
-
-
-
+            

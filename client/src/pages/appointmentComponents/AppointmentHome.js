@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DoctorView from '../doctorViewComponent/DoctorView';
 import TopNavAppointmet from '../../components/TopNavAppointment';
+import SubNavBarAppointment from '../../components/SubNavBarAppointment';
 
 export default class AppointmentHome extends Component {
   constructor(props) {
@@ -42,15 +43,27 @@ export default class AppointmentHome extends Component {
     this.setState({ selectedDoctor: doctor });
   }
 
-
-
+  //delete function
   onDelete = (id) => {
-
-    axios.delete(`/appointment/delete/${id}`).then((res) => {
-      alert("Delete successfully");
-      this.retrievePosts();
-    })
+    if (window.confirm("Are you sure you want to delete this ward?")) {
+      axios.delete(`/appointment/delete/${id}`)
+        .then((res) => {
+          alert("Delete successful");
+          this.retrievePosts();
+        })
+        .catch((error) => {
+          console.error('Error deleting appointment:', error);
+        });
+    }
   }
+
+  // onDelete = (id) => {
+
+  //   axios.delete(`/appointment/delete/${id}`).then((res) => {
+  //     alert("Delete successfully");
+  //     this.retrievePosts();
+  //   })
+  // }
 
 
   filterData(appointments, searchKey) {
@@ -88,21 +101,20 @@ export default class AppointmentHome extends Component {
 
         <div className='navarea'>
           <TopNavAppointmet />
+          <SubNavBarAppointment />
         </div>
+        
 
         <main>
           <div className="container">
             <div className="row">
               <div className="col-lg-9 mt-2 mb-2">
-                <h4 className="p-3 text-2xl font-bold text-gray-800 ml-2">Appointments</h4>
-
-                <div className="ml-6 col-lg-9 mt-2 mb-2">
-                  <button className="text-white bg-green-700 hover:bg-green-500  font-medium rounded-full text-m px-5 py-2.5 text-center me-2 mb-2"><a href='/labAppointHome' style={{ textDecoration: 'none', color: 'inherit' }}>Lab Appointments</a></button>
-                </div>
-
-                <div className="ml-6 col-lg-3 mt-2 mb-2">
+              <button className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+              <a href="/createAppointment" style={{ textDecoration: 'none', color: 'white' }}> + New Appointment</a>
+            </button>
+                <div className="ml-300 mt-2 mb-2">
                   <input
-                    className="appearance-none block w-300 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="appearance-none block w-100 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     type="search"
                     placeholder="Search"
                     name="searchQuery"
@@ -147,20 +159,20 @@ export default class AppointmentHome extends Component {
                       <td className="text-center py-2 px-4">{appointment.doctor}</td>
                       <td className="text-center py-2 px-4">{appointment.status}</td>
                       <td className="text-center py-2 px-4">
-                        <button>
-                          <a className="text-blue-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" href={`/editAppointment/${appointment._id}`}>
-                          <i className="fas fa-edit"></i>&nbsp;Edit
-                        </a>
-                        </button>
                         
+                          <a className="text-blue-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" href={`/editAppointment/${appointment._id}`}>
+                            <i className="fas fa-edit"></i>&nbsp;Edit
+                          </a>
+                        
+
                         &nbsp;
 
-                        <button>
-                          <a className="text-red-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" href="#" onClick={() => this.onDelete(appointment._id)}>
-                          <i className="fas fa-trash"></i>&nbsp;Delete
-                        </a>
-                        </button>
                         
+                          <a className="text-red-600 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2" href="#" onClick={() => this.onDelete(appointment._id)}>
+                            <i className="fas fa-trash"></i>&nbsp;Delete
+                          </a>
+                        
+
                       </td>
                     </tr>
                   ))}
@@ -168,9 +180,7 @@ export default class AppointmentHome extends Component {
               </table>
             </div>
 
-            <button className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
-              <a href="/createAppointment" style={{ textDecoration: 'none', color: 'white' }}> + New Appointment</a>
-            </button>
+            
 
             {/* Render DoctorView for the selected doctor */}
             {selectedDoctor && (

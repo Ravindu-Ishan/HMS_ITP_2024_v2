@@ -11,23 +11,29 @@ const Bed_Edit = () => {
   const [ward_ID, set_ward_ID] = useState("");
   const [bed_ID, set_bed_ID] = useState("");
   const [bed_location, set_bed_location] = useState("");
+  const [availablePatientNames, setAvailablePatientNames] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/bed/${id}`);
         if (response.data.success) {
-
           const { patient_ID, patient_name, ward_ID, bed_ID, bed_location } = response.data.bed;
-
           set_patient_ID(patient_ID);
           set_patient_name(patient_name);
           set_ward_ID(ward_ID);
           set_bed_ID(bed_ID);
           set_bed_location(bed_location);
-
         } else {
           console.error('Failed to fetch bed data:', response.data.error);
+        }
+
+        // Fetch patient names
+        const patientResponse = await axios.get('/patient-names'); // Adjust the API endpoint as needed
+        if (patientResponse.data.success) {
+          setAvailablePatientNames(patientResponse.data.patientNames);
+        } else {
+          console.error('Failed to fetch patient names:', patientResponse.data.error);
         }
       } catch (error) {
         console.error('Error fetching bed:', error);
@@ -104,7 +110,7 @@ const Bed_Edit = () => {
             <h1 className="text-3xl font-bold text-gray-800 ml-2">Edit Patient Details</h1>
 
             <form className="max-w-sm mx-auto">
-              
+
               <div className="form-group mb-5">
                 <label htmlFor="patientID" className="mb-1 block text-gray-600 font-medium">Patient ID</label>
                 <input
@@ -119,15 +125,18 @@ const Bed_Edit = () => {
               </div>
               <div className="form-group mb-5">
                 <label htmlFor="patientName" className="mb-1 block text-gray-600 font-medium">Patient Name</label>
-                <input
-                  type="text"
+                <select
                   className="form-control rounded-full border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 pl-4 pr-12 py-2 w-full"
                   id="patientName"
                   name="patient_name"
-                  placeholder="Enter patient_name"
                   value={patient_name}
                   onChange={handleInputChange}
-                />
+                >
+                  <option value="" disabled>Select Patient Name</option>
+                  {availablePatientNames.map(patient => (
+                    <option key={patient._id} value={patient.description}>{patient.description}</option>
+                  ))}
+                </select>
               </div>
               <div className="form-group mb-5">
                 <label htmlFor="wardID" className="mb-1 block text-gray-600 font-medium">Ward ID</label>
@@ -146,7 +155,7 @@ const Bed_Edit = () => {
                 <input
                   type="text"
                   className="form-control rounded-full border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 pl-4 pr-12 py-2 w-full"
-                  id="bedID"
+                  id="bed                  ID"
                   name="bed_ID"
                   placeholder="Enter bed_ID"
                   value={bed_ID}

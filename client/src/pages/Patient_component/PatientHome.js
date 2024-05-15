@@ -94,7 +94,6 @@ export default class PatientHome extends Component {
         
       <tr>
               <th className="p-1">No</th>
-              <th className="p-1">Patient ID</th>
               <th className="p-1">NIC</th>
               <th className="p-1">Patient's Name</th>
               <th className="p-1">Contact No</th>
@@ -107,11 +106,10 @@ export default class PatientHome extends Component {
     <tr className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black" key={index}>
       <th scope="row">{index + 1}</th>
       <td className="text-center py-2 px-2">
-        <a href={`/patient/${patients._id}`}>{patients._id}</a>
-      </td>
-      <td className="text-center py-2 px-2"> 
-        {patients.topic}
-      </td>
+  <a href={`/patient/${patients._id}`}>{patients.topic}</a>
+</td>
+
+      
       <td className="text-center py-2 px-2"> 
         {patients.description}
       </td>

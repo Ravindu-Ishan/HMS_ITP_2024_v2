@@ -8,16 +8,17 @@ class LabReports extends Component {
   render() {
     return (
       <>
-
         {/* top nav imported to this section */}
         <div className="navarea">
           <TopNavPatientProfile/>
         </div>
+        <main>
       <div>
        
         
         <p>This is the LabReports page.</p>
       </div>
+      </main>
       </>
     );
   }

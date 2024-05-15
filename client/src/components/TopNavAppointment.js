@@ -23,7 +23,7 @@ function TopNavAppointment({ smid }) {
           <Link to={"/serviceAvailability"}>Service Availability</Link>
         </div>
         <div className={isSelected("report") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
-          <Link to={"/report"}>Generate Report</Link>
+          <Link to={"/reportApp"}>Generate Report</Link>
         </div>
         {/* <div className={isSelected("doctorView") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
           <Link to={"/doctorView"}>Doctor View</Link>

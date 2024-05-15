@@ -87,7 +87,7 @@ const DoctorView = () => {
                   </th> */}
                   
                   <th className="p-3" scope="col">
-                    Patient's ID
+                    Appointment ID
                   </th>
                   <th className="p-3" scope="col">
                     Patient's Name
@@ -99,7 +99,9 @@ const DoctorView = () => {
                 </tr>
               </thead>
               <tbody>
-                {filterAppointments().map((appointment, index) => (
+                {filterAppointments()
+                .filter(appointment => appointment.doctor == 'Sunimala Sooriya Kasthuriarachchi')
+                .map((appointment, index) => (
                   <tr
                     className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black"
                     key={index}
@@ -110,7 +112,7 @@ const DoctorView = () => {
 
                     <td className="text-center py-2 px-4">
                       <a href={`/doctorPatientView/${appointment._id}`} style={{ textDecoration: 'none' }}>
-                        {appointment._id}
+                        {appointment.appointId}
                       </a>
                     </td>
                     <td className="text-center py-2 px-4">{appointment.topic}</td>

@@ -1,6 +1,4 @@
-export default function MainDetails(
-    {name, address, email, phone, bankName, catagory, invoiceNo}
-){
+export default function Ward_ReportMainDetails(){
     // Get current date and time
     const currentDate = new Date().toLocaleDateString();
     const currentTime = new Date().toLocaleTimeString();

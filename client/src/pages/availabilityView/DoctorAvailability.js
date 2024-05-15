@@ -73,8 +73,8 @@ const DoctorAvailability = () => {
       </div>
 
       <main>
-        <div className="container">
-          <h3 className="p-3 text-2xl font-bold text-gray-800 ml-2">Doctors/Specialists</h3>
+        <div className="container mt-10">
+          
           <div className="row" style={{ display: 'flex', justifyContent: 'space-around' }}>
             <div className="col-lg-3 mt-2 mb-2">
               <input

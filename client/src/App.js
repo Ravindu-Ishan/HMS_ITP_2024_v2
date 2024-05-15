@@ -66,6 +66,8 @@ import Bed_Home from './pages/Bed_componenets/Bed_Home';
 import Bed_Details from './pages/Bed_componenets/Bed_Details';
 import Bed_Create from './pages/Bed_componenets/Bed_Create';
 import Bed_Edit from './pages/Bed_componenets/Bed_Edit';
+//ward_reports component
+import Ward_ReportApp from './pages/Ward_components/Ward_ReportApp';
 
 //import patient
 import CreatePatient from './pages/Patient_component/CreatePatient';
@@ -73,8 +75,7 @@ import EditPatient from './pages/Patient_component/EditPatient';
 import PatientHome from './pages/Patient_component/PatientHome';
 import PatientDetails from './pages/Patient_component/PatientDetails';
 import Summary from './pages/Patient_component/Summary';
-
-//import ReportApp from './pages/reportcomponents/ReportApp';
+import PatientReportApp from './pages/Patient_component/ReportApp';
 import LabReports from './pages/Patient_component/LabReports';
 import PrescriptionsHome from './pages/Patient_component/PrescriptionsHome';
 import CreatePrescriptions from './pages/Patient_component/CreatePrescriptions';
@@ -82,6 +83,16 @@ import EditPrescriptions from './pages/Patient_component/EditPrescriptions';
 import PrescriptionsDetails from './pages/Patient_component/PrescriptionsDetails';
 
 
+//import laboratory
+import CreateLabAppointment from './pages/Laboratory/CreateLabAppointment';
+import EditLabAppointment from './pages/Laboratory/EditLabAppointment';
+import LaboratoryDetails from './pages/Laboratory/LaboratoryDetails';
+import LaboratoryMain from './pages/Laboratory/LaboratoryMain';
+import LabAppointmentAvailability from './pages/Laboratory/LabAppointmentAvailability';
+import GenerateReport from './pages/Laboratory/GenerateReport';
+
+//import financial management
+import FinancialMain from './pages/FinancialMain';
 
 function App() {
 
@@ -114,16 +125,19 @@ function App() {
       case 'ward manager':
         designatedRoute = "/wardHome";
         break;
-      case 'front deskOfficer':
+      case 'front desk officer':
         designatedRoute = "/appointmentHome"
       case 'lab technician':
-        designatedRoute = "/lab";
+        designatedRoute = "/laboratory";
         break;
       case 'doctor':
         designatedRoute = "/user/profile";
         break;
       case 'financial manager':
         designatedRoute = "/finances";
+        break;
+      case 'attendence coordinator':
+        designatedRoute = "/attendence/main";
         break;
       default:
         designatedRoute = "/user/profile";
@@ -205,6 +219,7 @@ function App() {
         <Route path="/addBed" element={user ? <Bed_Create /> : <Navigate to="/" />} />
         <Route path="/editBed/:id" element={user ? <Bed_Edit /> : <Navigate to="/" />} />
         <Route path="/bedDetails/:id" element={user ? <Bed_Details /> : <Navigate to="/" />} />
+        <Route path="/wardReports" element={user ? <Ward_ReportApp /> : <Navigate to="/" />} />
 
         {/*Gihani*/}
         <Route path="/patienthome" element={<PatientHome />} />
@@ -212,7 +227,7 @@ function App() {
         <Route path="/editpatient/:id" element={<EditPatient />} />
         <Route path="/patient/:id" element={<PatientDetails />} />
         <Route path="/reportHistory" element={<Summary />} />
-        {/*<Route path="/reportApp" element={<ReportApp />} />*/}
+        <Route path="/patientreportApp" element={<PatientReportApp />} />
         <Route path="/prescriptionsHome" element={<PrescriptionsHome />} />
         <Route path="/createPrescriptions" element={<CreatePrescriptions />} />
         <Route path="/editPrescriptions/:id" element={<EditPrescriptions />} />
@@ -232,6 +247,16 @@ function App() {
         <Route path='/user/userLeaves/create/:smid' element={user ? <CreateLeave /> : <Navigate to="/" />} />
         <Route path='/user/userLeaves/edit/:id' element={user ? <EditLeave /> : <Navigate to="/" />} />
         <Route path='/user/attendencemark' element={user ? <AttendanceMarkingPage /> : <Navigate to="/" />} />
+
+        {/* Lashan */}
+        <Route path="/laboratory" element={<LaboratoryMain />} />
+        <Route path="/addnewappointment" element={<CreateLabAppointment />} />
+        <Route path="/edittestappointment/:id" element={<EditLabAppointment />} />
+        <Route path="/laboratorytestappointment/:id" element={<LaboratoryDetails />} />
+        <Route path="/labAppointmentAvailability" element={<LabAppointmentAvailability />} />
+        <Route path="/GenerateReport" element={<GenerateReport />} />
+
+        <Route path='/financial/home' element={user ? <FinancialMain /> : <Navigate to="/" />} />
 
       </Route>
     </Routes>
