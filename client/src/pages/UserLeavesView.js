@@ -71,7 +71,7 @@ const UserLeavesView = () => {
 
             <main>
                 
-                {/*----------------------------search bar----------------------------------- */}
+                {/*----------------------------search bar and create new button----------------------------------- */}
                     <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
                     <button type="button"
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"

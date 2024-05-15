@@ -87,4 +87,26 @@ router.delete('/user/userLeaves/delete/:id', async (req, res) => {
     }
 });
 
+/*
+//accept decline function
+router.post('/user/userLeaves/updateStatus/:id', async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    try {
+        // Update the leave status in your database here
+        // Example using Mongoose:
+        const leave = await UserLeavesView.findByIdAndUpdate(id, { status }, { new: true });
+        
+        if (!leave) {
+            return res.status(404).json({ message: "Leave not found"});
+        }
+
+       return res.status(200).json({ message: 'Leave status updated successfully', leave });
+    } catch (err) {
+        res.status(500).json({ message: 'Error updating leave status', error: err.message });
+    }
+});
+*/
+
 module.exports = router;

@@ -62,26 +62,27 @@ const ShiftMain = () => {
 
             <main>
 
-            <div className="main-container flex justify-end">
-            {/* Search bar */}
-            <div className="w-1/4 bg-white border border-gray-200 rounded-xl shadow pt-2 px-4">
-             <input
-            className="w-full form-control"
-            type="search"
-            placeholder="Search"
-            name="searchQuery"
-            onChange={(e) => setSearch(e.target.value)}
-               />
-         </div>
-            </div>
-
-                <div className="flex justify-left ">
+            
+            {/*-------------------- Search bar-------------------- */}
+            <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
+            <div className="flex justify-left ">
                     <button type="button"
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
                         onClick={() => navigate(`/shift/create/${smid}`)}>
                         Create New
                     </button>
                 </div>
+                    <input
+                           className="w-full form-control"
+                           type="search"
+                           placeholder="Search"
+                           name="searchQuery"
+                           onChange={(e) => setSearch(e.target.value)}
+                    />
+                  </div>
+            
+
+                
 
                 {/*------------data display table--------------- */}
                 <div className="overflow-x-auto sm:rounded-lg tablestyle">
@@ -116,14 +117,14 @@ const ShiftMain = () => {
                                     <td className="text-center py-2 px-4">{shift.ScheduleDate}</td>
                                     <td className="text-center py-2 px-4">{shift.Location}</td>
 
-                                    <td>
-                                        <div class="flex space-x-4">
+                                    <td className="text-center py-2 px-4">
+                                        <div class="flex justify-center space-x-4">
                                             <Link className=" text-blue-700 " to={`/shift/edit/${shift._id}`}>
                                                 <i className="fas fa-edit"></i>&nbsp;Edit
                                             </Link>
-                                            <button className=" text-blue-700 " href="#" onClick={() => onDelete(shift._id)}>
+                                            <button className=" text-blue-700 " onClick={() => onDelete(shift._id)}>
                                                 <i className="fas fa-trash-alt"></i>&nbsp;Delete
-                                            </button>  &nbsp;
+                                            </button>  
                                         </div>
                                     </td>
                                 </tr>
