@@ -63,41 +63,58 @@ const Ward_Details = () => {
 
     // Render the ward details
     return (
+
         <>
             <div className="navarea">
                 <TopNavWard />
             </div>
-    
-            <main className="container mx-auto mt-6">
-                <div className="mt-6">
-                    <h2 className="text-2xl font-bold mb-4">Ward: {ward_ID}</h2>
-                    <dl className="grid grid-cols-3 gap-6">
-                        <dt className="font-semibold text-gray-700">Ward Type</dt>
-                        <dd className="col-span-2">{ward_type}</dd>
-    
-                        <dt className="font-semibold text-gray-700">Bed Count</dt>
-                        <dd className="col-span-2">{bed_count}</dd>
-    
-                        <dt className="font-semibold text-gray-700">Special Requirements</dt>
-                        <dd className="col-span-2">{special_requirements}</dd>
-    
-                        <dt className="font-semibold text-gray-700">Inventory Details</dt>
-                        <dd className="col-span-2">{inventory_details}</dd>
-    
-                        <dt className="font-semibold text-gray-700">Doctor/Specialist ID</dt>
-                        <dd className="col-span-2">{doctor_specialist_ID}</dd>
-    
-                        <dt className="font-semibold text-gray-700">Doctor/Specialist Name</dt>
-                        <dd className="col-span-2">{doctor_specialist_name}</dd>
-    
-                        <dt className="font-semibold text-gray-700">Nurse/Other Staff Member IDs</dt>
-                        <dd className="col-span-2">{nurse_other_staff_ID}</dd>
+
+            <main>
+                <div className="mt-6 bg-green-100 rounded-lg p-6">
+                    <h2 className="text-2xl font-bold mb-4">Ward : {ward_ID}</h2>
+                    <dl>
+                        <div className="grid grid-cols-1 gap-6">
+                            <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                <dt className="font-semibold text-gray-700">Ward Type</dt>
+                                <dd className="mt-1">{ward_type}</dd>
+                            </div>
+
+                            <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                <dt className="font-semibold text-gray-700">Bed Count</dt>
+                                <dd className="mt-1">{bed_count}</dd>
+                            </div>
+
+                            <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                <dt className="font-semibold text-gray-700">Special Requirements</dt>
+                                <dd className="mt-1">{special_requirements}</dd>
+                            </div>
+
+                            <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                <dt className="font-semibold text-gray-700">Inventory Details</dt>
+                                <dd className="mt-1">{inventory_details}</dd>
+                            </div>
+
+                            <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                <dt className="font-semibold text-gray-700">Doctor/Specialist ID</dt>
+                                <dd className="mt-1">{doctor_specialist_ID}</dd>
+                            </div>
+
+                            <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                <dt className="font-semibold text-gray-700">Doctor/Specialist Name</dt>
+                                <dd className="mt-1">{doctor_specialist_name}</dd>
+                            </div>
+
+                            <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                <dt className="font-semibold text-gray-700">Nurse/Other Staff Member IDs</dt>
+                                <dd className="mt-1">{nurse_other_staff_ID}</dd>
+                            </div>
+                        </div>
                     </dl>
                 </div>
             </main>
         </>
     );
-    
+
 };
 
 export default Ward_Details;

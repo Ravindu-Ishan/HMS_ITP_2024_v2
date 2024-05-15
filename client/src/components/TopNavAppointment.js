@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function TopNavAttendance({ smid }) {
+function TopNavAppointment({ smid }) {
 
   const location = useLocation();
 
@@ -25,12 +25,12 @@ function TopNavAttendance({ smid }) {
         <div className={isSelected("report") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
           <Link to={"/report"}>Generate Report</Link>
         </div>
-        <div className={isSelected("doctorView") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
+        {/* <div className={isSelected("doctorView") ? "rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
           <Link to={"/doctorView"}>Doctor View</Link>
-        </div>        
+        </div>         */}
       </nav>
     </div>
   );
 }
 
-export default TopNavAttendance;
+export default TopNavAppointment;

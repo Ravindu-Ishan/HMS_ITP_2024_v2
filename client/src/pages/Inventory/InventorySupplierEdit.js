@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-
+import EmptyNavArea from "./EmptyNavArea";
 
 const SupplierEditPost = () => {
   const navigate = useNavigate();
@@ -82,14 +82,22 @@ const SupplierEditPost = () => {
   };
 
   return (
-    <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Edit Supplier Details</h1>
-      <form className="needs-validation" noValidate>
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Supplier Name</label>
+    <>
+
+    <EmptyNavArea />
+    
+    <main className="flex items-center justify-center">
+    <div className="max-w-md mx-auto">
+
+
+    <h1 className="text-lg font-bold mb-3">Edit Supplier Details</h1>
+
+    
+        <div className='mb-6'>
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Supplier Name</label>
           <input
             type="text"
-            className="form-control"
+            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             name="SupplierName"
             placeholder="Enter topic"
             value={SupplierName}
@@ -98,11 +106,11 @@ const SupplierEditPost = () => {
         </div>
 
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Supplier Brand</label>
+        <div className='mb-6'>
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Supplier Brand</label>
           <input
             type="text"
-            className="form-control"
+            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             name="SupplierBrand"
             placeholder="Enter Supplier Brand"
             value={SupplierBrand}
@@ -112,11 +120,11 @@ const SupplierEditPost = () => {
 
 
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-          <label style={{ marginBottom: '5px' }}>Supplier Location</label>
+        <div className='mb-6'>
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Supplier Location</label>
           <input
             type="text"
-            className="form-control"
+            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             name="SupplierLocation"
             placeholder="Enter Supplier Location"
             value={SupplierLocation}
@@ -124,17 +132,20 @@ const SupplierEditPost = () => {
           />
         </div>
 
+        <div className="mb-6 text-center">
         <button
-          className="btn btn-success"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
           type="submit"
-          style={{ marginTop: '15px' }}
           onClick={onSubmit}
         >
           <i className="far fa-check-square2"></i>
-          &nbsp; Update
+          Update
         </button>
-      </form>
+        </div>
+     
     </div>
+    </main>
+  </>
   );
 };
 

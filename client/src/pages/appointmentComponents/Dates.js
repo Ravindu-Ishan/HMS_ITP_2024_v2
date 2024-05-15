@@ -3,11 +3,10 @@ export default function Dates(
 ){
     return(
         <>
-        <article className="mt-10 mb-14 flex items-end justify-end">
+        <article className="mt-5 mb-10 flex items-start justify-start">
             <ul>
-                <li className="p-1"><span className="font-bold">Category: </span>{catagory}</li>
-              <li className="p-1"><span className="font-bold">Invoice No: </span>{invoiceNo}</li>
-              <li className="p-1 bg-gray-100"><span className="font-bold">Invoice date: </span>{invoiceDate}</li>
+              <li className="p-1"><span className="font-bold">Report ID: </span>{invoiceNo}</li>
+              <li className="p-1"><span className="font-bold">Report date: </span>{invoiceDate}</li>
               
             </ul>
         </article>

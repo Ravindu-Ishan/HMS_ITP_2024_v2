@@ -60,29 +60,38 @@ const Bed_Details = () => {
     // Render the ward details
     return (
         <>
-        <div className="navarea">
-          <TopNavWard />
-        </div>
-        <main>
-        <div className="container mx-auto mt-6">
-            <div className="mt-6">
-                <h2 className="text-2xl font-bold mb-4">Patient ID: {patient_ID}</h2>
-                <dl className="grid grid-cols-3 gap-6">
-                    <dt className="font-semibold text-gray-700">Patient Name</dt>
-                    <dd className="col-span-2">{patient_name}</dd>
-
-                    <dt className="font-semibold text-gray-700">Ward ID</dt>
-                    <dd className="col-span-2">{ward_ID}</dd>
-
-                    <dt className="font-semibold text-gray-700">Bed ID</dt>
-                    <dd className="col-span-2">{bed_ID}</dd>
-
-                    <dt className="font-semibold text-gray-700">Bed Location</dt>
-                    <dd className="col-span-2">{bed_location}</dd>
-                </dl>
+            <div className="navarea">
+                <TopNavWard />
             </div>
-        </div>
-        </main>
+
+            <main>
+                    <div className="mt-6 bg-green-100 rounded-lg p-6">
+                        <h2 className="text-2xl font-bold mb-4">Patient ID : {patient_ID}</h2>
+                        <dl>
+                            <div className="grid grid-cols-1 gap-6">
+                                <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                    <dt className="font-semibold text-gray-700">Patient Name</dt>
+                                    <dd className="mt-1">{patient_name}</dd>
+                                </div>
+
+                                <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                    <dt className="font-semibold text-gray-700">Ward ID</dt>
+                                    <dd className="mt-1">{ward_ID}</dd>
+                                </div>
+
+                                <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                    <dt className="font-semibold text-gray-700">Bed ID</dt>
+                                    <dd className="mt-1">{bed_ID}</dd>
+                                </div>
+
+                                <div className="col-span-1 bg-white rounded-lg p-4 border border-black">
+                                    <dt className="font-semibold text-gray-700">Bed Location</dt>
+                                    <dd className="mt-1">{bed_location}</dd>
+                                </div>
+                            </div>
+                        </dl>
+                    </div>
+            </main>
         </>
     );
 

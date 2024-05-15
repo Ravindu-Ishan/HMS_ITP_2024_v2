@@ -60,7 +60,7 @@ export default class LabAppointHome extends Component {
       labApp.pname.toLowerCase().includes(searchKey) ||
       labApp.nic.toLowerCase().includes(searchKey) ||
       labApp.service.toLowerCase().includes(searchKey) ||
-      labApp.status.toLowerCase().includes(searchKey)
+      labApp.labAppId.toLowerCase().includes(searchKey)
     )
 
     this.setState({labApps:result})
@@ -94,23 +94,21 @@ export default class LabAppointHome extends Component {
     
         <div className="row">
           <div className="col-lg-9 mt-2 mb-2">
-            <h4 className="p-3 font-bold">Lab Appointments</h4>
+            <h4 className="p-3 font-bold text-2xl">Lab Appointments</h4>
           </div>
     
-          <div className="col-lg-9 mt-2 mb-2">
-            <button className="text-white bg-green-700 hover:bg-green-500  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"><a href='/'>Doctor Appointments</a></button>
+          <div className="ml-6 col-lg-9 mt-2 mb-2">
+            <button className="text-white bg-green-700 hover:bg-green-500  font-medium rounded-full text-m px-5 py-2.5 text-center me-2 mb-2"><a href='/'>Doctor Appointments</a></button>
           </div>
     
-          <div className="col-lg-3 mt-2 mb-2">
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Search"
-              name="searchQuery"
-              autoComplete='off'
-              onChange={this.handleSearchArea}
-            />
-          </div>
+          <div className="ml-6 col-lg-3 mt-2 mb-2">
+                  <input
+                    className="appearance-none block w-300 bg-white border border-gray-200 rounded-xl py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    type="search"
+                    placeholder="Search"
+                    name="searchQuery"
+                    onChange={this.handleSearchArea} />
+                </div>
         </div>
     
         <div className="overflow-x-auto sm:rounded-lg tablestyle">
@@ -124,6 +122,7 @@ export default class LabAppointHome extends Component {
                 <th className="p-3">Service Type</th>
                 <th className="p-3">Doctor/Specialist</th>
                 <th className="p-3">Status</th>
+                <th className="p-3"></th>
                 
               </tr>
             </thead>
@@ -133,7 +132,7 @@ export default class LabAppointHome extends Component {
                   <th className="text-center py-2 px-4" scope="row">{index+1}</th>
                   <td className="text-center py-2 px-4">
                     <a href={`/labApp/${labApps._id}`} style={{textDecoration:'none'}}>
-                      {labApps._id}
+                      {labApps.labAppId}
                     </a>
                   </td>
                   <td className="text-center py-2 px-4">

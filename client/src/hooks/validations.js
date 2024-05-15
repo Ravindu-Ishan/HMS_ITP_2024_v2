@@ -3,7 +3,7 @@ export function isOnlySpaces(input) {
 }
 
 export function isOnlyAlphabet(input) {
-    return /^[a-zA-Z]+$/.test(input);
+    return /^[a-zA-Z\s]+$/.test(input);
 }
 
 export function isAlphanumeric(input) {

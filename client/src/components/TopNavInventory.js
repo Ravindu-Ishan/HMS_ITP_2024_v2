@@ -23,9 +23,11 @@ function TopNavInventory({ smid }) {
         <div className="rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
           <Link to={"/RestockView"}>Restock Details</Link>
         </div>
-        <div className=" rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+        
+       {/*} <div className=" rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
           <Link to={"/"}>Report Generation</Link>
         </div>
+       */}
       </nav>
     </div>
   );

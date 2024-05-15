@@ -73,13 +73,13 @@ const RootLayout = () => {
 
             <ul className="sidebar-list">
               <Link to="/staff">
-                <li className={isSelected("/staff") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+                <li className={isSelected("/staff") ? " p-5 rounded-r-3xl text-blue-900 font-bold bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaUserFriends className=" inline-flex mr-5" />
                   Manage Staff
                 </li>
               </Link>
               <Link to="/appointmentHome">
-                <li className={isSelected("/appointmentHome") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+                <li className={isSelected("/appointmentHome") ? " p-5 rounded-r-3xl text-blue-900 font-bold bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaClipboardList className="inline-flex mr-5" />
                   <div className="inline-flex">
                     Manage Appointments
@@ -87,7 +87,7 @@ const RootLayout = () => {
                 </li>
               </Link>
               <Link to="/attendence/main">
-                <li className={isSelected("/attendence") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+                <li className={isSelected("/attendence") ? " p-5 rounded-r-3xl text-blue-900 font-bold bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaClipboardUser className=" inline-flex mr-5" />
                   <div className=" inline-flex">
                     Attendance and Leave
@@ -95,7 +95,7 @@ const RootLayout = () => {
                 </li>
               </Link>
               <Link to="/patienthome">
-                <li className={isSelected("/patient") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+                <li className={isSelected("/patient") ? " p-5 rounded-r-3xl text-blue-900 font-bold bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaUserInjured className=" inline-flex mr-5" />
                   <div className=" inline-flex">
                     Manage Patients
@@ -103,7 +103,7 @@ const RootLayout = () => {
                 </li>
               </Link>
               <Link to="/laboratory">
-                <li className={isSelected("/laboratory") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+                <li className={isSelected("/laboratory") ? " p-5 rounded-r-3xl text-blue-900 font-bold bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <ImLab className=" inline-flex mr-5" />
                   <div className=" inline-flex">
                     Manage Laboratory
@@ -111,7 +111,7 @@ const RootLayout = () => {
                 </li>
               </Link>
               <Link to="/wardHome">
-                <li className={isSelected("/ward") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+                <li className={isSelected("/ward") ? " p-5 rounded-r-3xl text-blue-900 font-bold bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaBedPulse className=" inline-flex mr-5" />
                   <div className=" inline-flex">
                     Manage Wards
@@ -121,7 +121,7 @@ const RootLayout = () => {
 
               <li>
                 <details className="group [&_summary::-webkit-details-marker]:hidden">
-                  <summary className={isSelected(" /inventory") ? "flex p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "flex sidebar-list-item"}>
+                  <summary className={isSelected("productmain") ? "flex p-5 rounded-r-3xl text-blue-900 font-bold bg-gradient-to-r from-green-300 to-green-500" : "flex sidebar-list-item"}>
                     <MdInventory className=" inline-flex mr-5" />
                     <div className=" inline-flex">
                       Inventory Management
@@ -167,7 +167,7 @@ const RootLayout = () => {
               </li>
 
               <Link to="/finance">
-                <li className={isSelected("/finance") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+                <li className={isSelected("/finance") ? " p-5 rounded-r-3xl text-blue-900 font-bold bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaMoneyCheckDollar className=" inline-flex mr-5" />
                   <div className=" inline-flex">
                     Manage Finances
@@ -175,7 +175,7 @@ const RootLayout = () => {
                 </li>
               </Link>
               <Link to="/branch">
-                <li className={isSelected("/branch") ? " p-5 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
+                <li className={isSelected("/branch") ? " p-5 rounded-r-3xl text-blue-900 font-bold bg-gradient-to-r from-green-300 to-green-500" : "sidebar-list-item"}>
                   <FaBuilding className=" inline-flex mr-5" />
                   <div className=" inline-flex">
                     Manage Branches
