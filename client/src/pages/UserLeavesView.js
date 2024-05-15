@@ -17,7 +17,15 @@ import { FaSearch } from "react-icons/fa";
 
 const UserLeavesView = () => {
 
-    const { smid } = useParams(); //get url parameters 
+    const { user } = useStaffAuthContext();
+    //get user id from token
+    let smid;
+    if (user) {
+        const userInfo = jwtDecode(JSON.stringify(user));
+        smid = userInfo.smid;
+    }
+
+
 
     const [leaveEntries, setLeaveEntries] = useState([]); //posts array state
 
@@ -28,9 +36,11 @@ const UserLeavesView = () => {
     //method to retrieve leaves
     const retrieveLeaves = () => {
 
+
+
         axios.get(`/user/userLeaves/getonly/${smid}`).then(res => {
 
-          setLeaveEntries(res.data.data);
+            setLeaveEntries(res.data.data);
 
         }).catch((error) => {
             console.log("Error fetching staff details:", error);
@@ -48,40 +58,43 @@ const UserLeavesView = () => {
 
 
     useEffect(() => {
-      retrieveLeaves();
+        retrieveLeaves();
     }, []);
 
 
 
     return (
         <>
-             <div className="navarea">
+            <div className="navarea">
                 <TopNavUser />
             </div>
 
             <main>
 
-                <div className="main-container">
-                       {/*----------------------------search bar----------------------------------- */}
-                    <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
-                        <input
-                            className="form-control"
-                            type="search"
-                            placeholder="Search"
-                            name="searchQuery"
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                    </div>
+                {/*----------------------------search bar and create new button----------------------------------- */}
+                <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
+                    <button type="button"
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        onClick={() => navigate(`/user/userLeaves/create/${smid}`)}>
+                        Create New
+                    </button>
+                    <input
+                        className="form-control"
+                        type="search"
+                        placeholder="Search"
+                        name="searchQuery"
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
                 </div>
 
-               
+
 
                 {/*------------data display table--------------- */}
                 <div className="overflow-x-auto sm:rounded-lg tablestyle">
                     <table className="w-full text-sm border-separate border-spacing-x-0 border-spacing-y-2 text-gray-500 ">
                         <thead className="text-xs text-gray-700 uppercase bg-white">
                             <tr>
-                                
+
                                 <th className="p-3">#</th>
                                 <th className="p-3">Date</th>
                                 <th className="p-3">Name</th>
@@ -89,6 +102,7 @@ const UserLeavesView = () => {
                                 <th className="p-3">Reason</th>
                                 <th className="p-3">Duration</th>
                                 <th className="p-3">Action</th>
+                                <th className="p-3">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,13 +113,13 @@ const UserLeavesView = () => {
                                     leaves.leaveName.includes(search) ||
                                     leaves.leaveType.includes(search) ||
                                     leaves.leaveReason.includes(search) ||
-                                    leaves.leaveDuration.includes(search) 
+                                    leaves.leaveDuration.includes(search)
 
                             }).map((leaves, index) => (
 
-                                <tr 
-                                className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black"
-                                 key={leaves._id}>
+                                <tr
+                                    className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black"
+                                    key={leaves._id}>
 
                                     <td className="text-center py-2 px-4">
                                         <Link to={`/user/userLeaves/${leaves._id}`}> {index + 1}</Link>
@@ -126,18 +140,15 @@ const UserLeavesView = () => {
                                             </button>  &nbsp;
                                         </div>
                                     </td>
+
+                                    <td className="text-center py-2 px-4">{leaves.leaveStatus}</td>
+
                                 </tr>
 
                             ))}
                         </tbody>
                     </table>
-                    
-                    <button type="button"
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
-                        onClick={() => navigate(`/user/userLeaves/create/${smid}`)}>
-                        Create New
-                    </button>  
-                    
+
                 </div>
             </main >
         </>

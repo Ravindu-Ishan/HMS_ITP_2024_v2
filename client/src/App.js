@@ -31,6 +31,7 @@ import UserLeavesView from './pages/UserLeavesView';
 import AttendanceReport from './pages/AttendanceReport';
 import CreateLeave from './pages/CreateLeave';
 import EditLeave from './pages/EditLeave';
+import AttendanceMarkingPage from './pages/AttendanceMarking'
 
 import StaffQualifications from "./pages/StaffQualifications"
 import UserQualifications from './pages/UserQualifications';
@@ -70,12 +71,14 @@ import EditPatient from './pages/Patient_component/EditPatient';
 import PatientHome from './pages/Patient_component/PatientHome';
 import PatientDetails from './pages/Patient_component/PatientDetails';
 import Summary from './pages/Patient_component/Summary';
+
 //import ReportApp from './pages/reportcomponents/ReportApp';
 import LabReports from './pages/Patient_component/LabReports';
 import PrescriptionsHome from './pages/Patient_component/PrescriptionsHome';
 import CreatePrescriptions from './pages/Patient_component/CreatePrescriptions';
 import EditPrescriptions from './pages/Patient_component/EditPrescriptions';
 import PrescriptionsDetails from './pages/Patient_component/PrescriptionsDetails';
+
 
 //import laboratory
 import CreateLabAppointment from './pages/Laboratory/CreateLabAppointment';
@@ -217,6 +220,7 @@ function App() {
         <Route path="/editPrescriptions/:id" element={<EditPrescriptions />} />
         <Route path="/prescription/:id" element={<PrescriptionsDetails />} />
         <Route path="/labsReports" element={<LabReports />} />
+
         {/*Iruni*/}
         <Route path="/shift/shiftsof/:smid" element={user ? <ShiftMain /> : <Navigate to="/" />} />
         <Route path="/shift/create/:smid" element={user ? <CreateShift /> : <Navigate to="/" />} />
@@ -227,9 +231,9 @@ function App() {
         <Route path='/user/userShifts' element={user ? <UserShiftView /> : <Navigate to="/" />} />
         <Route path='/user/userLeaves' element={user ? <UserLeavesView /> : <Navigate to="/" />} />
         <Route path='/attendence/attendanceReport' element={user ? <AttendanceReport /> : <Navigate to="/" />} />
-
         <Route path='/user/userLeaves/create/:smid' element={user ? <CreateLeave /> : <Navigate to="/" />} />
         <Route path='/user/userLeaves/edit/:id' element={user ? <EditLeave /> : <Navigate to="/" />} />
+        <Route path='/user/attendencemark' element={user ? <AttendanceMarkingPage /> : <Navigate to="/" />} />
 
         {/* Lashan */}
         <Route path="/laboratory" element={<LaboratoryMain />} />

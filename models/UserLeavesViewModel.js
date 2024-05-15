@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const userLeavesViewSchema = new mongoose.Schema({
 
+    smid: {
+        type: String,
+        required: true,
+    },
+
     leaveDate: {
         type: String,
         required: true,
@@ -22,7 +27,12 @@ const userLeavesViewSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    
+    leaveStatus: {
+        type: String,
+        required: true
+    }
+
+
 
 
 });
