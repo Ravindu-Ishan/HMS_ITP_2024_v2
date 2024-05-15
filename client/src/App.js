@@ -10,6 +10,7 @@ import StaffProfile from "./pages/StaffProfile";
 import BranchesMain from "./pages/BranchesMain";
 import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
+
 import StaffReport from './pages/StaffReport';
 import InventoryProductCreate from './pages/Inventory/InventoryProductCreate';
 import InventoryProductEdit from './pages/Inventory/InventoryProductEdit';
@@ -19,6 +20,7 @@ import InventorySupplierEdit from './pages/Inventory/InventorySupplierEdit';
 import InventorySupplierMain from './pages/Inventory/InventorySupplierMain';
 import RestockRequestView from './pages/Inventory/RestockRequestView';
 import RestockRequestAdd from './pages/Inventory/RestockRequestAdd';
+
 
 import ShiftMain from "./pages/ShiftMain";
 import CreateShift from "./pages/CreateShift";
@@ -169,6 +171,7 @@ function App() {
         <Route path="/editPrescriptions/:id" element={<EditPrescriptions />} />
         <Route path="/prescription/:id" element={<PrescriptionsDetails />} />
         <Route path="/labsReports" element={<LabReports />} />
+
         {/*Iruni*/}
         <Route path="/shift/shiftsof/:smid" element={user ? <ShiftMain /> : <Navigate to="/" />} />
         <Route path="/shift/create/:smid" element={user ? <CreateShift /> : <Navigate to="/" />} />
