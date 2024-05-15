@@ -26,9 +26,11 @@ const patientRoutes = require('./routes/patients');
 const prescriptionRoutes = require('./routes/prescriptions');
 
 const shiftRoute = require('./routes/ShiftRoute');
+const UserLeavesViewRoute = require('./routes/UserLeavesViewRoute');
 const qualificationRoute = require('./routes/qualificationsRoute');
 const wardRoutes = require('./routes/wards');
 const bedRoutes = require('./routes/beds');
+const attendanceRoutes = require('./routes/AttendanceRoute');
 
 //app middleware
 app.use(bodyParser.json());
@@ -48,6 +50,7 @@ app.use(restockRoutes);
 app.use(patientRoutes);
 
 app.use(prescriptionRoutes);
+app.use(UserLeavesViewRoute);
 app.use(shiftRoute);
 app.use(qualificationRoute);
 
@@ -56,7 +59,7 @@ app.use(labAppRoutes);
 
 app.use(wardRoutes);
 app.use(bedRoutes);
-
+app.use(attendanceRoutes);
 
 
 const PORT = 8000;

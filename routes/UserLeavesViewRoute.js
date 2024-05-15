@@ -1,74 +1,112 @@
+// UserLeavesViewRoute.js
 const express = require('express');
-const UserLeavesView = require('../models/UserLeavesViewModel'); // Import the correct model
+const UserLeavesView = require('../models/UserLeavesViewModel'); // Ensure the correct path
 const router = express.Router();
 
-// Save leave entry
+// Save leave
 router.post('/user/userLeaves/save', async (req, res) => {
     try {
-        const newLeaveEntry = new UserLeavesView(req.body); // Use the new model
-        await newLeaveEntry.save();
-        res.status(200).json({ success: "Leave entry saved successfully" });
+        const newLeave = new UserLeavesView(req.body);
+        await newLeave.save();
+        res.status(200).json({ success: "Leave saved successfully" });
     } catch (error) {
         return res.status(400).json({
-            error: error.message || "Failed to save leave entry"
+            error: error.message
         });
     }
 });
 
-// Get leave entries
+// Get all leaves
 router.get('/user/userLeaves', async (req, res) => {
     try {
-        const leaveEntries = await UserLeavesView.find().exec(); // Use the new model
-        res.status(200).json({ success: true, existingLeaveEntries: leaveEntries });
+        const leaves = await UserLeavesView.find().exec();
+        res.status(200).json({ success: true, existingLeaves: leaves });
     } catch (error) {
-        console.error("Error fetching leave entries:", error);
-        res.status(400).json({ success: false, error: "Failed to fetch leave entries" });
+        console.error("Error fetching leaves:", error);
+        res.status(400).json({ success: false, error: "Failed to fetch leaves" });
     }
 });
 
-// Get a specific leave entry by ID
+// Get a specific leave by ID
 router.get('/user/userLeaves/getbyID/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const leaveEntry = await UserLeavesView.findById(id); // Use the new model
+        const leave = await UserLeavesView.findById(id);
 
-        if (!leaveEntry) {
-            return res.status(404).json({ success: false, message: "Leave entry not found" });
+        if (!leave) {
+            return res.status(404).json({ success: false, message: "Leave not found" });
         }
 
         return res.status(200).json({
             success: true,
-            leaveEntry
+            data: leave
         });
     } catch (err) {
-        return res.status(400).json({ success: false, error: err.message || "Failed to get leave entry" });
+        return res.status(400).json({ success: false, error: err.message });
     }
 });
 
-// Update leave entry
+// Get leaves by staff member ID (smid)
+router.get('/user/userLeaves/getonly/:smid', async (req, res) => {
+    try {
+        const { smid } = req.params;
+        const leaves = await UserLeavesView.find({ smid: smid }).exec();
+        return res.status(200).json({
+            count: leaves.length,
+            data: leaves
+        });
+    } catch (error) {
+        console.error("Error fetching leaves by smid:", error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Update leave
 router.put('/user/userLeaves/update/:id', async (req, res) => {
     try {
-        const leaveEntry = await UserLeavesView.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
-        if (!leaveEntry) {
-            return res.status(404).json({ error: "Leave entry not found" });
+        const leave = await UserLeavesView.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
+        if (!leave) {
+            return res.status(404).json({ error: "Leave not found" });
         }
-        return res.status(200).json({ success: "Leave entry updated successfully" });
+        return res.status(200).json({ success: "Updated Successfully", leave });
     } catch (err) {
-        return res.status(400).json({ error: err.message || "Failed to update leave entry" });
+        return res.status(400).json({ error: err.message });
     }
 });
 
-// Delete leave entry
+// Delete leave
 router.delete('/user/userLeaves/delete/:id', async (req, res) => {
     try {
-        const deletedLeaveEntry = await UserLeavesView.findByIdAndDelete(req.params.id).exec();
-        if (!deletedLeaveEntry) {
-            return res.status(404).json({ message: "Delete unsuccessful: Leave entry not found" });
+        const deletedLeave = await UserLeavesView.findByIdAndDelete(req.params.id).exec();
+        if (!deletedLeave) {
+            return res.status(404).json({ message: "Delete unsuccessful: Leave not found" });
         }
-        return res.json({ message: "Leave entry deleted successfully", deletedLeaveEntry });
+        return res.status(200).json({ message: "Delete successful", deletedLeave });
     } catch (err) {
         return res.status(500).json({ message: "Delete unsuccessful", error: err.message });
     }
 });
+
+/*
+//accept decline function
+router.post('/user/userLeaves/updateStatus/:id', async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    try {
+        // Update the leave status in your database here
+        // Example using Mongoose:
+        const leave = await UserLeavesView.findByIdAndUpdate(id, { status }, { new: true });
+        
+        if (!leave) {
+            return res.status(404).json({ message: "Leave not found"});
+        }
+
+       return res.status(200).json({ message: 'Leave status updated successfully', leave });
+    } catch (err) {
+        res.status(500).json({ message: 'Error updating leave status', error: err.message });
+    }
+});
+*/
 
 module.exports = router;

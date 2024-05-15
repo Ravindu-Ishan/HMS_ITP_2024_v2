@@ -63,8 +63,12 @@ const UserShiftView = () => {
 
             <main>
                 <div className="main-container">
-                    <div className="flex justify-between sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow pt-2 px-2">
+                    {/*-----------------search bar-------------------*/}
+                    <div className="flex justify-between sticky top-0 max-w-sm bg-white border border-gray-200 rounded-xl shadow pt-2 px-2 ml-auto">
 
+
+
+                    <div className="ml-auto">
                         <input
                             className="form-control"
                             type="search"
@@ -72,6 +76,7 @@ const UserShiftView = () => {
                             name="searchQuery"
                             onChange={(e) => setSearch(e.target.value)}
                         />
+                        </div>
                     </div>
 
                     <div>
