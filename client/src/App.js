@@ -89,6 +89,9 @@ import LaboratoryMain from './pages/Laboratory/LaboratoryMain';
 import LabAppointmentAvailability from './pages/Laboratory/LabAppointmentAvailability';
 import GenerateReport from './pages/Laboratory/GenerateReport';
 
+//import financial management
+import FinancialMain from './pages/FinancialMain';
+
 function App() {
 
   const { user } = useStaffAuthContext();
@@ -120,7 +123,7 @@ function App() {
       case 'ward manager':
         designatedRoute = "/wardHome";
         break;
-      case 'front deskOfficer':
+      case 'front desk officer':
         designatedRoute = "/appointmentHome"
       case 'lab technician':
         designatedRoute = "/laboratory";
@@ -130,6 +133,9 @@ function App() {
         break;
       case 'financial manager':
         designatedRoute = "/finances";
+        break;
+      case 'attendence coordinator':
+        designatedRoute = "/attendence/main";
         break;
       default:
         designatedRoute = "/user/profile";
@@ -244,6 +250,8 @@ function App() {
         <Route path="/laboratorytestappointment/:id" element={<LaboratoryDetails />} />
         <Route path="/labAppointmentAvailability" element={<LabAppointmentAvailability />} />
         <Route path="/GenerateReport" element={<GenerateReport />} />
+
+        <Route path='/financial/home' element={user ? <FinancialMain /> : <Navigate to="/" />} />
 
       </Route>
     </Routes>
