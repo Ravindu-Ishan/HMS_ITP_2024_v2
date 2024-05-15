@@ -110,7 +110,7 @@ function App() {
         designatedRoute = "/staff";
         break;
       case 'ward manager':
-        designatedRoute = "/ward";
+        designatedRoute = "/wardHome";
         break;
       case 'front deskOfficer':
         designatedRoute = "/appointmentHome"
