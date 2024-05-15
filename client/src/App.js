@@ -151,7 +151,7 @@ function App() {
         <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
         <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
         <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
-        <Route path="/staff/report" element={<StaffReport />} />
+        <Route path="/staff/report" element={user ? <StaffReport /> : <Navigate to="/" />} />
 
         {/*S.H.K Bulathgama*/}
         <Route path="/productmain" exact element={<InventoryProductMain />} />
