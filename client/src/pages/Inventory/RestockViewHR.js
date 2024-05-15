@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import EmptyNavArea from "./EmptyNavArea";
 
 //importing top navigation bar components
 import TopNavInventory from '../../components/TopNavInventory';
@@ -61,23 +62,50 @@ export default class Home extends Component {
       });
   }
 
+  acceptBtnHandler = (id) => {
+    const status = 'Accepted'
+    const data = {
+      restockStatus: status
+    }
+
+    axios.put(`/restock/update/${id}`, data)
+      .then(res => {
+        // Filter out the accepted restock from the state
+        const updatedRestocks = this.state.restocks.filter(restock => restock._id !== id);
+        this.setState({ restocks: updatedRestocks });
+      })
+      .catch((error) => {
+        console.log("Error updating restock:", error);
+      });
+}
+
+  declineBtnHandler = (id) => {
+    const status = 'Declined'
+    const data = {
+      restockStatus: status
+    }
+
+    axios.put(`/restock/update/${id}`, data)
+      .then(res => {
+        // Filter out the declined restock from the state
+        const updatedRestocks = this.state.restocks.filter(restock => restock._id !== id);
+        this.setState({ restocks: updatedRestocks });
+      })
+      .catch((error) => {
+        console.log("Error updating restock:", error);
+      });
+}
+
   render() {
     return (
       <>
-
-      {/* top nav imported to this section */}
-      <div className="navarea">
-        <TopNavInventory/>
-      </div>
-
-
-
-
-      <main>
+        
+        <EmptyNavArea />
+        <main>
         <div className="flex justify-between items-center sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow py-5 px-10">
-        <div className="flex items-center space-x-4 transition ease-in-out duration-300 transform hover:scale-105">
+          <div className="flex items-center space-x-4">
             <input
-              className="form-control bg-cyan-400 focus:bg-cyan-500  hover:bg-cyan-500 hover:border-cyan-500 text-black placeholder-black::placeholder rounded-full py-2 px-4"
+              className="form-control"
               type="search"
               placeholder="Search"
               name="searchQuery"
@@ -87,9 +115,6 @@ export default class Home extends Component {
           <div className="absolute left-1/2 transform -translate-x-1/2">
                 <h3 className="font-bold text-xl">RESTOCK REQUEST DETAILS</h3>
           </div>
-          <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500 transition ease-in-out duration-300 transform hover:scale-105">
-            <a href="/RestockAdd">Add A New Restock Request</a>
-          </button>
         </div>
 
 
@@ -113,33 +138,26 @@ export default class Home extends Component {
 
           <tbody>
             {this.state.restocks.map((restock, index) => (
-              <tr className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black transition ease-in-out duration-300 transform hover:scale-95" key={index}>
+              <tr className="text-gray-600 bg-white hover:bg-gray-200 hover:text-black" key={index}>
                 <th scope="row">{index + 1}</th>
-                <td className="text-center py-2 px-2 w-[6ch]">{restock._id.slice(0, 6)}</td>
+                <td className="text-center py-2 px-4">
+                  <a href={`/restock/${restock._id}`} style={{ textDecoration: 'none' }}>
+                    {restock._id}
+                  </a>
+                </td>
                 <td className="text-center py-2 px-4">{restock.ProductName}</td>
-                <td className="text-center py-4 px-4">{restock.restockDate.split("T")[0]}</td>
+                <td className="text-center py-4 px-4">{restock.restockDate}</td>
                 <td className="text-center py-4 px-4">{restock.restockStatus}</td>
                 <td className="text-center py-4 px-4">{restock.restockQuantity}</td>
                 <td className="text-center py-2 px-4">{restock.restockSupplierID}</td>
                 <td className="text-center py-2 px-4">{restock.restockNotes}</td>
 
                 <td className="text-center py-2 px-4">
-                      {restock.restockStatus !== 'Declined' && restock.restockStatus !== 'Pending' &&(
-                        <div class="flex space-x-4" className="text-cyan-500">
-                          <a className="btn btn-warning transition ease-in-out duration-300 transform hover:scale-105" href={`/productcreate`}>
-                            <i className="fas fa-edit"></i>&nbsp;Restock
-                          </a>
-                          <button className="text-red-500" href="#" onClick={() => this.onDelete(restock._id)}>
-                            <i className="fas fa-trash-alt transition ease-in-out duration-300 transform hover:scale-105"></i>&nbsp;Delete
-                          </button>
-                        </div>
-                      )}
-                      {restock.restockStatus === 'Declined' && (
-                        <button className="text-red-500" href="#" onClick={() => this.onDelete(restock._id)}>
-                          <i className="fas fa-trash-alt transition ease-in-out duration-300 transform hover:scale-105"></i>&nbsp;Delete
-                        </button>
-                      )}
-                    </td>
+                 <div className="flex justify-center items-center">
+               <button type='button' className="text-blue-500 font-medium px-1" onClick={() => this.acceptBtnHandler(restock._id)} >Accept</button>
+               <button type='button' onClick={() => this.declineBtnHandler(restock._id)} className="text-red-500 font-medium px-5">Decline</button>
+                 </div>
+                </td> 
               </tr>
             ))}
           </tbody>
@@ -149,5 +167,5 @@ export default class Home extends Component {
       </main>
       </>
     );
-  }
+  };
 }

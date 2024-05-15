@@ -18,6 +18,8 @@ import InventorySupplierCreate from './pages/Inventory/InventorySupplierCreate';
 import InventorySupplierEdit from './pages/Inventory/InventorySupplierEdit';
 import InventorySupplierMain from './pages/Inventory/InventorySupplierMain';
 import RestockRequestView from './pages/Inventory/RestockRequestView';
+import RestockViewHR from './pages/Inventory/RestockViewHR';
+import ReportGeneration from './pages/Inventory/ReportGeneration';
 import RestockRequestAdd from './pages/Inventory/RestockRequestAdd';
 
 import ShiftMain from "./pages/ShiftMain";
@@ -178,6 +180,8 @@ function App() {
         <Route path="/suppliercreate" element={<InventorySupplierCreate />} />
         <Route path="/supplieredit/:id" element={<InventorySupplierEdit />} />
         <Route path="/suppliermain" exact element={<InventorySupplierMain />} />
+        <Route path="/reportgen" exact element={<ReportGeneration />} />
+        <Route path="/RestockViewHR" exact element={<RestockViewHR />} />
         <Route path="/RestockView" exact element={<RestockRequestView />} />
         <Route path="/RestockAdd" exact element={<RestockRequestAdd />} />
 
@@ -185,6 +189,7 @@ function App() {
         <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
 
         <Route path="/user/myAppointments" element={user ? <DoctorView /> : <Navigate to="/" />} />
+
 
 
         {/*Lithara*/}

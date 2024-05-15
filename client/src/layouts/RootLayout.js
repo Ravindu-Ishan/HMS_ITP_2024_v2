@@ -110,7 +110,6 @@ const RootLayout = () => {
                     </div>
                   </li>
                 </Link>
-
               )}
 
               {(userRole === "master admin" || userRole === "doctor") && (
@@ -184,8 +183,8 @@ const RootLayout = () => {
                         </li>
                       </Link>
 
-                      <Link to="/inventory">
-                        <li className={isSelected("/restock") ? "p-3 text-sm text-[#002F87] font-semibold " : "hover:bg-gray-300 hover:rounded-2xl p-3 text-sm text-[#002F87]"}>
+                      <Link to="/RestockViewHR">
+                        <li className={isSelected("/RestockViewHR") ? "p-3 text-sm text-[#002F87] font-semibold " : "hover:bg-gray-300 hover:rounded-2xl p-3 text-sm text-[#002F87]"}>
                           <MdInventory className=" inline-flex mr-5" />
                           <div className=" inline-flex">
                             Restock Requests

@@ -90,10 +90,10 @@ const SupplierEditPost = () => {
     <div className="max-w-md mx-auto">
 
 
-    <h1 className="text-lg font-bold mb-3">Edit Supplier Details</h1>
+    <h1 className="text-xl font-bold mb-3 text-center">Edit Supplier Details</h1>
 
     
-        <div className='mb-6'>
+        <div className='mb-6 transition ease-in-out duration-300 transform hover:scale-105'>
           <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Supplier Name</label>
           <input
             type="text"
@@ -106,7 +106,7 @@ const SupplierEditPost = () => {
         </div>
 
 
-        <div className='mb-6'>
+        <div className='mb-6 transition ease-in-out duration-300 transform hover:scale-105'>
           <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Supplier Brand</label>
           <input
             type="text"
@@ -120,7 +120,7 @@ const SupplierEditPost = () => {
 
 
 
-        <div className='mb-6'>
+        <div className='mb-6 transition ease-in-out duration-300 transform hover:scale-105'>
           <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Supplier Location</label>
           <input
             type="text"
@@ -132,7 +132,7 @@ const SupplierEditPost = () => {
           />
         </div>
 
-        <div className="mb-6 text-center">
+        <div className="mb-6 text-center transition ease-in-out duration-300 transform hover:scale-105">
         <button
           className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
           type="submit"
