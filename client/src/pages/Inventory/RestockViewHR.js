@@ -91,22 +91,9 @@ export default class Home extends Component {
   render() {
     return (
       <>
-        <EmptyNavArea />
-        <main className='pt-20'>
-          {/* Your main content here */}
-        </main>
-      </>
-    );
-  }
-
-
-
-  render() {
-    return (
-      <>
         
         <EmptyNavArea />
-      <main className='pt-20'>
+        <main>
         <div className="flex justify-between items-center sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow py-5 px-10">
           <div className="flex items-center space-x-4">
             <input
@@ -117,11 +104,9 @@ export default class Home extends Component {
               onChange={this.handleSearchArea}
             />
           </div>
-
           <div className="absolute left-1/2 transform -translate-x-1/2">
                 <h3 className="font-bold text-xl">RESTOCK REQUEST DETAILS</h3>
           </div>
-          
         </div>
 
 
@@ -132,10 +117,13 @@ export default class Home extends Component {
             <tr>
               <th  className="p-4">#</th>
               <th  className="p-4">Restock ID</th>
+              <th  className="p-4">Product Name</th>
               <th  className="p-4">Restock Date</th>
-              <th  className="p-4">Restock Notes</th>
               <th  className="p-4">Restock Status</th>
-              <th className="p-4">Actions</th>
+              <th  className="p-4">Restock Quantity</th>
+              <th  className="p-4">Restock Notes</th>
+              <th  className="p-4">Supplier Name</th>
+              <th className="p-10">Actions</th>
             </tr>
           </thead>
 
@@ -149,17 +137,19 @@ export default class Home extends Component {
                     {restock._id}
                   </a>
                 </td>
-                <td className="text-center py-2 px-4">{restock.restockDate}</td>
-                <td className="text-center py-4 px-4">{restock.restockNotes}</td>
-                <td className="text-center py-2 px-4">{restock.restockStatus}</td>
-                
+                <td className="text-center py-2 px-4">{restock.ProductName}</td>
+                <td className="text-center py-4 px-4">{restock.restockDate}</td>
+                <td className="text-center py-4 px-4">{restock.restockStatus}</td>
+                <td className="text-center py-4 px-4">{restock.restockQuantity}</td>
+                <td className="text-center py-2 px-4">{restock.restockSupplierID}</td>
+                <td className="text-center py-2 px-4">{restock.restockNotes}</td>
 
                 <td className="text-center py-2 px-4">
-                      <div className="flex justify-center items-center">
-                                 <button type='button' className="text-blue-500 font-medium px-1" onClick={() => this.acceptBtnHandler(restock._id)} >Accept</button>
-                                 <button type='button' onClick={() => this.declineBtnHandler(restock._id)} className="text-red-500 font-medium px-5">Decline</button>
-                       </div>
-                </td>
+                 <div className="flex justify-center items-center">
+               <button type='button' className="text-blue-500 font-medium px-1" onClick={() => this.acceptBtnHandler(restock._id)} >Accept</button>
+               <button type='button' onClick={() => this.declineBtnHandler(restock._id)} className="text-red-500 font-medium px-5">Decline</button>
+                 </div>
+                </td> 
               </tr>
             ))}
           </tbody>

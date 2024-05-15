@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const restockSchema = new mongoose.Schema ({
-
+    
+    ProductName:{
+        type:String,
+        required:true   
+    },
     restockDate:{
         type:Date,
         required:true   

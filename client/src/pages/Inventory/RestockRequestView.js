@@ -100,10 +100,13 @@ export default class Home extends Component {
             <tr>
               <th  className="p-4">#</th>
               <th  className="p-4">Restock ID</th>
+              <th  className="p-4">Product Name</th>
               <th  className="p-4">Restock Date</th>
-              <th  className="p-4">Restock Notes</th>
               <th  className="p-4">Restock Status</th>
-              <th className="p-4">Actions</th>
+              <th  className="p-4">Restock Quantity</th>
+              <th  className="p-4">Restock Notes</th>
+              <th  className="p-4">Supplier Name</th>
+              <th className="p-10">Actions</th>
             </tr>
           </thead>
 
@@ -117,9 +120,12 @@ export default class Home extends Component {
                     {restock._id}
                   </a>
                 </td>
-                <td className="text-center py-2 px-4">{restock.restockDate}</td>
-                <td className="text-center py-4 px-4">{restock.restockNotes}</td>
-                <td className="text-center py-2 px-4">{restock.restockStatus}</td>
+                <td className="text-center py-2 px-4">{restock.ProductName}</td>
+                <td className="text-center py-4 px-4">{restock.restockDate}</td>
+                <td className="text-center py-4 px-4">{restock.restockStatus}</td>
+                <td className="text-center py-4 px-4">{restock.restockQuantity}</td>
+                <td className="text-center py-2 px-4">{restock.restockSupplierID}</td>
+                <td className="text-center py-2 px-4">{restock.restockNotes}</td>
 
                 <td class="flex space-x-4" className="text-black-700" >
                   <a className="btn btn-warning" href={`/productcreate`}>
