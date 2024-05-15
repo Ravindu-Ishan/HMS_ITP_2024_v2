@@ -127,7 +127,6 @@ export default class Ward_Create extends Component {
                   </div>
                 </div>
 
-
                 <div className="form-group mb-5">
                   <label htmlFor="wardID" className="mb-1 block text-gray-600 font-medium">Ward ID</label>
                   <div className="relative">
@@ -210,16 +209,34 @@ export default class Ward_Create extends Component {
                 <div className="form-group mb-5">
                   <label htmlFor="DoctorSpecialistName" className="mb-1 block text-gray-600 font-medium">Doctor/Specialist Name</label>
                   <div className="relative">
-                    <input
-                      type="text"
+                    <select
                       className="form-control rounded-full border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 pl-4 pr-12 py-2 w-full"
                       id="DoctorSpecialistName"
                       name="doctor_specialist_name"
-                      placeholder="Enter doctor/specialist name"
                       value={this.state.doctor_specialist_name}
                       onChange={this.handleInputChange}
                       required
-                    />
+                    >
+                      <option value="">Select doctor/specialist</option>
+                      <option value="DR AJANTHA TIKIRI RAJAPAKSHA">DR AJANTHA TIKIRI RAJAPAKSHA</option>
+                      <option value="DR ANIDU PATHIRANA">DR ANIDU PATHIRANA</option>
+                      <option value="DR CHAMARA RATHNAYAKE">DR CHAMARA RATHNAYAKE</option>
+                      <option value="DR HEMAL FERNANDO">DR HEMAL FERNANDO</option>
+                      <option value="DR MOHAN JAYATHILAKE">DR MOHAN JAYATHILAKE</option>
+                      <option value="DR M.RAYNO NAVINAN">DR M.RAYNO NAVINAN</option>
+                      <option value="DR R.A.U HASANTHA RANAWAKA">DR R.A.U HASANTHA RANAWAKA</option>
+                      <option value="DR SEPALIKA MENDIS">DR SEPALIKA MENDIS</option>
+                      <option value="DR STANLEY AMARASEKARA">DR STANLEY AMARASEKARA</option>
+                      <option value="DR W.S SANTHARAJ">DR W.S SANTHARAJ</option>
+                      <option value="DR WASANTHA KAPUWATTA">DR WASANTHA KAPUWATTA</option>
+                      <option value="DR NIMALI FERNANDO">DR NIMALI FERNANDO</option>
+                      <option value="PROF GODWIN .R. CONSTANTINE">PROF GODWIN .R. CONSTANTINE</option>
+                      <option value="DR R.A.U HASANTHA RANAWAKA">DR R.A.U HASANTHA RANAWAKA</option>
+                      <option value="DR MAHEN KOTHALAWALA">DR MAHEN KOTHALAWALA</option>
+                      <option value="DR HASANTHI NIROSHALA">DR HASANTHI NIROSHALA</option>
+                      <option value="DR CHANDRIKA J.SUBASINGHE">DR CHANDRIKA J.SUBASINGHE</option>
+                      <option value="DR DILUKA PINTO">DR DILUKA PINTO</option>
+                    </select>
                   </div>
                 </div>
 
@@ -262,7 +279,6 @@ export default class Ward_Create extends Component {
           </div>
         </main>
       </>
-
     );
   }
 }
