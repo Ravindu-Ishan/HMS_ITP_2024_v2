@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import TopNavAppointmet from '../../components/TopNavAppointment';
+import TopNavUser from '../../components/TopNavUser';
 
 const AppointmentDetails = () => {
   const { id } = useParams();
@@ -17,6 +17,7 @@ const AppointmentDetails = () => {
     });
   }, [id]);
 
+
   if (!appointment) {
     return <div>Loading...</div>;
   }
@@ -26,7 +27,7 @@ const AppointmentDetails = () => {
   return (
     <>
       <div className='navarea'>
-        <TopNavAppointmet />
+        <TopNavUser />
       </div>
 
       <main>

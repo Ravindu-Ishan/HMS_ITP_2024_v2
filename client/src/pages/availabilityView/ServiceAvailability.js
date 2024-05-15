@@ -65,9 +65,7 @@ export default class ServiceAvailability extends Component {
         </div>
 
         <main>
-          <div className="container">
-            <h3 className="p-3 text-2xl font-bold text-gray-800 ml-2">Laboratory Services</h3>
-
+          <div className="container mt-10">
             <div className="ml-8 row">
               <div className="col-lg-3 mt-2 mb-2">
                 <input
