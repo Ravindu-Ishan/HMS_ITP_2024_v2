@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import EmptyNavArea from "./EmptyNavArea";
 
 //importing top navigation bar components
 import TopNavInventory from '../../components/TopNavInventory';
@@ -61,19 +62,51 @@ export default class Home extends Component {
       });
   }
 
+  acceptBtnHandler = (id) => {
+    const status = 'Accepted'
+    const data = {
+      restockStatus: status
+    }
+
+    axios.put(`/user/userLeaves/update/${id}`, data).then(res => {
+        this.retrieveRestocks()
+    }).catch((error) => {
+        console.log("Error fetching staff details:", error);
+    });
+  }
+
+  declineBtnHandler = (id) => {
+    const status = 'Declined'
+    const data = {
+      restockStatus: status
+    }
+
+    axios.put(`/restock/update/${id}`, data).then(res => {
+        this.retrieveRestocks()
+    }).catch((error) => {
+        console.log("Error fetching staff details:", error);
+    });
+  }
+
   render() {
     return (
       <>
+        <EmptyNavArea />
+        <main className='pt-20'>
+          {/* Your main content here */}
+        </main>
+      </>
+    );
+  }
 
-      {/* top nav imported to this section */}
-      <div className="navarea">
-        <TopNavInventory/>
-      </div>
 
 
-
-
-      <main>
+  render() {
+    return (
+      <>
+        
+        <EmptyNavArea />
+      <main className='pt-20'>
         <div className="flex justify-between items-center sticky top-0 max-w bg-white border border-gray-200 rounded-xl shadow py-5 px-10">
           <div className="flex items-center space-x-4">
             <input
@@ -84,12 +117,11 @@ export default class Home extends Component {
               onChange={this.handleSearchArea}
             />
           </div>
+
           <div className="absolute left-1/2 transform -translate-x-1/2">
                 <h3 className="font-bold text-xl">RESTOCK REQUEST DETAILS</h3>
           </div>
-          <button className="bg-cyan-400 text-black rounded-full px-4 py-2 border border-cyan-400 hover:bg-cyan-500 hover:border-cyan-500">
-            <a href="/RestockAdd">Add A New Restock Request</a>
-          </button>
+          
         </div>
 
 
@@ -120,15 +152,13 @@ export default class Home extends Component {
                 <td className="text-center py-2 px-4">{restock.restockDate}</td>
                 <td className="text-center py-4 px-4">{restock.restockNotes}</td>
                 <td className="text-center py-2 px-4">{restock.restockStatus}</td>
+                
 
-                <td class="flex space-x-4" className="text-black-700" >
-                  <a className="btn btn-warning" href={`/productcreate`}>
-                    <i className="fas fa-edit"></i>&nbsp;Restock Item
-                  </a>
-                  &nbsp;
-                  <button className="text-black-700"  href="#" onClick={() => this.onDelete(restock._id)}>
-                    <i className="fas fa-trash-alt"></i>&nbsp;
-                  </button>
+                <td className="text-center py-2 px-4">
+                      <div className="flex justify-center items-center">
+                                 <button type='button' className="text-blue-500 font-medium px-1" onClick={() => this.acceptBtnHandler(restock._id)} >Accept</button>
+                                 <button type='button' onClick={() => this.declineBtnHandler(restock._id)} className="text-red-500 font-medium px-5">Decline</button>
+                       </div>
                 </td>
               </tr>
             ))}
@@ -139,5 +169,5 @@ export default class Home extends Component {
       </main>
       </>
     );
-  }
+  };
 }

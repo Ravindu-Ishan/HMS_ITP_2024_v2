@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-
 import EmptyNavArea from "./EmptyNavArea";
 
-export default class CreateSupplier extends Component {
+export default class CreatePost extends Component {
     constructor(props){
         super(props);
-        this.state =
-    {
-        SupplierName: "",
-        SupplierBrand: "",
-        SupplierLocation: "",
-    };
+        this.state = {
+            ProductName: "",
+            ExpireDate: "",
+            ManufactureDate: "",
+            Quantity: "",
+            ProductPrice: "",
+            SupplierName: "",
+            errorMessage: "",
+        };
     }
+
     handleInputChange = (e) => {
         const { name, value } = e.target;
         this.setState({
@@ -23,48 +26,93 @@ export default class CreateSupplier extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { SupplierName ,SupplierBrand,SupplierLocation } = this.state;
+        const { ProductName, ExpireDate, ManufactureDate, Quantity, ProductPrice, SupplierName } = this.state;
         const data = { 
-           SupplierName,
-           SupplierBrand,
-           SupplierLocation
+            ProductName,
+            ExpireDate,
+            ManufactureDate,
+            Quantity,
+            ProductPrice,
+            SupplierName
         };
+    
 
 
-        // Validaitons
-       
-        //All fields are required
-         if (!SupplierName || !SupplierBrand || !SupplierLocation) 
+        //VALIDATIONS
+         
+        // Manufacture Date validation
+            const expireDateObj = new Date(ExpireDate);
+             const manufactureDateObj = new Date(ManufactureDate);
+             const currentDate = new Date();
+             const oneMonthAgo = new Date();
+             oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+           if (manufactureDateObj > currentDate || manufactureDateObj < oneMonthAgo) {
+               this.setState({ errorMessage: "Manufacture Date should be within 1 month old and older than 1 month compared to the present day" });
+          
+              return;
+              
+         }
+
+         // Check if Expire Date is before Manufacture Date
+        if (expireDateObj < manufactureDateObj) 
+            {
+                 this.setState({ errorMessage: "Expire Date cannot be before Manufacture Date" });
+                     return;
+             }
+
+         // Expire Date cannot be same with Manufacture Date
+            if (expireDateObj <= manufactureDateObj) 
          {
-        this.setState({ errorMessage: "All fields are required" });
-        return;
+                this.setState({ errorMessage: "Expire Date should not be same as Manufacture Date" });
+                return;
+         }
+
+        //SupplierID should only contain letters, numbers, and spaces
+         if (!SupplierName.match(/^[a-zA-Z0-9\s]+$/)) {
+            this.setState({ errorMessage: "SupplierName should only contain letters, numbers, and spaces" });
+            return;
         }
 
+        //Product name should only contain letters and spaces
+         if (!ProductName.match(/^[a-zA-Z\s]+$/)) {
+            this.setState({ errorMessage: "Product name should only contain letters and spaces" });
+            return;
+        }
 
-        
-    
+        //All fields are required
+         if (!ProductName || !ExpireDate || !ManufactureDate || !Quantity || !ProductPrice || !SupplierName) {
+            this.setState({ errorMessage: "All fields are required" });
+            return;
+        }
+
         try {
-            const res = await axios.post("/Supplier/save", data);
+            const res = await axios.post("/product/save", data); 
             if (res.data.success) {
-                alert("Post created successfully!");
+                alert("Product created successfully!");
                 this.setState({ 
+                    ProductName: "",
+                    ExpireDate: "",
+                    ManufactureDate: "",
+                    Quantity: "",
+                    ProductPrice: "",
                     SupplierName: "",
-                    SupplierBrand: "",
-                    SupplierLocation: "",
                     errorMessage: "" 
                 });
-                // Navigate to home page ("/")
-                window.location = "/";
+
+                // Navigate to home page Product Home Page
+                window.location = "/productmain";
             } else {
-                throw new Error(res.data.error || "Failed to create post");
+                throw new Error(res.data.error || "Failed to create product");
             }
         } catch (error) {
-            console.error("Error creating post:", error);
-            this.setState({ errorMessage: error.message || "Failed to create post" });
+            console.error("Error creating product:", error);
+            this.setState({ errorMessage: error.message || "Failed to create product" });
         }
     };
+
     render() {
-        const { SupplierName ,SupplierBrand,SupplierLocation,errorMessage } = this.state;
+        const { ProductName, ExpireDate, ManufactureDate,Quantity,ProductPrice,SupplierName,errorMessage } = this.state;
         return (
             <>
 
@@ -73,12 +121,76 @@ export default class CreateSupplier extends Component {
             <main className="flex items-center justify-center">
             <div className="max-w-md mx-auto">
 
-                <h1 className="text-lg font-bold mb-3">Add New Supplier</h1>
+            <h1 className="text-xl font-bold mb-3 text-center">Add New Product</h1>
                 <form className="needs-validation">
 
-
-                <div className="mb-6">
-                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierName">Supplier Name</label>
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductName">Product Name</label>
+                        <input
+                            type="text"
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            id="ProductName"
+                            name="ProductName"
+                            value={ProductName}
+                            onChange={this.handleInputChange}
+                            placeholder="Enter Product Name"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
+                        <label className="block text-sm font-medium text-gray-700 mb-1"htmlFor="ExpireDate">Expire Date</label>
+                        <input
+                            type="date"
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            id="ExpireDate"
+                            name="ExpireDate"
+                            value={ExpireDate}
+                            onChange={this.handleInputChange}
+                            placeholder="Enter Expire Date"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ManufactureDate">Manufacture Date</label>
+                        <input
+                            type="date"
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            id="ManufactureDate"
+                            name="ManufactureDate"
+                            value={ManufactureDate}
+                            onChange={this.handleInputChange}
+                            placeholder="Enter Manufacture Date"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="Quantity">Quantity</label>
+                        <input
+                            type="number"
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            id="Quantity"
+                            name="Quantity"
+                            value={Quantity}
+                            onChange={this.handleInputChange}
+                            placeholder="Enter Quantity"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="ProductPrice">Product Price</label>
+                        <input
+                            type="number"
+                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            id="ProductPrice"
+                            name="ProductPrice"
+                            value={ProductPrice}
+                            onChange={this.handleInputChange}
+                            placeholder="Enter Price"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6 transition ease-in-out duration-300 transform hover:scale-105">
+                        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierName">SupplierName</label>
                         <input
                             type="text"
                             className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
@@ -87,45 +199,24 @@ export default class CreateSupplier extends Component {
                             value={SupplierName}
                             onChange={this.handleInputChange}
                             placeholder="Enter Supplier Name"
+                            required
                         />
                     </div>
-                    <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierBrand">Supplier Brand</label>
-                        <input
-                            type="text"
-                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                            id="SupplierBrand"
-                            name="SupplierBrand"
-                            value={SupplierBrand}
-                            onChange={this.handleInputChange}
-                            placeholder="Enter Supplier Brand"
-                        />
-                    </div>
-                   <div className="mb-6">
-                   <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="SupplierLocation">Supplier Location</label>
-                        <input
-                            type="text"
-                            className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                            id="SupplierLocation"
-                            name="SupplierLocation"
-                            value={SupplierLocation}
-                            onChange={this.handleInputChange}
-                            placeholder="Enter Supplier Location"
-                        />
-                    </div>
-                    
-                    <div className="mb-6 text-center">
-                    <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
-                    type="submit" onClick={this.onSubmit}>
-                        <i className="far fa-check-square2"></i>
-                        <span className="ml-2">Save</span>
+
+
+                <div className="mb-6 text-center">
+                    <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 transition ease-in-out duration-300 transform hover:scale-105"
+                     type="submit" onClick={this.onSubmit}>
+                        <i className="far fa-check-square"></i>
+                        <span className="ml-2">Save</span> 
                     </button>
-                    </div>
+                </div>
                     {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
                 </form>
             </div>
             </main>
             </>
+            
         );
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+//import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 function TopNavInventory({ smid }) {
@@ -17,17 +17,15 @@ function TopNavInventory({ smid }) {
           <Link to={`/productmain`}>Product Details</Link>
         </div>
 
-        <div className="rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+        <div className={isSelected("/suppliermain") ? " rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
           <Link to={"/suppliermain"}>Supplier Details</Link>
         </div>
-        <div className="rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+        <div className={isSelected("/RestockView") ? " rounded-3xl p-10 text-lg font-semibold hover:bg-gray-50 hover:text-gray-700 rounded-r-3xl text-white bg-gradient-to-r from-green-300 to-green-500" : "rounded-3xl p-10 text-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 "}>
           <Link to={"/RestockView"}>Restock Details</Link>
         </div>
-        
-       {/*} <div className=" rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
-          <Link to={"/"}>Report Generation</Link>
+        <div className=" rounded-3xl p-10 text-lg font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+          <Link to={"/reportgen"}>Report Generation</Link>
         </div>
-       */}
       </nav>
     </div>
   );
