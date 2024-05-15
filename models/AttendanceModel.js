@@ -1,35 +1,16 @@
+// AttendanceRecord.js
+
 const mongoose = require('mongoose');
 
-const attendanceSchema = new mongoose.Schema({
-
-    smid: {
-        type: String,
-        required: true,
-    },
-
-    AttendanceName: {
-        type: String,
-        required: true
-    },
-    AttendanceLocation: {
-        type: String,
-        required: true
-    },
-    AttendanceDate: {
-        type: String,
-        required: true
-    },
-    AttendanceShiftTime: {
-        type: String,
-        required: true
-    },
-    AttendanceArrivalTime: {
-        type: String,
-        required: true
-    }
-
-
-
+const attendanceRecordSchema = new mongoose.Schema({
+  smid: { type: String, required: true },
+  location: { type: String, required: true },
+  scheduleTime: { type: String, required: true },
+  scheduleDate: { type: String, required: true },
+  arrivalTime: { type: String },
+  attendance: { type: Boolean }
 });
 
-module.exports = mongoose.model('Attendance', attendanceSchema)
+const AttendanceRecord = mongoose.model('AttendanceRecord', attendanceRecordSchema);
+
+module.exports = AttendanceRecord;

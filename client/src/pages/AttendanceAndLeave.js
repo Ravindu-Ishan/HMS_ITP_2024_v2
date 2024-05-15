@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import { useStaffAuthContext } from '../hooks/useStaffAuthContext';
 import { jwtDecode } from "jwt-decode";
 import TopNavAttendance from "../components/TopNavAttendance";
@@ -14,6 +15,7 @@ const AttendanceAndLeave = () => {
 
     const [todayShifts, setTodayShifts] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const history = useNavigate(); // Initialize useHistory hook
 
     useEffect(() => {
         // Set the initial value of the searchQuery to today's date
@@ -52,6 +54,31 @@ const AttendanceAndLeave = () => {
         }
     };
 
+    // Function to save attendance data to the database and navigate to AttendanceMarkingPage
+    const saveAttendanceAndNavigate = () => {
+        // Save attendance data to the database
+       
+        const today = new Date().toISOString().slice(0, 10);
+        const newAttendanceRecords = filteredShifts.map(shift => ({
+            smid: shift.smid,
+            location: shift.Location,
+            scheduleTime: shift.ScheduleTime,
+            scheduleDate: shift.ScheduleDate,
+            arrivalTime: '', // Initialize with empty arrival time
+            attendance: false // Initialize with false attendance
+        }));
+
+        axios.post("http://localhost:8000/attendance/main/batchInsert", newAttendanceRecords)
+            .then(res => {
+                console.log("Attendance records inserted successfully:", res.data);
+                // After saving data, navigate to AttendanceMarkingPage
+               
+            })
+            .catch(error => {
+                console.log("Error inserting attendance records:", error);
+            });
+    };
+
     return (
         <>
             <div className="navarea">
@@ -67,6 +94,8 @@ const AttendanceAndLeave = () => {
                     value={searchQuery}
                     onChange={handleInputChange}
                 />
+                {/* Mark Attendance button */}
+                <button onClick={saveAttendanceAndNavigate}>Mark Attendance</button>
                 <table>
                     <thead>
                         <tr>

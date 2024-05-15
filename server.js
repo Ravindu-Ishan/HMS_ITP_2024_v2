@@ -29,6 +29,7 @@ const UserLeavesViewRoute = require('./routes/UserLeavesViewRoute');
 const qualificationRoute = require('./routes/qualificationsRoute');
 const wardRoutes = require('./routes/wards');
 const bedRoutes = require('./routes/beds');
+const attendanceRoutes = require('./routes/attendanceRoutes');
 
 //app middleware
 app.use(bodyParser.json());
@@ -56,7 +57,7 @@ app.use(labAppRoutes);
 
 app.use(wardRoutes);
 app.use(bedRoutes);
-
+app.use('/attendance', attendanceRoutes);
 
 
 const PORT = 8000;
