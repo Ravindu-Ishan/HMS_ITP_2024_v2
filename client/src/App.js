@@ -10,6 +10,7 @@ import StaffProfile from "./pages/StaffProfile";
 import BranchesMain from "./pages/BranchesMain";
 import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
+import StaffReport from './pages/StaffReport';
 import InventoryProductCreate from './pages/Inventory/InventoryProductCreate';
 import InventoryProductEdit from './pages/Inventory/InventoryProductEdit';
 import InventoryProductMain from './pages/Inventory/InventoryProductMain';
@@ -144,25 +145,26 @@ function App() {
     <Routes>
       <Route path="/" element={!user ? <Login /> : <Navigate to={gotoRoute} />} />
       <Route element={<RootLayout />}>
-        
-            {/*B K R I SASMIN*/}
-             <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
-             <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
-             <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
-             <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
 
-            {/*S.H.K Bulathgama*/}
-            <Route path="/productmain" exact element={<InventoryProductMain />} />
-            <Route path="/productcreate" element={<InventoryProductCreate />} />
-            <Route path="/productedit/:id" element={<InventoryProductEdit />} />
-            <Route path="/suppliercreate" element={<InventorySupplierCreate />} />
-            <Route path="/supplieredit/:id" element={<InventorySupplierEdit />} />
-            <Route path="/suppliermain" exact element={<InventorySupplierMain />} />
-            <Route path="/RestockView" exact element={<RestockRequestView />} />
-            <Route path="/RestockAdd" exact element={<RestockRequestAdd />} />
+        {/*B K R I SASMIN*/}
+        <Route path="/staff" element={user ? <StaffMain /> : <Navigate to="/" />} />
+        <Route path="/staff/profile/:id" element={user ? <StaffProfile /> : <Navigate to="/" />} />
+        <Route path="/staff/qualifications/:id" element={user ? <StaffQualifications /> : <Navigate to="/" />} />
+        <Route path="/branch" element={user ? <BranchesMain /> : <Navigate to="/" />} />
+        <Route path="/staff/report" element={user ? <StaffReport /> : <Navigate to="/" />} />
 
-            <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
-            <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
+        {/*S.H.K Bulathgama*/}
+        <Route path="/productmain" exact element={<InventoryProductMain />} />
+        <Route path="/productcreate" element={<InventoryProductCreate />} />
+        <Route path="/productedit/:id" element={<InventoryProductEdit />} />
+        <Route path="/suppliercreate" element={<InventorySupplierCreate />} />
+        <Route path="/supplieredit/:id" element={<InventorySupplierEdit />} />
+        <Route path="/suppliermain" exact element={<InventorySupplierMain />} />
+        <Route path="/RestockView" exact element={<RestockRequestView />} />
+        <Route path="/RestockAdd" exact element={<RestockRequestAdd />} />
+
+        <Route path="/user/profile" element={user ? <UserProfile /> : <Navigate to="/" />} />
+        <Route path="/user/qualifications" element={user ? <UserQualifications /> : <Navigate to="/" />} />
 
         <Route path="/user/myAppointments" element={user ? <DoctorView /> : <Navigate to="/" />} />
 
@@ -183,7 +185,7 @@ function App() {
         <Route path="/labAppointHome/labAppointCreate" element={<LabAppointCreate />} />
         <Route path="/labAppointHome/labAppointEdit/:id" element={<LabAppointEdit />} />
         <Route path="/labApp/:id" element={<LabAppointDetails />} />
-        
+
 
         {/*Praveen*/}
         <Route path="/wardHome" element={user ? <Ward_Home /> : <Navigate to="/" />} />
