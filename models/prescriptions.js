@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const prescriptionSchema = new mongoose.Schema({
 
     //Patient ID
-    patientId:{
-        type:String,
-        required:true
+    // patientId:{
+    //     type:String,
+    //     required:true
 
-    },
+    // },
 
     //Date
     date:{

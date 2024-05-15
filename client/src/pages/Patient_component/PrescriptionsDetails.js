@@ -86,10 +86,11 @@ const PrescriptionsDetails = () => {
                 </header>
                 <hr /> */}
 
-<div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
-  <dt style={{ fontWeight: 'bold' }}>Date:</dt>
-  <dd style={{ marginLeft: '10px' }}>{prescription.date}</dd>
-</div>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+                  <dt style={{ fontWeight: 'bold' }}>Date:</dt>
+                  <dd style={{ marginLeft: '10px' }}>{new Date(prescription.date).toLocaleDateString()}</dd>
+                </div>
+
 
                 <div>
                   <h4 style={{ marginTop: '20px', backgroundColor: '#ADD8E6', color: '#333', padding: '10px', borderRadius: '5px' }}>Prescriptions Info</h4>

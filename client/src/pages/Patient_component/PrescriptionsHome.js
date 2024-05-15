@@ -114,8 +114,9 @@ export default class PrescriptionsHome extends Component {
                 </td>
                 
                 <td className="text-center py-2 px-2"> 
-                  {prescriptions.date}
-                </td>
+                {new Date(prescriptions.date).toLocaleDateString()}
+              </td>
+
       
                
 
