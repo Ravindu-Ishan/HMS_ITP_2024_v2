@@ -188,14 +188,14 @@ function App() {
 
 
         {/*Praveen*/}
-        <Route path="/wardHome" element={<Ward_Home />} />
-        <Route path="/wardAdd" element={<Ward_Create />} />
-        <Route path="/wardEdit/:id" element={<Ward_Edit />} />
-        <Route path="/wardDetails/:id" element={<Ward_Details />} />
-        <Route path="/beds" element={<Bed_Home />} />
-        <Route path="/addBed" element={<Bed_Create />} />
-        <Route path="/editBed/:id" element={<Bed_Edit />} />
-        <Route path="/bedDetails/:id" element={<Bed_Details />} />
+        <Route path="/wardHome" element={user ? <Ward_Home /> : <Navigate to="/" />} />
+        <Route path="/wardAdd" element={user ? <Ward_Create /> : <Navigate to="/" />} />
+        <Route path="/wardEdit/:id" element={user ? <Ward_Edit /> : <Navigate to="/" />} />
+        <Route path="/wardDetails/:id" element={user ? <Ward_Details /> : <Navigate to="/" />} />
+        <Route path="/beds" element={user ? <Bed_Home /> : <Navigate to="/" />} />
+        <Route path="/addBed" element={user ? <Bed_Create /> : <Navigate to="/" />} />
+        <Route path="/editBed/:id" element={user ? <Bed_Edit /> : <Navigate to="/" />} />
+        <Route path="/bedDetails/:id" element={user ? <Bed_Details /> : <Navigate to="/" />} />
 
         {/*Gihani*/}
         <Route path="/patienthome" element={<PatientHome />} />
