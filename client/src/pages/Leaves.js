@@ -19,13 +19,13 @@ import { FaSearch } from "react-icons/fa";
 
 const Leaves = () => {
 
-   const { user } = useStaffAuthContext();
-     //get user id from token
+    const { user } = useStaffAuthContext();
+    //get user id from token
     let smid;
     if (user) {
-    const userInfo = jwtDecode(JSON.stringify(user));
-    smid = userInfo.smid;
-  }
+        const userInfo = jwtDecode(JSON.stringify(user));
+        smid = userInfo.smid;
+    }
 
 
     const [leaveEntries, setLeaveEntries] = useState([]);  //posts array state
@@ -33,15 +33,15 @@ const Leaves = () => {
     const navigate = useNavigate(); //navigate state
 
     const [search, setSearch] = useState(""); //search state
-    
+
     const [actions, setActions] = useState({}); // state for actions
 
     //method to retrieve leaves
     const retrieveLeaves = () => {
 
-        axios.get(`/user/userLeaves/getonly/${smid}`).then(res => {
+        axios.get(`/user/userLeaves`).then(res => {
 
-          setLeaveEntries(res.data.data);
+            setLeaveEntries(res.data.existingLeaves);
 
         }).catch((error) => {
             console.log("Error fetching staff details:", error);
@@ -49,9 +49,8 @@ const Leaves = () => {
     }
 
 
-
     useEffect(() => {
-      retrieveLeaves();
+        retrieveLeaves();
     }, []);
 
     // Handle change for radio buttons
@@ -61,6 +60,36 @@ const Leaves = () => {
             [leaveId]: action
         });
     };
+
+
+    const acceptBtnHandler = (id) => {
+
+        const status = 'Accepted'
+        const data = {
+            leaveStatus: status
+        }
+
+        axios.put(`/user/userLeaves/update/${id}`, data).then(res => {
+            retrieveLeaves()
+        }).catch((error) => {
+            console.log("Error fetching staff details:", error);
+        });
+
+    }
+
+    const declineBtnHandler = (id) => {
+
+        const status = 'Declined'
+        const data = {
+            leaveStatus: status
+        }
+
+        axios.put(`/user/userLeaves/update/${id}`, data).then(res => {
+            retrieveLeaves()
+        }).catch((error) => {
+            console.log("Error fetching staff details:", error);
+        });
+    }
 
 
     return (
@@ -93,6 +122,7 @@ const Leaves = () => {
                                         <th className="p-3">Leave Type</th>
                                         <th className="p-3">Reason</th>
                                         <th className="p-3">Duration</th>
+                                        <th className="p-3">Status</th>
                                         <th className="p-3">Action</th>
                                     </tr>
                                 </thead>
@@ -118,32 +148,13 @@ const Leaves = () => {
                                             <td className="text-center py-2 px-4">{leaves.leaveType}</td>
                                             <td className="text-center py-2 px-4">{leaves.leaveReason}</td>
                                             <td className="text-center py-2 px-4">{leaves.leaveDuration}</td>
+                                            <td className="text-center py-2 px-4">{leaves.leaveStatus}</td>
                                             <td className="text-center py-2 px-4">
-                                    <div className="flex justify-center items-center">
-                                       <label className="mr-2 flex items-center">
-                                          <input
-                                             type="radio"
-                                             name={`action-${leaves._id}`}
-                                             value="accept"
-                                             checked={actions[leaves._id] === 'accept'}
-                                             onChange={() => handleActionChange(leaves._id, 'accept')}
-                                             className="form-radio h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500 focus:ring-2 focus:ring-offset-0 rounded-none"
-                                          />
-                                          <span className="ml-1 font-bold">Accept</span>
-                                       </label>
-                                       <label className="flex items-center">
-                                          <input
-                                             type="radio"
-                                             name={`action-${leaves._id}`}
-                                             value="decline"
-                                             checked={actions[leaves._id] === 'decline'}
-                                             onChange={() => handleActionChange(leaves._id, 'decline')}
-                                             className="form-radio h-4 w-4 text-red-600 border-gray-300 focus:ring-red-500 focus:ring-2 focus:ring-offset-0 rounded-none"
-                                          />
-                                          <span className="ml-1 font-bold">Decline</span>
-                                       </label>
-                                    </div>
-                                 </td>
+                                                <div className="flex justify-center items-center">
+                                                    <button type='button' className="text-blue-500 font-medium px-1" onClick={() => acceptBtnHandler(leaves._id)} >Accept</button>
+                                                    <button type='button' onClick={() => declineBtnHandler(leaves._id)} className="text-red-500 font-medium px-5">Decline</button>
+                                                </div>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -155,4 +166,4 @@ const Leaves = () => {
         </>
     );
 };
-export default  Leaves;
+export default Leaves;
