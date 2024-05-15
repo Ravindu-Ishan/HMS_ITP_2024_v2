@@ -10,7 +10,6 @@ import StaffProfile from "./pages/StaffProfile";
 import BranchesMain from "./pages/BranchesMain";
 import RootLayout from "./layouts/RootLayout";
 import UserProfile from "./pages/UserProfile";
-
 import StaffReport from './pages/StaffReport';
 import InventoryProductCreate from './pages/Inventory/InventoryProductCreate';
 import InventoryProductEdit from './pages/Inventory/InventoryProductEdit';
@@ -20,7 +19,6 @@ import InventorySupplierEdit from './pages/Inventory/InventorySupplierEdit';
 import InventorySupplierMain from './pages/Inventory/InventorySupplierMain';
 import RestockRequestView from './pages/Inventory/RestockRequestView';
 import RestockRequestAdd from './pages/Inventory/RestockRequestAdd';
-
 
 import ShiftMain from "./pages/ShiftMain";
 import CreateShift from "./pages/CreateShift";
@@ -33,11 +31,55 @@ import UserLeavesView from './pages/UserLeavesView';
 import AttendanceReport from './pages/AttendanceReport';
 import CreateLeave from './pages/CreateLeave';
 import EditLeave from './pages/EditLeave';
-
+import AttendanceMarkingPage from './pages/AttendanceMarking'
 
 import StaffQualifications from "./pages/StaffQualifications"
 import UserQualifications from './pages/UserQualifications';
-import AttendanceMarkingPage from './pages/AttendanceMarking';
+
+//appointment routes
+import EditAppointment from './pages/appointmentComponents/EditAppointment';
+import CreateAppointment from './pages/appointmentComponents/CreateAppointment';
+import AppointmentHome from './pages/appointmentComponents/AppointmentHome';
+import AppointmentDetails from './pages/appointmentComponents/AppointmentDetails';
+import NavBar from './pages/appointmentComponents/NavBar';
+import ReportGen from './pages/appointmentComponents/ReportGen';
+import ReportApp from './pages/appointmentComponents/ReportApp';
+import DoctorView from './pages/doctorViewComponent/DoctorView';
+import DoctorPatientView from './pages/doctorViewComponent/DoctorPatientView';
+import DoctorEdit from './pages/doctorViewComponent/DoctorEdit';
+import DoctorAvailability from './pages/availabilityView/DoctorAvailability';
+import ServiceAvailability from './pages/availabilityView/ServiceAvailability';
+import LabAppointHome from './pages/labAppointments/LabAppointHome';
+import LabAppointCreate from './pages/labAppointments/LabAppointCreate';
+import LabAppointEdit from './pages/labAppointments/LabAppointEdit';
+import LabAppointDetails from './pages/labAppointments/LabAppointDetails';
+
+//ward component
+import Ward_Home from './pages/Ward_components/Ward_Home';
+import Ward_Details from './pages/Ward_components/Ward_Details';
+import Ward_Create from './pages/Ward_components/Ward_Create';
+import Ward_Edit from './pages/Ward_components/Ward_Edit';
+//bed component
+import Bed_Home from './pages/Bed_componenets/Bed_Home';
+import Bed_Details from './pages/Bed_componenets/Bed_Details';
+import Bed_Create from './pages/Bed_componenets/Bed_Create';
+import Bed_Edit from './pages/Bed_componenets/Bed_Edit';
+
+//import patient
+import CreatePatient from './pages/Patient_component/CreatePatient';
+import EditPatient from './pages/Patient_component/EditPatient';
+import PatientHome from './pages/Patient_component/PatientHome';
+import PatientDetails from './pages/Patient_component/PatientDetails';
+import Summary from './pages/Patient_component/Summary';
+
+//import ReportApp from './pages/reportcomponents/ReportApp';
+import LabReports from './pages/Patient_component/LabReports';
+import PrescriptionsHome from './pages/Patient_component/PrescriptionsHome';
+import CreatePrescriptions from './pages/Patient_component/CreatePrescriptions';
+import EditPrescriptions from './pages/Patient_component/EditPrescriptions';
+import PrescriptionsDetails from './pages/Patient_component/PrescriptionsDetails';
+
+
 
 function App() {
 
