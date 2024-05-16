@@ -127,14 +127,15 @@ function App() {
         break;
       case 'front desk officer':
         designatedRoute = "/appointmentHome"
+        break;
       case 'lab technician':
         designatedRoute = "/laboratory";
         break;
       case 'doctor':
-        designatedRoute = "/user/profile";
+        designatedRoute = "/patienthome";
         break;
       case 'financial manager':
-        designatedRoute = "/finances";
+        designatedRoute = "/financial/home";
         break;
       case 'attendence coordinator':
         designatedRoute = "/attendence/main";
