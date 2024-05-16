@@ -22,9 +22,15 @@ const Login = () => {
 
       <div className=" bg-[url('images/loginpagebgimage.jpg')] bg-cover bg-no-repeat">
         <div className="min-h-screen flex flex-col items-center justify-center lg:p-20 p-4">
-          <div className="grid md:grid-cols-2 max-w-8xl w-full">
-            <div className="max-md:text-center">
-
+          <div className="grid md:grid-cols-2 max-w-7xl w-full items-end">
+            <div className="text-right text max-md:text-center tex max-md:text-6xl text-9xl font-bold bg-gradient-to-r from-gray-800 via-gray-700 to-gray-500 inline-block text-transparent bg-clip-text ">
+              MedFlow
+              <div className="text-3xl max-md:text-xl">
+                Elevating Patient Experience
+              </div>
+              <div className="text-3xl max-md:text-xl max-md:mb-5">
+                Transforming Operations
+              </div>
             </div>
             <form className="bg-gray-400 bg-opacity-50 rounded-2xl px-6 py-8 space-y-6 max-w-md md:ml-auto max-md:mx-auto w-full"
               onSubmit={handleSubmit}>
