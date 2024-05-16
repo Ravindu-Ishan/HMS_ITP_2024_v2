@@ -75,15 +75,15 @@ const StaffProfile = () => {
       errormsg = 'Please fill out all fields'
       valid = false
     }
-    if (isOnlyAlphabet(role) == false || isOnlyAlphabet(staffName) == false) {
+    else if (isOnlyAlphabet(role) == false || isOnlyAlphabet(staffName) == false) {
       errormsg = 'Full Name and Role cannot have numeric or special characters'
       valid = false
     }
-    if (!isAlphanumeric(staff_NIC)) {
+    else if (!isAlphanumeric(staff_NIC)) {
       errormsg = 'NIC cannot have special characters'
       valid = false
     }
-    if (isOnlySpaces(staff_NIC) || isOnlySpaces(staffName) || isOnlySpaces(dateOfBirth) || isOnlySpaces(role)) {
+    else if (isOnlySpaces(staff_NIC) || isOnlySpaces(staffName) || isOnlySpaces(dateOfBirth) || isOnlySpaces(role)) {
       errormsg = 'Error, unnecessary whitespaces detected in form fields'
       valid = false
     }

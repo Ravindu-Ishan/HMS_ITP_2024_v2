@@ -57,7 +57,7 @@ const StaffMain = () => {
   const HandleNewStaffRecord = () => {
 
     //------front-end validations----------
-    setValid(true); //initialize form valid state
+    let valid = true; //initialize form valid state
 
     //sanitizations
     const staff_NIC = validator.trim(pstaff_NIC);
@@ -69,19 +69,19 @@ const StaffMain = () => {
 
     if (validator.isEmpty(staff_NIC) || validator.isEmpty(staffName) || validator.isEmpty(dateOfBirth) || validator.isEmpty(role)) {
       setErrorMsg('Please fill out all fields');
-      setValid(false);
+      valid = false
     }
-    if (isOnlyAlphabet(role) == false || isOnlyAlphabet(staffName) == false) {
+    else if (isOnlyAlphabet(role) == false || isOnlyAlphabet(staffName) == false) {
       setErrorMsg('Full Name and Role cannot have numeric characters');
-      setValid(false);
+      valid = false
     }
-    if (!isAlphanumeric(staff_NIC)) {
+    else if (!isAlphanumeric(staff_NIC)) {
       setErrorMsg('NIC cannot have special characters')
-      setValid(false);
+      valid = false
     }
-    if (isOnlySpaces(staff_NIC) || isOnlySpaces(staffName) || isOnlySpaces(dateOfBirth) || isOnlySpaces(role)) {
+    else if (isOnlySpaces(staff_NIC) || isOnlySpaces(staffName) || isOnlySpaces(dateOfBirth) || isOnlySpaces(role)) {
       setErrorMsg('Error, unnecessary whitespaces detected in form fields');
-      setValid(false);
+      valid = false
     }
     if (valid == true) {
       const data = {
