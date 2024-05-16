@@ -1,3 +1,6 @@
+#About
+Medflow is a hospital management system developed using MERN stack technologies
+
 # HMS_ITP_2024_v2
 
 ### Lead : 
