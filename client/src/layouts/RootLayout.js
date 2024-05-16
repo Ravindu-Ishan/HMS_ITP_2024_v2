@@ -148,7 +148,7 @@ const RootLayout = () => {
 
 
 
-              {(userRole === "master admin" || userRole === "inventory manager") && (
+              {(userRole === "master admin" || userRole === "inventory manager" || userRole === "hr manager") && (
                 <li>
                   <details className="group [&_summary::-webkit-details-marker]:hidden">
                     <summary className={isSelected("productmain") ? "flex p-5 rounded-r-3xl text-blue-900 font-bold bg-gradient-to-r from-green-300 to-green-500" : "flex sidebar-list-item"}>
